@@ -1,0 +1,287 @@
+## -*- coding: utf-8 -*-
+<%inherit file="/base.html" />
+<%block name="title">
+通道信息
+</%block>
+
+<%block name="head_media">
+<link href="/static/css/posp/define_label_error.css" rel="stylesheet">
+</%block>
+
+<%block name="page">
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span>通道信息</span>
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="row">
+                    <form class="form-inline" id="channel_query">
+                        <div class="form-group">
+                            <label for="s_channel_name">通道名称</label>
+                            <input type="text" class="form-control" id="s_channel_name" name="s_channel_name" placeholder="">
+                        </div>
+                        <button type="button" class="btn btn-primary" id="channelNameSearch">搜索</button>
+                        <button type="button" class="btn btn-default" id="channelCreate">添加</button>
+                    </form>
+                    <label id="query_label_error"></label>
+                </div>
+
+                <div class="row">
+                    <table id="channelList" class="display table table-striped table-bordered table-hover dataTable no-footer dtr-inline" cellspacing="0" width="100%">
+                        <thead>
+                        <tr>
+                            <th>通道名称</th>
+                            <th>通道主秘钥</th>
+                            <th>通道工作秘钥</th>
+                            <th>平台分配机构号</th>
+                            <th>接入路由分配机构</th>
+                            <th>通道代码</th>
+                            <th>路由</th>
+                            <th>TDKEY</th>
+                            <th>MACKEY</th>
+                            <th>启用</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="channelCreateModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">添加</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="channelCreateForm" role="form">
+
+                    <div class="form-group">
+                        <label for="channel_name_add" class="col-sm-2 control-label">通道名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="channel_name_add" name="channel_name_add" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="available_add" class="col-sm-2 control-label">是否启用</label>
+                        <div class="col-sm-10">
+                            <select class="form-control available_add" id="available_add" name="available_add">
+                                <option value="1">禁用</option>
+                                <option value="0">启用</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="zmk_add" class="col-sm-2 control-label">通道主秘钥</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="zmk_add" name="zmk_add" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="zpk_add" class="col-sm-2 control-label">通道工作秘钥</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="zpk_add" name="zpk_add" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="chcd_add" class="col-sm-2 control-label">平台分配机构号</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="chcd_add" name="chcd_add" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inscd_add" class="col-sm-2 control-label">接入路由分配机构</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inscd_add" name="inscd_add" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="code_add" class="col-sm-2 control-label">通道代码</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="code_add" name="code_add" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="route_add" class="col-sm-2 control-label">路由</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="route_add" name="route_add"  placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mchntid_add" class="col-sm-2 control-label">通道商户ID</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="mchntid_add" name="mchntid_add"  placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mchntnm_add" class="col-sm-2 control-label">通道商户名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="mchntnm_add" name="mchntnm_add"  placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tdkey_add" class="col-sm-2 control-label">TDKEY</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="tdkey_add" name="tdkey_add"  placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mackey_add" class="col-sm-2 control-label">MACKEY</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="mackey_add" name="mackey_add"  placeholder="必填">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="channelCreateSubmit">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" tabindex="-1" role="dialog" id="channelViewModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">查看</h4><span hidden id="view_channel_id"></span>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="channelViewForm" role="form">
+
+                    <div class="form-group">
+                        <label for="channel_name" class="col-sm-2 control-label">通道名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="channel_name" name="channel_name" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="available" class="col-sm-2 control-label">是否启用</label>
+                        <div class="col-sm-10">
+                            <select class="form-control available" id="available" name="available">
+                                <option value="1">禁用</option>
+                                <option value="0">启用</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="zmk" class="col-sm-2 control-label">通道主秘钥</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="zmk" name="zmk" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="zpk" class="col-sm-2 control-label">通道工作秘钥</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="zpk" name="zpk" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="chcd" class="col-sm-2 control-label">平台分配机构号</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="chcd" name="chcd" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inscd" class="col-sm-2 control-label">接入路由分配机构</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="inscd" name="inscd" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="code" class="col-sm-2 control-label">通道代码</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="code" name="code" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="route" class="col-sm-2 control-label">路由</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="route" name="route"  placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mchntid" class="col-sm-2 control-label">通道商户ID</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="mchntid" name="mchntid"  placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mchntnm" class="col-sm-2 control-label">通道商户名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="mchntnm" name="mchntnm"  placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tdkey" class="col-sm-2 control-label">TDKEY</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="tdkey" name="tdkey"  placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mackey" class="col-sm-2 control-label">MACKEY</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="mackey" name="mackey"  placeholder="必填">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="channelViewSubmit">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</%block>
+
+<%block name="body_media">
+<script src="/static/js/jquery.validate.js" type="text/javascript"></script>
+<script src="/static/js/jquery.validate.messages_cn.js" type="text/javascript"></script>
+<script src="/static/js/jquery.form.js" type="text/javascript"></script>
+<script src="/static/js/bootstrap-typeahead.js" type="text/javascript"></script>
+<script src="/static/js/toastr.js" type="text/javascript"></script>
+<script src="/static/js/md5.min.js" type="text/javascript"></script>
+<script src="/static/js/posp/base.js" type="text/javascript"></script>
+<script src="/static/js/posp/channel.js" type="text/javascript"></script>
+</%block>

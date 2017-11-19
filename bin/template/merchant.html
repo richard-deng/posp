@@ -1,0 +1,299 @@
+## -*- coding: utf-8 -*-
+<%inherit file="/base.html" />
+<%block name="title">
+商户信息
+</%block>
+
+<%block name="head_media">
+<link href="/static/css/posp/define_label_error.css" rel="stylesheet">
+</%block>
+
+<%block name="page">
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                商户信息
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="row">
+                    <form class="form-inline" id="users_query">
+                        <div class="form-group">
+                            <label for="s_merchant_id">商户ID</label>
+                            <input type="text" class="form-control" id="s_merchant_id" name="s_merchant_id" placeholder="">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="s_mobile">手机号</label>
+                            <input type="text" class="form-control" id="s_mobile" name="s_mobile" placeholder="">
+                        </div>
+
+                        <button type="button" class="btn btn-primary" id="userSearch">搜索</button>
+                        <button type="button" class="btn btn-default" id="userCreate">添加</button>
+                    </form>
+                    <label id="query_label_error"></label>
+                </div>
+
+                <div class="row">
+                    <table id="userList" class="display table table-striped table-bordered table-hover dataTable no-footer dtr-inline" cellspacing="0" width="100%">
+                        <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>名称</th>
+                            <th>收据名称</th>
+                            <th>手机号</th>
+                            <th>身份证号</th>
+                            <th>状态</th>
+                            <th>渠道</th>
+                            <th>MCC</th>
+                            <th>注册时间</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="userViewModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">查看</h4><span hidden id="view_user_id"></span>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="userViewForm" role="form">
+
+                    <div class="form-group">
+                        <label for="mobile" class="col-sm-2 control-label">手机号</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="mobile" name="mobile" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="state" class="col-sm-2 control-label">用户状态</label>
+                        <div class="col-sm-10">
+                            <select class="form-control state" id="state" name="state">
+                                <option value="2">禁用</option>
+                                <option value="1">XX</option>
+                                <option value="0">启用</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="is_active" class="col-sm-2 control-label">激活状态</label>
+                        <div class="col-sm-10">
+                            <select class="form-control is_active" id="is_active" name="is_active">
+                                <option value="1">禁用</option>
+                                <option value="0">启用</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="col-sm-2 control-label">邮箱</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="email" name="email" placeholder="">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name" class="col-sm-2 control-label">用户名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nickname" class="col-sm-2 control-label">收据名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="nickname" name="nickname" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="idnumber" class="col-sm-2 control-label">身份证号</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="idnumber" name="idnumber" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="province" class="col-sm-2 control-label">省份</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="province" name="province" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="city" class="col-sm-2 control-label">城市</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="city" name="city"  placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bankname" class="col-sm-2 control-label">开户行名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="bankname" name="bankname"  placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bankuser" class="col-sm-2 control-label">持卡人</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="bankuser" name="bankuser"  placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bankaccount" class="col-sm-2 control-label">银行账号</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="bankaccount" name="bankaccout"  placeholder="必填">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="userViewSubmit">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="userCreateModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">添加</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="userCreateForm" role="form">
+
+                    <div class="form-group">
+                        <label for="mobile_add" class="col-sm-2 control-label">手机号</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="mobile_add" name="mobile_add" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="state_add" class="col-sm-2 control-label">用户状态</label>
+                        <div class="col-sm-10">
+                            <select class="form-control state" id="state_add" name="state_add">
+                                <option value="2">禁用</option>
+                                <option value="1">XX</option>
+                                <option value="0">启用</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="is_active_add" class="col-sm-2 control-label">激活状态</label>
+                        <div class="col-sm-10">
+                            <select class="form-control is_active_add" id="is_active_add" name="is_active_add">
+                                <option value="1">禁用</option>
+                                <option value="0">启用</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email_add" class="col-sm-2 control-label">邮箱</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="email_add" name="email_add" placeholder="">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name_add" class="col-sm-2 control-label">用户名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="name_add" name="name_add" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nickname_add" class="col-sm-2 control-label">收据名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="nickname_add" name="nickname_add" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="idnumber_add" class="col-sm-2 control-label">身份证号</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="idnumber_add" name="idnumber_add" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="province_add" class="col-sm-2 control-label">省份</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="province_add" name="province_add" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="city_add" class="col-sm-2 control-label">城市</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="city_add" name="city_add"  placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bankname_add" class="col-sm-2 control-label">开户行名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="bankname_add" name="bankname_add"  placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bankuser_add" class="col-sm-2 control-label">持卡人</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="bankuser_add" name="bankuser_add"  placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bankaccount_add" class="col-sm-2 control-label">银行账号</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="bankaccount_add" name="bankaccout_add"  placeholder="必填">
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="userCreateSubmit">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</%block>
+
+<%block name="body_media">
+<script src="/static/js/jquery.validate.js" type="text/javascript"></script>
+<script src="/static/js/jquery.validate.messages_cn.js" type="text/javascript"></script>
+<script src="/static/js/jquery.form.js" type="text/javascript"></script>
+<script src="/static/js/bootstrap-typeahead.js" type="text/javascript"></script>
+<script src="/static/js/toastr.js" type="text/javascript"></script>
+<script src="/static/js/md5.min.js" type="text/javascript"></script>
+<script src="/static/js/posp/base.js" type="text/javascript"></script>
+<script src="/static/js/posp/merchant.js" type="text/javascript"></script>
+</%block>
