@@ -60,4 +60,5 @@ PORT = 8084
 #redis
 redis_url = 'redis://127.0.0.1:6379/0'
 #cookie 配置
+# cookie_conf = { 'expires':60*60*24*3, 'max_age':60*60*24*3, 'domain':'192.168.0.111', 'path':'/posp'}
 cookie_conf = { 'expires':60*60*24*3, 'max_age':60*60*24*3, 'domain':'127.0.0.1', 'path':'/posp'}
