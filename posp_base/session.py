@@ -1,5 +1,4 @@
 #coding: utf-8
-
 import uuid
 import redis
 import json
@@ -119,6 +118,7 @@ def posp_check_session(redis_pool, cookie_conf):
                     if userid:
                         userid = int(userid)
                     else:
+                        log.warn('no se_userid or value is invalid')
                         return error(RESP_CODE.PARAMERR)
                     self.user = SUser(userid, self.session)
                     self.user.check_permission()
@@ -182,21 +182,8 @@ def posp_check_session_for_page(redis_pool, cookie_conf):
                 return ret
             except:
                 log.warn(traceback.format_exc())
-                log.debug('tool except redirect')
+                log.debug('raise except to redirect')
                 self.redirect('/posp/v1/page/login.html')
         return _
     return f
 
-
-def check_login(func):
-    """sessionid userid all"""
-    def _(self, *args, **kwargs):
-        try:
-            if not self.user.sauth:
-                self.redirect('/posp/v1/page/login.html')
-            ret = func(self, *args, **kwargs)
-            return ret
-        except Exception:
-            log.warn(traceback.format_exc())
-            self.redirect('/posp/v1/page/login.html')
-    return _
