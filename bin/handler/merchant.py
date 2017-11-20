@@ -160,8 +160,8 @@ class MerchantCreateHandler(BaseHandler):
         if ret:
             return error(RESP_CODE.DATAEXIST, resperr='手机号已存在')
 
-        flag = tools.create_merchant(params)
+        flag, userid = tools.create_merchant(params)
         if flag:
-            return success(data={})
+            return success(data={'userid': userid})
 
         return error(RESP_CODE.DATAERR)

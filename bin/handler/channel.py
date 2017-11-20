@@ -58,9 +58,8 @@ class ChannelListHandler(BaseHandler):
 
 class ChannelNameHandler(BaseHandler):
 
-    @with_database('posp_core')
     def _query_handler(self):
-        ret = self.db.select(table='channel', fields='name')
+        ret = tools.get_channel_names()
         return ret
 
     @posp_check_session(g_rt.redis_pool, cookie_conf)

@@ -1,5 +1,6 @@
 # coding: utf-8
 import logging
+import datetime
 from zbase.base.dbpool import get_connection_exception
 
 log = logging.getLogger()
@@ -45,6 +46,8 @@ class Channel:
         return data
 
     def update(self, values):
+        now = datetime.datetime.now()
+        values['upkeytime'] = now.strftime('%Y-%m-%d %H:%M:%S')
         where = {'id': self.channel_id}
         with get_connection_exception('posp_core') as conn:
             ret = conn.update(table=Channel.TABLE, values=values, where=where)
@@ -63,4 +66,10 @@ class Channel:
     def create(cls, values):
         with get_connection_exception('posp_core') as conn:
             ret = conn.insert(table=Channel.TABLE, values=values)
+            return ret
+
+    @classmethod
+    def load_names(cls):
+        with get_connection_exception('posp_core') as conn:
+            ret = conn.select(table=Channel.TABLE, fields='name')
             return ret
