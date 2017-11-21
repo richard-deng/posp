@@ -50,7 +50,7 @@ class CardBin:
                 where[k] = kwargs.get(k)
         other = kwargs.get('other', '')
         page = kwargs.get('page', 1)
-        page_size = kwargs.get('page_size', 10)
+        page_size = kwargs.get('maxnum', 10)
         with get_connection_exception('posp_core') as conn:
             sql = conn.select_sql(table=CardBin.TABLE, where=where, fields=cls.CARDBIN_KEY, other=other)
             pager = conn.select_page(sql, pagecur=page, pagesize=page_size)

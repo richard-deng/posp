@@ -7,6 +7,7 @@ from handler import (
     channel,
     cardbin,
     merchant,
+    chnlbind,
 )
 
 urls = (
@@ -25,6 +26,9 @@ urls = (
     ('^/posp/v1/api/channel/state/change$', channel.ChannelSwitchHandler),
     ('^/posp/v1/api/channel/view$', channel.ChannelViewHandler),
     ('^/posp/v1/api/channel/create$', channel.ChannelCreateHandler),
+
+    # 商户通道绑定
+    ('^/posp/v1/api/channel/bind/list$', chnlbind.ChannelBindListHandler),
 
     # 卡表
     ('^/posp/v1/api/card/list$', cardbin.CardBinListHandler),
