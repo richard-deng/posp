@@ -29,6 +29,7 @@ urls = (
     # 卡表
     ('^/posp/v1/api/card/list$', cardbin.CardBinListHandler),
     ('^/posp/v1/api/card/view$', cardbin.CardBinViewHandler),
+    ('^/posp/v1/api/card/create$', cardbin.CardBinCreateHandler),
 
     # 页面
     ('^/posp/v1/page/login.html$', page.Login),

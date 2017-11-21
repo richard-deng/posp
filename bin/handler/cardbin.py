@@ -81,4 +81,24 @@ class CardBinViewHandler(BaseHandler):
         return success(data={})
 
 
+class CardBinCreateHandler(BaseHandler):
 
+    _post_handler_fields = [
+        Field('bankname', T_STR, False),
+        Field('bankid', T_STR, False),
+        Field('cardlen', T_INT, False),
+        Field('cardbin', T_STR, False),
+        Field('cardname', T_STR, False),
+        Field('cardtp', T_INT, False),
+        Field('foreign', T_INT, False),
+    ]
+
+    @posp_check_session(g_rt.redis_pool, cookie_conf)
+    @with_validator_self
+    def _post_handler(self):
+        params = self.validator.data
+        values = tools.build_card_bin(params)
+        ret = CardBin.create(values)
+        if ret == 1:
+            return success(data={})
+        return error(RESP_CODE.DATAERR)

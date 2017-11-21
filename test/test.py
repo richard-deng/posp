@@ -61,7 +61,7 @@ class TestPospInstrument(unittest.TestCase):
         respcd = json.loads(ret).get('respcd')
         self.assertEqual(respcd, '0000')
 
-    # @unittest.skip("skipping")
+    @unittest.skip("skipping")
     def test_edit_card_bin(self):
         self.url = '/posp/v1/api/card/view'
         self.send.update({
@@ -71,6 +71,23 @@ class TestPospInstrument(unittest.TestCase):
             'cardlen': 12,
             'cardbin': '123456',
             'cardname': '测试卡',
+            'cardtp': 1,
+            'foreign': 0,
+        })
+        ret = self.client.post(self.url, self.send, cookies=self.cookie)
+        log.info(ret)
+        respcd = json.loads(ret).get('respcd')
+        self.assertEqual(respcd, '0000')
+
+    # @unittest.skip("skipping")
+    def test_create_card_bin(self):
+        self.url = '/posp/v1/api/card/create'
+        self.send.update({
+            'bankname': '测试2',
+            'bankid': '222222',
+            'cardlen': 12,
+            'cardbin': '222222',
+            'cardname': '测试卡2',
             'cardtp': 1,
             'foreign': 0,
         })
