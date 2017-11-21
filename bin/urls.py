@@ -5,6 +5,7 @@ from handler import (
     page,
     login,
     channel,
+    cardbin,
     merchant,
 )
 
@@ -24,6 +25,10 @@ urls = (
     ('^/posp/v1/api/channel/state/change$', channel.ChannelSwitchHandler),
     ('^/posp/v1/api/channel/view$', channel.ChannelViewHandler),
     ('^/posp/v1/api/channel/create$', channel.ChannelCreateHandler),
+
+    # 卡表
+    ('^/posp/v1/api/card/list$', cardbin.CardBinListHandler),
+    ('^/posp/v1/api/card/view$', cardbin.CardBinViewHandler),
 
     # 页面
     ('^/posp/v1/page/login.html$', page.Login),

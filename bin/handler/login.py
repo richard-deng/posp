@@ -23,7 +23,7 @@ class LoginHandler(BaseHandler):
 
     @posp_set_cookie(g_rt.redis_pool, cookie_conf)
     @with_validator_self
-    def _post_handler(self, *args):
+    def _post_handler(self):
         params = self.validator.data
         mobile = params['mobile']
         password = params["password"]

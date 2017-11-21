@@ -6,6 +6,7 @@ from zbase.base.dbpool import get_connection_exception
 from posp_base.merchant import User
 from posp_base.profile import Profile
 from posp_base.channel import Channel
+from posp_base.cardbin import CardBin
 
 log = logging.getLogger()
 
@@ -180,3 +181,16 @@ def find_user_by_mobile(mobile):
     if user.data:
         return True
     return False
+
+
+def build_card_bin(params):
+    data = {}
+    for key in CardBin.CARDBIN_MUST_KEY:
+        data[key] = params.get(key, '')
+
+    for key in CardBin.CARDBIN_OPTION_KEY:
+        if key == '`foreign`':
+            data[key] = params.get('foreign')
+        else:
+            data[key] = params.get(key, '')
+    return data
