@@ -29,6 +29,7 @@ urls = (
 
     # 商户通道绑定
     ('^/posp/v1/api/channel/bind/list$', chnlbind.ChannelBindListHandler),
+    ('^/posp/v1/api/channel/bind/view$', chnlbind.ChannelBindViewHandler),
 
     # 卡表
     ('^/posp/v1/api/card/list$', cardbin.CardBinListHandler),

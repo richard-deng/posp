@@ -33,3 +33,20 @@ class ChannelBindListHandler(BaseHandler):
         data['info'] = info
         data['num'] = num
         return success(data=data)
+
+
+class ChannelBindViewHandler(BaseHandler):
+
+    _get_handler_fields = [
+        Field('channel_bind_id', T_INT, False)
+    ]
+
+    @posp_check_session(g_rt.redis_pool, cookie_conf)
+    @with_validator_self
+    def _get_handler(self):
+        params = self.validator.data
+        channel_bind_id = params.get('channel_bind_id')
+        bind = ChannelBind(channel_bind_id)
+        bind.load()
+        data = bind.data
+        return success(data=data)
