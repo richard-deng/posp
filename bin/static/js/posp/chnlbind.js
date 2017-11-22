@@ -44,7 +44,7 @@ $(document).ready(function(){
                 get_data.mchntid = mchntid;
             }
 
-            if(mchntnm){
+            if(termid){
                 get_data.termid = termid;
             }
 
@@ -154,7 +154,6 @@ $(document).ready(function(){
         });
     });
 
-
     $("#chnlBindSearch").click(function(){
         var chnlbind_query_vt = $('#chnlbind_query').validate({
            rules: {
@@ -199,5 +198,55 @@ $(document).ready(function(){
             return false;
         }
         $('#chnlbindList').DataTable().draw();
+    });
+
+    $(document).on('click', '.viewEdit', function(){
+        $("label.error").remove();
+        var se_userid = window.localStorage.getItem('myid');
+        var channel_bind_id = $(this).data('channel_bind_id');
+        $('#view_channel_bind_id').text(channel_bind_id);
+        var get_data = {
+            'se_userid': se_userid,
+            'channel_bind_id': channel_bind_id,
+        };
+        $.ajax({
+	        url: '/posp/v1/api/channel/bind/view',
+	        type: 'GET',
+	        dataType: 'json',
+	        data: get_data,
+	        success: function(data) {
+                var respcd = data.respcd;
+                if(respcd != '0000'){
+                    var resperr = data.resperr;
+                    var respmsg = data.respmsg;
+                    var msg = resperr ? resperr : respmsg;
+                    toastr.warning(msg);
+                }
+                else {
+                    var bind = data.data;
+
+                    $('#view-userid').val(bind.userid);
+                    $('#view-priority').val(bind.priority);
+                    // 后面加
+                    // $('#view-channel-name').val(bind.);
+                    $('#view-mchntid').val(bind.mchntid);
+                    $('#view-termid').val(bind.termid);
+                    $('#view-mchntnm').val(bind.mchntnm);
+                    $('#view-mcc').val(bind.mcc);
+                    $('#view-tradetype').val(bind.tradetype);
+                    $('#view-tag1').val(bind.tag1);
+                    $('#view-tag2').val(bind.tag2);
+                    $('#view-key1').val(bind.key1);
+                    $('#view-key2').val(bind.key2);
+                    $('#view-key3').val(bind.key3);
+                    $('#view-available').val(bind.available);
+
+                    $("#channelBindViewModal").modal();
+                }
+	        },
+	        error: function(data) {
+                toastr.warning('请求异常');
+	        }
+        });
     });
 })

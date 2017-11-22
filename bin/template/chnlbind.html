@@ -174,20 +174,107 @@
 </div>
 
 
-<div class="modal fade" tabindex="-1" role="dialog" id="channelViewModal">
+<div class="modal fade" tabindex="-1" role="dialog" id="channelBindViewModal">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">查看</h4><span hidden id="view_channel_id"></span>
+                <h4 class="modal-title">查看</h4><span hidden id="view_channel_bind_id"></span>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" id="channelViewForm" role="form">
 
                     <div class="form-group">
-                        <label for="channel_name" class="col-sm-2 control-label">通道名称</label>
+                        <label for="view-userid" class="col-sm-2 control-label">商户ID</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="channel_name" name="channel_name" placeholder="必填">
+                            <input type="text" class="form-control" id="view-userid" disabled>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="view-priority" class="col-sm-2 control-label">优先级</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="view-priority">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="view-channel-name" class="col-sm-2 control-label">通道</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" id="view-channel-name">
+                                <option value="1">稍后加</option>
+                                <option value="0">xx</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="view-mchntid" class="col-sm-2 control-label">商户号</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="view-mchntid" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="view-termid" class="col-sm-2 control-label">终端号</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="view-termid" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="view-mchntnm" class="col-sm-2 control-label">商户名</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="view-mchntnm" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="view-mcc" class="col-sm-2 control-label">MCC</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="view-mcc" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="view-tradetype" class="col-sm-2 control-label">交易类型</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="view-tradetype" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="view-tag1" class="col-sm-2 control-label">TAG1</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="view-tag1" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="view-tag2" class="col-sm-2 control-label">TAG2</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="view-tag2" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="view-key1" class="col-sm-2 control-label">KEY1</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="view-key1" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="view-key2" class="col-sm-2 control-label">KEY2</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="view-key2" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="view-key3" class="col-sm-2 control-label">KEY3</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="view-key3" placeholder="必填">
                         </div>
                     </div>
 
@@ -200,82 +287,11 @@
                             </select>
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <label for="zmk" class="col-sm-2 control-label">通道主秘钥</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="zmk" name="zmk" placeholder="必填">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="zpk" class="col-sm-2 control-label">通道工作秘钥</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="zpk" name="zpk" placeholder="必填">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="chcd" class="col-sm-2 control-label">平台分配机构号</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="chcd" name="chcd" placeholder="必填">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="inscd" class="col-sm-2 control-label">接入路由分配机构</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="inscd" name="inscd" placeholder="必填">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="code" class="col-sm-2 control-label">通道代码</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="code" name="code" placeholder="必填">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="route" class="col-sm-2 control-label">路由</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="route" name="route"  placeholder="必填">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="mchntid" class="col-sm-2 control-label">通道商户ID</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="mchntid" name="mchntid"  placeholder="必填">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="mchntnm" class="col-sm-2 control-label">通道商户名称</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="mchntnm" name="mchntnm"  placeholder="必填">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="tdkey" class="col-sm-2 control-label">TDKEY</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="tdkey" name="tdkey"  placeholder="必填">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="mackey" class="col-sm-2 control-label">MACKEY</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="mackey" name="mackey"  placeholder="必填">
-                        </div>
-                    </div>
-
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button type="button" class="btn btn-primary" id="channelViewSubmit">提交</button>
+                <button type="button" class="btn btn-primary" id="channelBindViewSubmit">提交</button>
             </div>
         </div>
     </div>
