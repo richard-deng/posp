@@ -10,6 +10,11 @@ import logging
 log = logging.getLogger()
 
 
+class Root(core.Handler):
+    def GET(self):
+        self.redirect('/posp/v1/page/login.html')
+
+
 class Login(core.Handler):
     def GET(self):
         self.write(template.render('login.html'))

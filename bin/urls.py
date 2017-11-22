@@ -38,6 +38,7 @@ urls = (
     ('^/posp/v1/api/card/create$', cardbin.CardBinCreateHandler),
 
     # 页面
+    ('^/$', page.Root),
     ('^/posp/v1/page/login.html$', page.Login),
     ('^/posp/v1/page/merchant.html', page.Merchant),
     ('^/posp/v1/page/channel.html', page.Channel),
