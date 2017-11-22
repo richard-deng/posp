@@ -80,6 +80,7 @@ class ChannelBind:
         page_size = kwargs.get('maxnum', 10)
         on = {'chnlbind.chnlid': 'channel.id'}
         keep_fields = [cls.TABLE + '.' + key for key in cls.CHNLBIND_KEY]
+        keep_fields.append(Channel.TABLE+'.'+'name')
         with get_connection_exception('posp_core') as conn:
             sql = conn.select_join_sql(
                 table1=cls.TABLE,
