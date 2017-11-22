@@ -14,14 +14,14 @@ $(document).ready(function(){
         "lengthMenu": [[10, 40, 100],[10, 40, 100]],
         "dom": 'l<"top"p>rt',
         "fnInitComplete": function(){
-            var $channelList_length = $("#channelList_length");
-            var $channelList_paginate = $("#channelList_paginate");
+            var $chnlbindList_length = $("#chnlbindList_length");
+            var $chnlbindList_paginate = $("#chnlbindList_paginate");
             var $page_top = $('.top');
 
             $page_top.addClass('row');
-            $channelList_paginate.addClass('col-md-8');
-            $channelList_length.addClass('col-md-4');
-            $channelList_length.prependTo($page_top);
+            $chnlbindList_paginate.addClass('col-md-8');
+            $chnlbindList_length.addClass('col-md-4');
+            $chnlbindList_length.prependTo($page_top);
         },
         "ajax": function(data, callback, settings){
             var get_data = {
@@ -32,10 +32,20 @@ $(document).ready(function(){
             var se_userid = window.localStorage.getItem('myid');
             get_data.se_userid = se_userid;
 
-            var channel_name = $("#s_channel_name").val();
+            var userid = $("#s_userid").val();
+            var mchntid = $("#s_mchntid").val();
+            var termid = $("#s_termid").val();
 
-            if(channel_name){
-                get_data.name = channel_name;
+            if(userid){
+                get_data.userid = userid;
+            }
+
+            if(mchntid){
+                get_data.mchntid = mchntid;
+            }
+
+            if(mchntnm){
+                get_data.termid = termid;
             }
 
             $.ajax({
@@ -109,7 +119,7 @@ $(document).ready(function(){
         }
     });
 
-        $(document).on('click', '.setStatus', function(){
+    $(document).on('click', '.setStatus', function(){
         var channel_bind_id = $(this).data('channel_bind_id');
         var status = $(this).data('status');
         var value = status ? 0 : 1;
@@ -144,4 +154,50 @@ $(document).ready(function(){
         });
     });
 
+
+    $("#chnlBindSearch").click(function(){
+        var chnlbind_query_vt = $('#chnlbind_query').validate({
+           rules: {
+               s_userid: {
+                   required: false,
+                   maxlength: 20,
+                   digits: true,
+               },
+               s_mchntid: {
+                   required: false,
+                   maxlength: 30,
+               },
+               s_termid: {
+                   required: false,
+                   maxlength: 30,
+               },
+           },
+           messages: {
+               s_userid: {
+                   required: '请输入商户ID',
+                   maxlength: $.validator.format("请输入一个长度最多是 {0} 的字符串")
+               },
+               s_mchntid: {
+                   required: '请输入商户号',
+                   maxlength: $.validator.format("请输入一个长度最多是 {0} 的字符串")
+               },
+               s_termid: {
+                   required: '请输入终端号',
+                   maxlength: $.validator.format("请输入一个长度最多是 {0} 的字符串")
+               },
+           },
+           errorPlacement: function(error, element){
+               var $error_element = element.parent().parent().next();
+               $error_element.text('');
+               error.appendTo($error_element);
+           }
+        });
+        var ok = chnlbind_query_vt.form();
+        if(!ok){
+            $("#query_label_error").show();
+            $("#query_label_error").fadeOut(1400);
+            return false;
+        }
+        $('#chnlbindList').DataTable().draw();
+    });
 })

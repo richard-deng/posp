@@ -23,6 +23,9 @@ class ChannelBindListHandler(BaseHandler):
     _get_handler_fields = [
         Field('page', T_INT, False),
         Field('maxnum', T_INT, False),
+        Field('userid', T_INT, True),
+        Field('mchntid', T_STR, True),
+        Field('termid', T_STR, True),
     ]
 
     @posp_check_session(g_rt.redis_pool, cookie_conf)
