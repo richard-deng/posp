@@ -42,4 +42,5 @@ urls = (
     ('^/posp/v1/page/login.html$', page.Login),
     ('^/posp/v1/page/merchant.html', page.Merchant),
     ('^/posp/v1/page/channel.html', page.Channel),
+    ('^/posp/v1/page/channel/bind.html', page.ChannelBind),
 )

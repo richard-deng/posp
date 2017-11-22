@@ -1,7 +1,7 @@
 # coding: utf-8
-# coding: utf-8
 import logging
 import datetime
+from channel import Channel
 from zbase.base.dbpool import get_connection_exception
 
 log = logging.getLogger()
@@ -68,16 +68,28 @@ class ChannelBind:
 
     @classmethod
     def page(cls, **kwargs):
-        need_query = []
+        need_query = ['userid', 'mchntid', 'termid']
         where = {}
         for k, v in kwargs.iteritems():
             if k in need_query and kwargs.get(k):
-                where[k] = kwargs.get(k)
+                where[cls.TABLE + '.' + k] = kwargs.get(k)
         other = kwargs.get('other', '')
+        # if other:
+        #    other = 'order by ' + cls.TABLE + '.' + other + 'desc'
         page = kwargs.get('page', 1)
         page_size = kwargs.get('maxnum', 10)
+        on = {'chnlbind.chnlid': 'channel.id'}
+        keep_fields = [cls.TABLE + '.' + key for key in cls.CHNLBIND_KEY]
         with get_connection_exception('posp_core') as conn:
-            sql = conn.select_sql(table=cls.TABLE, where=where, fields=cls.CHNLBIND_KEY, other=other)
+            sql = conn.select_join_sql(
+                table1=cls.TABLE,
+                table2=Channel.TABLE,
+                on=on,
+                fields=keep_fields,
+                where=where,
+            )
+
+            # sql = conn.select_sql(table=cls.TABLE, where=where, fields=cls.CHNLBIND_KEY, other=other)
             pager = conn.select_page(sql, pagecur=page, pagesize=page_size)
             pager.split()
             if pager.count > 0:
