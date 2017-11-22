@@ -2,11 +2,13 @@
 import logging
 import traceback
 import datetime
+from constant import INVALID_VALUE
 from zbase.base.dbpool import get_connection_exception
 from posp_base.merchant import User
 from posp_base.profile import Profile
 from posp_base.channel import Channel
 from posp_base.cardbin import CardBin
+from posp_base.chnlbind import ChannelBind
 
 log = logging.getLogger()
 
@@ -193,4 +195,25 @@ def build_card_bin(params):
             data[key] = params.get('foreign')
         else:
             data[key] = params.get(key, '')
+    return data
+
+
+def build_channel_bind_edit(params):
+    values = params
+    now = datetime.datetime.now()
+    values['update_time'] = now.strftime('%Y-%m-%d %H:%M:%S')
+    return values
+
+
+def build_channel_bind_create(params):
+    data = {}
+    now = datetime.datetime.now()
+
+    for key in ChannelBind.CHNLBIND_KEY:
+        if key in ChannelBind.CHNLBIND_MUST_KEY and not params.get(key, None):
+            data[key] = 0
+        else:
+            data[key] = params.get(key)
+
+    data['create_time'] = now.strftime('%Y-%m-%d %H:%M:%S')
     return data
