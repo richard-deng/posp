@@ -53,7 +53,6 @@ class ChannelBind:
                     pass
         return data
 
-
     def update(self, values):
         where = {'id': self.id}
         with get_connection_exception('posp_core') as conn:
@@ -97,3 +96,12 @@ class ChannelBind:
                 for data in pager.pagedata.data:
                     cls.trans_time(data)
             return pager.pagedata.data, pager.count
+
+    def switch_available(self, available):
+        now = datetime.datetime.now()
+        now_str = now.strftime('%Y-%m-%d %H:%M:%S')
+        where = {'id': self.id}
+        values = {'available': available, 'update_time': now_str}
+        with get_connection_exception('posp_core') as conn:
+            ret = conn.update(table=ChannelBind.TABLE, values=values, where=where)
+            return ret

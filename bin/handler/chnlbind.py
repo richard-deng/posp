@@ -116,3 +116,24 @@ class ChannelBindCreateHandler(BaseHandler):
         if ret == 1:
             return success(data={})
         return error(RESP_CODE.DATAERR)
+
+
+class ChannelBindSwitchHandler(BaseHandler):
+
+    _post_handler_fields = [
+        Field('channel_bind_id', T_INT, False),
+        Field('available', T_INT, False)
+    ]
+
+    @posp_check_session(g_rt.redis_pool, cookie_conf)
+    @with_validator_self
+    def _post_handler(self):
+        params = self.validator.data
+        channel_bind_id = params.get('channel_bind_id')
+        available = params.get('available')
+        bind = ChannelBind(channel_bind_id)
+        ret = bind.switch_available(available)
+        if ret == 1:
+            return success(data={})
+        return error(RESP_CODE.DBERR)
+

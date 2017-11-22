@@ -31,6 +31,7 @@ urls = (
     ('^/posp/v1/api/channel/bind/list$', chnlbind.ChannelBindListHandler),
     ('^/posp/v1/api/channel/bind/view$', chnlbind.ChannelBindViewHandler),
     ('^/posp/v1/api/channel/bind/create$', chnlbind.ChannelBindCreateHandler),
+    ('^/posp/v1/api/channel/bind/switch$', chnlbind.ChannelBindSwitchHandler),
 
     # 卡表
     ('^/posp/v1/api/card/list$', cardbin.CardBinListHandler),

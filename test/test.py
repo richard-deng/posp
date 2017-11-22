@@ -119,7 +119,7 @@ class TestPospInstrument(unittest.TestCase):
         respcd = json.loads(ret).get('respcd')
         self.assertEqual(respcd, '0000')
 
-    #@unittest.skip("skipping")
+    @unittest.skip("skipping")
     def test_edit_channel_bind(self):
         self.url = '/posp/v1/api/channel/bind/view'
         self.send.update({
@@ -160,6 +160,18 @@ class TestPospInstrument(unittest.TestCase):
             'key1': 'key1_test',
             'key2': 'key2_test',
             'key3': 'key3_test',
+            'available': 1,
+        })
+        ret = self.client.post(self.url, self.send, cookies=self.cookie)
+        log.info(ret)
+        respcd = json.loads(ret).get('respcd')
+        self.assertEqual(respcd, '0000')
+
+    # @unittest.skip("skipping")
+    def test_switch_channel_bind_available(self):
+        self.url = '/posp/v1/api/channel/bind/switch'
+        self.send.update({
+            'channel_bind_id': 1,
             'available': 1,
         })
         ret = self.client.post(self.url, self.send, cookies=self.cookie)
