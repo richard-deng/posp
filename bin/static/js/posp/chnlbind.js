@@ -74,11 +74,10 @@ $(document).ready(function(){
                 data: '操作',
                 render: function(data, type, full) {
                     var status = full.available;
-                    var uid =full.userid;
-                    var channel_id =full.id;
+                    var channel_bind_id =full.id;
                     var msg = status ? '打开' : '关闭';
-                    var op = "<button type='button' class='btn btn-success btn-sm setStatus' data-channelid="+channel_id+" data-status="+status+">"+msg+"</button>";
-                    var view ="<button type='button' class='btn btn-warning btn-sm viewEdit' data-uid="+uid+" data-channelid="+channel_id+">"+'查看'+"</button>";
+                    var op = "<button type='button' class='btn btn-success btn-sm setStatus' data-channel_bind_id="+channel_bind_id+" data-status="+status+">"+msg+"</button>";
+                    var view ="<button type='button' class='btn btn-warning btn-sm viewEdit' data-channel_bind_id="+channel_bind_id+">"+'查看'+"</button>";
                     return op+view;
                 }
             }
@@ -108,6 +107,41 @@ $(document).ready(function(){
                 'sLast': '尾页'
             }
         }
+    });
+
+        $(document).on('click', '.setStatus', function(){
+        var channel_bind_id = $(this).data('channel_bind_id');
+        var status = $(this).data('status');
+        var value = status ? 0 : 1;
+        var se_userid = window.localStorage.getItem('myid');
+        var post_data = {
+            'channel_bind_id': channel_bind_id,
+            'available': value,
+            'se_userid': se_userid
+        };
+        $.ajax({
+	        url: '/posp/v1/api/channel/bind/switch',
+	        type: 'POST',
+	        dataType: 'json',
+	        data: post_data,
+	        success: function(data) {
+                var respcd = data.respcd;
+                if(respcd != '0000'){
+                    var resperr = data.resperr;
+                    var respmsg = data.respmsg;
+                    var msg = resperr ? resperr : respmsg;
+                    toastr.warning(msg);
+                    return false;
+                }
+                else {
+                    $('#chnlbindList').DataTable().draw();
+                    toastr.success('操作成功');
+                }
+	        },
+	        error: function(data) {
+                toastr.warning('请求异常');
+	        }
+        });
     });
 
 })

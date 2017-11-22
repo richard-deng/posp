@@ -18,7 +18,7 @@ class ChannelBind:
         'mchntid', 'termid', 'mchntnm', 'mcc', 'key1',
         'key2', 'key3', 'chnlfee', 'qffee', 'admin',
         'last_admin', 'create_time', 'update_time',
-        'tag1', 'tag2', 'memo',
+        'tag1', 'tag2', 'memo', 'id',
     ]
     CHNLBIND_DATETIME_KEY = {
         'create_time': 'datetime',
