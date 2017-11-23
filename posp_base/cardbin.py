@@ -13,7 +13,7 @@ class CardBin:
         'bankname', 'bankid', 'cardcd', 'cardlen',
         'cardbin', 'cardname', 'cardtp', 'cardorg'
     ]
-    CARDBIN_OPTION_KEY = ['`foreign`']
+    CARDBIN_OPTION_KEY = ['`foreign`', 'id']
     CARDBIN_DATETIME_KEY = []
     CARDBIN_KEY = CARDBIN_MUST_KEY + CARDBIN_OPTION_KEY
 

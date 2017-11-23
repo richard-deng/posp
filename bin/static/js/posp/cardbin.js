@@ -74,14 +74,10 @@ $(document).ready(function(){
                 targets: 7,
                 data: '操作',
                 render: function(data, type, full) {
-                    // var status = full.available;
-                    // var uid =full.userid;
-                    // var channel_id =full.id;
-                    // var msg = status ? '打开' : '关闭';
-                    // var op = "<button type='button' class='btn btn-success btn-sm setStatus' data-channelid="+channel_id+" data-status="+status+">"+msg+"</button>";
-                    // var view ="<button type='button' class='btn btn-warning btn-sm viewEdit' data-uid="+uid+" data-channelid="+channel_id+">"+'查看'+"</button>";
-                    // return op+view;
-                    return '修改';
+                    var card_bin_id =full.id;
+                    var op = "<button type='button' class='btn btn-danger btn-sm delete' data-card_bin_id="+card_bin_id+">"+'删除'+"</button>";
+                    var view ="<button type='button' class='btn btn-success btn-sm viewEdit' data-card_bin_id="+card_bin_id+">"+'查看'+"</button>";
+                    return view+op;
                 }
             }
         ],
@@ -109,5 +105,33 @@ $(document).ready(function(){
         }
     });
 
+    $("#cardBinSearch").click(function(){
+        var card_bin_query_vt = $('#card_bin_query').validate({
+           rules: {
+               s_bank_name: {
+                   required: false,
+                   maxlength: 30
+               }
+           },
+           messages: {
+               s_bank_name: {
+                   required: '请输入银行名称',
+                   maxlength: $.validator.format("请输入一个长度最多是 {0} 的字符串")
+               }
+           },
+           errorPlacement: function(error, element){
+               var $error_element = element.parent().parent().next();
+               $error_element.text('');
+               error.appendTo($error_element);
+           }
+        });
+        var ok = card_bin_query_vt.form();
+        if(!ok){
+            $("#query_label_error").show();
+            $("#query_label_error").fadeOut(1000);
+            return false;
+        }
+        $('#cardBinList').DataTable().draw();
+    });
 
 });
