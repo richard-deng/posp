@@ -1,0 +1,69 @@
+## -*- coding: utf-8 -*-
+<%inherit file="/base.html" />
+<%block name="title">
+卡表信息
+</%block>
+
+<%block name="head_media">
+<link href="/static/css/posp/define_label_error.css" rel="stylesheet">
+</%block>
+
+<%block name="page">
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <span>卡表信息</span>
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="row">
+                    <form class="form-inline" id="card_bin_query">
+                        <div class="form-group">
+                            <label for="s_bank_name">银行名称</label>
+                            <input type="text" class="form-control" id="s_bank_name" placeholder="">
+                        </div>
+                        <button type="button" class="btn btn-primary" id="cardBinSearch">搜索</button>
+                        <button type="button" class="btn btn-default" id="cardBinCreate">添加</button>
+                    </form>
+                    <label id="query_label_error"></label>
+                </div>
+
+                <div class="row">
+                    <table id="cardBinList" class="display table table-striped table-bordered table-hover dataTable no-footer dtr-inline" cellspacing="0" width="100%">
+                        <thead>
+                        <tr>
+                            <th>银行名</th>
+                            <th>银行ID</th>
+                            <th>卡长度</th>
+                            <th>卡标识</th>
+                            <th>卡名</th>
+                            <th>卡类型</th>
+                            <th>国内/外卡</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+</div>
+
+</%block>
+
+<%block name="body_media">
+<script src="/static/js/jquery.validate.js" type="text/javascript"></script>
+<script src="/static/js/jquery.validate.messages_cn.js" type="text/javascript"></script>
+<script src="/static/js/jquery.form.js" type="text/javascript"></script>
+<script src="/static/js/bootstrap-typeahead.js" type="text/javascript"></script>
+<script src="/static/js/toastr.js" type="text/javascript"></script>
+<script src="/static/js/md5.min.js" type="text/javascript"></script>
+<script src="/static/js/posp/base.js" type="text/javascript"></script>
+<script src="/static/js/posp/cardbin.js" type="text/javascript"></script>
+</%block>
