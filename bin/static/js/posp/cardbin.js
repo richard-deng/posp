@@ -111,13 +111,13 @@ $(document).ready(function(){
                s_bank_name: {
                    required: false,
                    maxlength: 30
-               }
+               },
            },
            messages: {
                s_bank_name: {
                    required: '请输入银行名称',
                    maxlength: $.validator.format("请输入一个长度最多是 {0} 的字符串")
-               }
+               },
            },
            errorPlacement: function(error, element){
                var $error_element = element.parent().parent().next();
@@ -126,6 +126,7 @@ $(document).ready(function(){
            }
         });
         var ok = card_bin_query_vt.form();
+        console.log('card_bin_query_vt status: ', ok);
         if(!ok){
             $("#query_label_error").show();
             $("#query_label_error").fadeOut(1000);
