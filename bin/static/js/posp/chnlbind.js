@@ -425,4 +425,11 @@ $(document).ready(function(){
 	        }
         });
     });
+
+	$("#chnlBindCreate").click(function(){
+        $("#channelBindCreateForm").resetForm();
+        $("label.error").remove();
+		$("#channelBindCreateModal").modal();
+	});
+
 })
