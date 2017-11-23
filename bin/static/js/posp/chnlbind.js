@@ -225,23 +225,199 @@ $(document).ready(function(){
                 else {
                     var bind = data.data;
 
-                    $('#view-userid').val(bind.userid);
-                    $('#view-priority').val(bind.priority);
+                    $('#view_userid').val(bind.userid);
+                    $('#view_priority').val(bind.priority);
                     // 后面加
                     // $('#view-channel-name').val(bind.);
-                    $('#view-mchntid').val(bind.mchntid);
-                    $('#view-termid').val(bind.termid);
-                    $('#view-mchntnm').val(bind.mchntnm);
-                    $('#view-mcc').val(bind.mcc);
-                    $('#view-tradetype').val(bind.tradetype);
-                    $('#view-tag1').val(bind.tag1);
-                    $('#view-tag2').val(bind.tag2);
-                    $('#view-key1').val(bind.key1);
-                    $('#view-key2').val(bind.key2);
-                    $('#view-key3').val(bind.key3);
-                    $('#view-available').val(bind.available);
+                    $('#view_mchntid').val(bind.mchntid);
+                    $('#view_termid').val(bind.termid);
+                    $('#view_mchntnm').val(bind.mchntnm);
+                    $('#view_mcc').val(bind.mcc);
+                    $('#view_tradetype').val(bind.tradetype);
+                    $('#view_tag1').val(bind.tag1);
+                    $('#view_tag2').val(bind.tag2);
+                    $('#view_key1').val(bind.key1);
+                    $('#view_key2').val(bind.key2);
+                    $('#view_key3').val(bind.key3);
+                    $('#view_available').val(bind.available);
 
                     $("#channelBindViewModal").modal();
+                }
+	        },
+	        error: function(data) {
+                toastr.warning('请求异常');
+	        }
+        });
+    });
+
+    $('#channelBindViewSubmit').click(function(){
+
+        var channel_bind_edit_vt = $('#channelBindViewForm').validate({
+            rules: {
+                view_priority: {
+                    required: true,
+                    digits:true
+                },
+                view_mchntid: {
+                    required: true,
+                    maxlength: 64
+                },
+
+                view_termid: {
+                    required: true,
+                    maxlength: 64
+                },
+
+                view_mchntnm: {
+                    required: true,
+                    maxlength: 64
+                },
+
+                view_mcc: {
+                    required: true,
+                    maxlength: 16
+                },
+
+                view_tradetype: {
+                    required: true,
+                    digits: true
+                },
+
+                view_tag1: {
+                    required: true,
+                    maxlength: 128
+                },
+
+                view_tag2: {
+                    required: true,
+                    maxlength: 128
+                },
+
+                view_key1: {
+                    required: true,
+                    maxlength: 64
+                },
+
+                view_key2: {
+                    required: true,
+                    maxlength: 64
+                },
+
+                view_key3: {
+                    required: true,
+                    maxlength: 64
+                },
+
+            },
+            messages: {
+                view_priority: {
+                    required: '请输入优先级',
+                    digits: '请输入整数'
+                },
+                view_mchntid: {
+                    required: '请输入商户号',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                },
+
+                view_termid: {
+                    required: '请输入终端号',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                },
+
+                view_mchntnm: {
+                    required: '请输入商户名',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                },
+
+                view_mcc: {
+                    required: '请输入MCC',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                },
+
+                view_tradetype: {
+                    required: '请输入交易类型',
+                    digits: true
+                },
+
+                view_tag1: {
+                    required: '请输入标签1',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                },
+
+                view_tag2: {
+                    required: '请输入标签2',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                },
+
+                view_key1: {
+                    required: '请输入KEY1',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                },
+
+                view_key2: {
+                    required: '请输入KEY2',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                },
+
+                view_key3: {
+                    required: '请输入KEY3',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                },
+
+            },
+            errorPlacement: function(error, element){
+                if(element.is(':checkbox')){
+                    error.appendTo(element.parent().parent().parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+        var ok = channel_bind_edit_vt.form();
+        if(!ok){
+            return false;
+        }
+
+	    var post_data = {};
+        var channel_bind_id = $('#view_channel_bind_id').text();
+        var se_userid = window.localStorage.getItem('myid');
+        post_data['se_userid'] = se_userid;
+
+        post_data['channel_bind_id'] = channel_bind_id;
+
+		post_data['priority'] = $('#view_priority').val();
+		post_data['available'] = $('#view_available').val();
+		post_data['chnlid'] = $('#view_channel_name').val();
+		post_data['termid'] = $('#view_termid').val();
+		post_data['mchntid'] = $('#view_mchntid').val();
+		post_data['mchntnm'] = $('#view_mchntnm').val();
+		post_data['mcc'] = $('#view_mcc').val();
+		post_data['tradetype'] = $('#view_tradetype').val();
+		post_data['tag1'] = $('#view_tag1').val();
+		post_data['tag2'] = $('#view_tag2').val();
+		post_data['key1'] = $('#view_key1').val();
+		post_data['key2'] = $('#view_key2').val();
+		post_data['key3'] = $('#view_key3').val();
+
+        $.ajax({
+	        url: '/posp/v1/api/channel/bind/view',
+	        type: 'POST',
+	        dataType: 'json',
+	        data: post_data,
+	        success: function(data) {
+                var respcd = data.respcd;
+                if(respcd != '0000'){
+                    var resperr = data.resperr;
+                    var respmsg = data.respmsg;
+                    var msg = resperr ? resperr : respmsg;
+                    toastr.warning(msg);
+                    return false;
+                }
+                else {
+                    toastr.success('保存修改成功');
+                    $("#channelBindViewForm").resetForm();
+                    $("#channelBindViewModal").modal('hide');
+                    $('#chnlbindList').DataTable().draw();
                 }
 	        },
 	        error: function(data) {
