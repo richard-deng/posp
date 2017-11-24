@@ -297,4 +297,116 @@ $(document).ready(function(){
         });
     });
 
+    $("#cardBinViewSubmit").click(function(){
+
+        var card_bin_view_vt = $('#cardBinViewForm').validate({
+            rules: {
+
+                bank_name_view: {
+                    required: true,
+                    maxlength: 128
+                },
+
+                bank_id_view: {
+                    required: true,
+                    maxlength: 8
+                },
+
+                card_len_view: {
+                    required: true,
+                    digits: true
+                },
+
+                card_bin_view: {
+                    required: true,
+                    maxlength: 10
+                },
+
+                card_name_view: {
+                    required: true,
+                    maxlength: 64
+                }
+            },
+            messages: {
+
+                bank_name_view: {
+                    required: '请输入银行名称',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                },
+                bank_id_view: {
+                    required: '请输入银行ID',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                },
+
+                card_len_view: {
+                    required: '请输入卡号长度',
+                    digits: '请输入整数'
+                },
+
+                card_bin_view: {
+                    required: '请输入卡标识',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                },
+
+                card_name_view: {
+                    required: '请输入卡名',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                }
+
+            },
+            errorPlacement: function(error, element){
+                if(element.is(':checkbox')){
+                    error.appendTo(element.parent().parent().parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+
+        var ok = card_bin_view_vt.form();
+        if(!ok){
+            return false;
+        }
+
+        var post_data = {};
+        var se_userid = window.localStorage.getItem('myid');
+
+        post_data.se_userid = se_userid;
+        post_data.card_bin_id = $('#view_card_bin_id').text();
+
+        post_data.bankname = $('#bank_name_view').val();
+        post_data.bankid = $('#bank_id_view').val();
+        post_data.cardlen = $('#card_len_view').val();
+        post_data.cardbin = $('#card_bin_view').val();
+        post_data.cardname = $('#card_name_view').val();
+        post_data.cardtp = $('#card_type_view').val();
+        post_data.foreign = $('#foreign_view').val();
+
+        $.ajax({
+            url: '/posp/v1/api/card/view',
+            type: 'POST',
+            dataType: 'json',
+            data: post_data,
+            success: function(data) {
+                var respcd = data.respcd;
+                if(respcd != '0000'){
+                    var resperr = data.resperr;
+                    var respmsg = data.respmsg;
+                    var msg = resperr ? resperr : respmsg;
+                    toastr.warning(msg);
+                    return false;
+                }
+                else {
+                    toastr.success('修改卡表成功');
+                    $("#cardBinViewModal").modal('hide');
+                    location.reload();
+                    $('#cardBinList').DataTable().draw();
+                }
+            },
+            error: function(data) {
+                toastr.warning('请求异常');
+            }
+        });
+    });
+
 });
