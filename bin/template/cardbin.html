@@ -55,6 +55,83 @@
     </div>
 </div>
 
+<div class="modal fade" tabindex="-1" role="dialog" id="cardBinCreateModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">添加</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="cardBinCreateForm" role="form">
+
+                    <div class="form-group">
+                        <label for="bank_name_add" class="col-sm-2 control-label">银行名称</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="bank_name_add" name="bank_name_add" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="bank_id_add" class="col-sm-2 control-label">银行ID</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="bank_id_add" name="bank_id_add" placeholder="必填">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="card_len_add" class="col-sm-2 control-label">卡长度</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="card_len_add" name="card_len_add" placeholder="必填">
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="card_bin_add" class="col-sm-2 control-label">卡标识</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="card_bin_add" name="card_bin_add" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="card_name_add" class="col-sm-2 control-label">卡名</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="card_name_add" name="card_name_add" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="card_type_add" class="col-sm-2 control-label">卡类型</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" id="card_type_add" name="card_type_add">
+                                <option value="1">后面加</option>
+                                <option value="0">启用</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="foreign_add" class="col-sm-2 control-label">国内/外</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" id="foreign_add" name="foreign_add">
+                                <option value="1">国内</option>
+                                <option value="0">国外</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="cardBinCreateSubmit">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 </%block>
 
 <%block name="body_media">

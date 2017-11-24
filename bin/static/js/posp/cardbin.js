@@ -134,5 +134,11 @@ $(document).ready(function(){
         }
         $('#cardBinList').DataTable().draw();
     });
+    
+    $("#cardBinCreate").click(function () {
+        $("#cardBinCreateForm").resetForm();
+        $("label.error").remove();
+        $("#cardBinCreateModal").modal();
+    })
 
 });
