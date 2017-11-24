@@ -134,11 +134,124 @@ $(document).ready(function(){
         }
         $('#cardBinList').DataTable().draw();
     });
-    
+
     $("#cardBinCreate").click(function () {
         $("#cardBinCreateForm").resetForm();
         $("label.error").remove();
         $("#cardBinCreateModal").modal();
-    })
+    });
+
+    $("#cardBinCreateSubmit").click(function () {
+
+        var card_bin_create_vt = $('#cardBinCreateForm').validate({
+            rules: {
+
+                bank_name_add: {
+                    required: true,
+                    maxlength: 128
+                },
+
+                bank_id_add: {
+                    required: true,
+                    maxlength: 8
+                },
+
+                card_len_add: {
+                    required: true,
+                    digits: true
+                },
+
+                card_bin_add: {
+                    required: true,
+                    maxlength: 10
+                },
+
+                card_name_add: {
+                    required: true,
+                    maxlength: 64
+                }
+            },
+            messages: {
+
+                bank_name_add: {
+                    required: '请输入银行名称',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                },
+                bank_id_add: {
+                    required: '请输入银行ID',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                },
+
+                card_len_add: {
+                    required: '请输入卡号长度',
+                    digits: '请输入整数'
+                },
+
+                card_bin_add: {
+                    required: '请输入卡标识',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                },
+
+                card_name_add: {
+                    required: '请输入卡名',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                }
+
+            },
+            errorPlacement: function(error, element){
+                if(element.is(':checkbox')){
+                    error.appendTo(element.parent().parent().parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+
+        var ok = card_bin_create_vt.form();
+        if(!ok){
+            return false;
+        }
+
+        var post_data = {};
+        var se_userid = window.localStorage.getItem('myid');
+
+        post_data.se_userid = se_userid;
+
+        post_data.bankname = $('#bank_name_add').val();
+        post_data.bankid = $('#bank_id_add').val();
+        post_data.cardlen = $('#card_len_add').val();
+        post_data.cardbin = $('#card_bin_add').val();
+        post_data.cardname = $('#card_name_add').val();
+        post_data.cardtp = $('#card_type_add').val();
+        post_data.foreign = $('#foreign_add').val();
+
+
+        $.ajax({
+            url: '/posp/v1/api/card/create',
+            type: 'POST',
+            dataType: 'json',
+            data: post_data,
+            success: function(data) {
+                var respcd = data.respcd;
+                if(respcd != '0000'){
+                    var resperr = data.resperr;
+                    var respmsg = data.respmsg;
+                    var msg = resperr ? resperr : respmsg;
+                    toastr.warning(msg);
+                    return false;
+                }
+                else {
+                    toastr.success('添加卡表成功');
+                    $("#cardBinCreateModal").modal('hide');
+                    location.reload();
+                    $('#cardBinList').DataTable().draw();
+                }
+            },
+            error: function(data) {
+                toastr.warning('请求异常');
+            }
+        });
+
+    });
 
 });
