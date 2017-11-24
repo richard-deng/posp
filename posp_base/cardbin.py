@@ -13,7 +13,7 @@ class CardBin:
         'bankname', 'bankid', 'cardcd', 'cardlen',
         'cardbin', 'cardname', 'cardtp', 'cardorg'
     ]
-    CARDBIN_OPTION_KEY = ['`foreign`', 'id']
+    CARDBIN_OPTION_KEY = ['`foreign`']
     CARDBIN_DATETIME_KEY = []
     CARDBIN_KEY = CARDBIN_MUST_KEY + CARDBIN_OPTION_KEY
 
@@ -51,8 +51,9 @@ class CardBin:
         other = kwargs.get('other', '')
         page = kwargs.get('page', 1)
         page_size = kwargs.get('maxnum', 10)
+        keep_fields = cls.CARDBIN_KEY + ['id']
         with get_connection_exception('posp_core') as conn:
-            sql = conn.select_sql(table=CardBin.TABLE, where=where, fields=cls.CARDBIN_KEY, other=other)
+            sql = conn.select_sql(table=CardBin.TABLE, where=where, fields=keep_fields, other=other)
             pager = conn.select_page(sql, pagecur=page, pagesize=page_size)
             pager.split()
             return pager.pagedata.data, pager.count
