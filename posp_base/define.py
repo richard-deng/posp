@@ -16,3 +16,7 @@ POSP_USER_STATE_MAP = {
     POSP_USER_STATE_FORBIDDEN: '封禁',
     POSP_USER_STATE_CANCEL: '注销'
 }
+
+# DB TOKEN
+TOKEN_POSP_CORE = 'posp_core'
+TOKEN_POSP_MIS = 'posp_mis'

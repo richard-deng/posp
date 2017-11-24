@@ -24,8 +24,21 @@ database = {
         'user': 'root',
         'port': 3306,
         'conn': 3
+    },
+    'posp_mis': {
+        'engine': 'pymysql',
+        'passwd': '',
+        'charset': 'utf8',
+        'db': 'posp_mis',
+        'idle_timeout': 10,
+        'host': '127.0.0.1',
+        'user': 'root',
+        'port': 3306,
+        'conn': 3
     }
 }
+
+
 
 # web config
 # URLS配置
