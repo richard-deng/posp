@@ -1,6 +1,5 @@
 # coding: utf-8
 import logging
-import datetime
 
 import tools
 from define import TOKEN_POSP_MIS
@@ -74,7 +73,7 @@ class Terminal:
         page = kwargs.get('page', 1)
         page_size = kwargs.get('maxnum', 10)
         keep_fields = cls.TERMINAL_KEY + cls.TABLE_ID
-        with get_connection_exception('posp_core') as conn:
+        with get_connection_exception(TOKEN_POSP_MIS) as conn:
             sql = conn.select_sql(table=Terminal.TABLE, where=where, fields=keep_fields, other=other)
             pager = conn.select_page(sql, pagecur=page, pagesize=page_size)
             pager.split()
