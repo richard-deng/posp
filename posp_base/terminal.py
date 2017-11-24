@@ -37,6 +37,11 @@ class Terminal:
         'deliver_date': 'datetime',
         'last_modify': 'datetime',
     }
+    QUERY_KEY = {
+        'terminalid': T_STR,
+        'model': T_STR,
+        'state': T_INT,
+    }
     TERMINAL_KEY = TERMINAL_MUST_KEY.keys() + TERMINAL_OPTION_KEY.keys()
 
     def __init__(self, terminal_id):
@@ -65,7 +70,7 @@ class Terminal:
 
     @classmethod
     def page(cls, **kwargs):
-        need_query = ['terminalid', 'model', 'state']
+        need_query = cls.QUERY_KEY.keys()
         where = {}
         for k, v in kwargs.iteritems():
             if k in need_query and kwargs.get(k):

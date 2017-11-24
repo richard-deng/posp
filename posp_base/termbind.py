@@ -39,6 +39,13 @@ class TermBind:
     TERMBIND_DATETIME_KEY = {
         'active_date': 'datetime',
     }
+
+    QUERY_KEY = {
+        'userid': T_INT,
+        'terminalid': T_STR,
+        'psamid': T_STR,
+    }
+
     TERMBIND_KEY = TERMBIND_MUST_KEY.keys() + TERMBIND_OPTION_KEY.keys()
 
 
@@ -68,7 +75,7 @@ class TermBind:
 
     @classmethod
     def page(cls, **kwargs):
-        need_query = ['userid', 'terminalid', 'psami']
+        need_query = cls.QUERY_KEY
         where = {}
         for k, v in kwargs.iteritems():
             if k in need_query and kwargs.get(k):

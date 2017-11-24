@@ -4,11 +4,14 @@ import traceback
 import datetime
 from constant import INVALID_VALUE
 from zbase.base.dbpool import get_connection_exception
+from zbase.web.validator import T_INT, T_STR
 from posp_base.merchant import User
 from posp_base.profile import Profile
 from posp_base.channel import Channel
 from posp_base.cardbin import CardBin
 from posp_base.chnlbind import ChannelBind
+from posp_base.terminal import Terminal
+from posp_base.termbind import TermBind
 
 log = logging.getLogger()
 
@@ -217,3 +220,90 @@ def build_channel_bind_create(params):
 
     data['create_time'] = now.strftime('%Y-%m-%d %H:%M:%S')
     return data
+
+
+def build_terminal_edit(params):
+    data = {}
+    for key in params.keys():
+        if key in Terminal.TERMINAL_MUST_KEY.keys():
+            if params.get(key):
+                data[key] = params.get(key)
+            else:
+                if Terminal.TERMINAL_MUST_KEY.get(key) == T_INT:
+                    data[key] = 0
+                elif Terminal.TERMINAL_MUST_KEY.get(key) == T_STR:
+                    data[key] = ''
+                else:
+                    log.info('build_terminal_edit key=%s|cannot find type', key)
+
+        if key in Terminal.TERMINAL_OPTION_KEY.keys() and params.get(key):
+            data[key] = params.get(key)
+
+        if key == 'last_modify':
+            now = datetime.datetime.now()
+            data[key] = now.strftime('%Y-%m-%d %H:%M:%S')
+
+    return data
+
+
+def build_terminal_create(params):
+    data = {}
+    for key in Terminal.TERMINAL_KEY:
+        if key in Terminal.TERMINAL_MUST_KEY.keys():
+            if params.get(key):
+                data[key] = params.get(key)
+            else:
+                if Terminal.TERMINAL_MUST_KEY.get(key) == T_INT:
+                    data[key] = 0
+                elif Terminal.TERMINAL_MUST_KEY.get(key) == T_STR:
+                    data[key] = ''
+                else:
+                    log.info('build_terminal_create key=%s|cannot find type', key)
+
+        if key in Terminal.TERMINAL_OPTION_KEY.keys() and params.get(key):
+            data[key] = params.get(key)
+
+        if key == 'last_modify':
+            now = datetime.datetime.now()
+            data[key] = now.strftime('%Y-%m-%d %H:%M:%S')
+
+    return data
+
+def build_termbind_edit(params):
+    # active_date 后面加
+    data = {}
+    for key in params.keys():
+        if key in TermBind.TERMBIND_MUST_KEY.keys():
+            if params.get(key):
+                data[key] = params.get(key)
+            else:
+                if TermBind.TERMBIND_MUST_KEY.get(key) == T_INT:
+                    data[key] = 0
+                elif TermBind.TERMBIND_MUST_KEY.get(key) == T_STR:
+                    data[key] = ''
+                else:
+                    log.info('build_termbind_edit key=%s|cannot find default value', key)
+
+        if key in TermBind.TERMBIND_OPTION_KEY.keys():
+            if params.get(key):
+                data[key] = params.get(key)
+
+
+def build_termbind_create(params):
+    # active_date 后面加
+    data = {}
+    for key in TermBind.TERMBIND_KEY:
+        if key in TermBind.TERMBIND_MUST_KEY.keys():
+            if params.get(key):
+                data[key] = params.get(key)
+            else:
+                if TermBind.TERMBIND_MUST_KEY.get(key) == T_INT:
+                    data[key] = 0
+                elif TermBind.TERMBIND_MUST_KEY.get(key) == T_STR:
+                    data[key] = ''
+                else:
+                    log.info('build_termbind_create key=%s|cannot find default value', key)
+
+        if key in TermBind.TERMBIND_OPTION_KEY.keys():
+            if params.get(key):
+                data[key] = params.get(key)
