@@ -4,6 +4,7 @@ import logging
 import tools
 from define import TOKEN_POSP_MIS
 from zbase.base.dbpool import get_connection_exception
+from zbase.web.validator import T_INT, T_STR
 
 log = logging.getLogger()
 
@@ -13,23 +14,23 @@ class Terminal:
     TABLE = 'terminal'
     TABLE_ID = 'id'
     TERMINAL_MUST_KEY = {
-        'userid': 'int',
-        'terminalid': 'str',
-        'psamid': 'str',
-        'producer': 'str',
-        'model': 'str',
-        'produce_date': 'datetime',
-        'deliver_date': 'datetime',
-        'tck': 'str',
-        'used': 'int',
-        'state': 'int',
-        'last_modify': 'datetime',
-        'last_admin': 'int',
+        'userid': T_INT,
+        'terminalid': T_STR,
+        'psamid': T_STR,
+        'producer': T_STR,
+        'model': T_STR,
+        'produce_date': T_STR,
+        'deliver_date': T_STR,
+        'tck': T_STR,
+        'used': T_INT,
+        'state': T_INT,
+        'last_modify': T_STR,
+        'last_admin': T_INT,
     }
     TERMINAL_OPTION_KEY = {
-        'advice': 'str',
-        'group_id': 'int',
-        'qpos_pubkey': 'str'
+        'advice': T_STR,
+        'group_id': T_INT,
+        'qpos_pubkey': T_STR
     }
     TERMINAL_DATETIME_KEY = {
         'produce_date': 'datetime',
