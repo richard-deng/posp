@@ -254,4 +254,47 @@ $(document).ready(function(){
 
     });
 
+    $(document).on('click', '.viewEdit', function(){
+        $("label.error").remove();
+        var se_userid = window.localStorage.getItem('myid');
+        var card_bin_id = $(this).data('card_bin_id');
+        $('#view_card_bin_id').text(card_bin_id);
+        var get_data = {
+            'se_userid': se_userid,
+            'card_bin_id': card_bin_id
+        };
+        $.ajax({
+            url: '/posp/v1/api/card/view',
+            type: 'GET',
+            dataType: 'json',
+            data: get_data,
+            success: function(data) {
+                var respcd = data.respcd;
+                if(respcd != '0000'){
+                    var resperr = data.resperr;
+                    var respmsg = data.respmsg;
+                    var msg = resperr ? resperr : respmsg;
+                    toastr.warning(msg);
+                }
+                else {
+                    console.log(data.data);
+
+                    var card = data.data;
+                    $('#bank_name_view').val(card.bankname);
+                    $('#bank_id_view').val(card.bankid);
+                    $('#card_len_view').val(card.cardlen);
+                    $('#card_bin_view').val(card.cardbin);
+                    $('#card_name_view').val(card.cardname);
+                    $('#card_type_view').val(card.cardtp);
+                    $('#foreign_view').val(card.foreign);
+
+                    $("#cardBinViewModal").modal();
+                }
+            },
+            error: function(data) {
+                toastr.warning('请求异常');
+            }
+        });
+    });
+
 });
