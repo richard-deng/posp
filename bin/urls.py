@@ -8,6 +8,8 @@ from handler import (
     cardbin,
     merchant,
     chnlbind,
+    terminal,
+    termbind,
 )
 
 urls = (
@@ -37,6 +39,16 @@ urls = (
     ('^/posp/v1/api/card/list$', cardbin.CardBinListHandler),
     ('^/posp/v1/api/card/view$', cardbin.CardBinViewHandler),
     ('^/posp/v1/api/card/create$', cardbin.CardBinCreateHandler),
+
+    # 终端
+    ('^/posp/v1/api/terminal/list$', terminal.TerminalListHandler),
+    ('^/posp/v1/api/terminal/view$', terminal.TerminalViewHandler),
+    ('^/posp/v1/api/terminal/create$', terminal.TerminalCreateHandle),
+
+    # 终端绑定
+    ('^/posp/v1/api/terminal/bind/list$', termbind.TermBindListHandler),
+    ('^/posp/v1/api/terminal/bind/view$', termbind.TermBindViewHandler),
+    ('^/posp/v1/api/terminal/bind/create$', termbind.TermBindCreateHandler),
 
     # 页面
     ('^/$', page.Root),

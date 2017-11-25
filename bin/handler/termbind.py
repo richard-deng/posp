@@ -86,7 +86,7 @@ class TermBindViewHandler(BaseHandler):
         return success(data={})
 
 
-class TermBindCreate(BaseHandler):
+class TermBindCreateHandler(BaseHandler):
 
     _post_handler_fields = [
         Field('userid', T_INT, False),
