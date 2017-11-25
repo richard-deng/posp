@@ -134,5 +134,10 @@ $(document).ready(function(){
         $('#terminalList').DataTable().draw();
     });
 
+	$("#terminalCreate").click(function(){
+        $("#terminalCreateForm").resetForm();
+        $("label.error").remove();
+		$("#terminalCreateModal").modal();
+	});
 
 })
