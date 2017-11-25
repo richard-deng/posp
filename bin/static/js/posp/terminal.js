@@ -33,10 +33,10 @@ $(document).ready(function(){
             var se_userid = window.localStorage.getItem('myid');
             get_data.se_userid = se_userid;
 
-            var terminal_name = $("#s_terminal_name").val();
+            var terminal_id = $("#s_terminal_id").val();
 
-            if(terminal_name){
-                get_data.name = terminal_name;
+            if(terminal_id){
+                get_data.terminalid = terminal_id;
             }
 
             $.ajax({
@@ -103,6 +103,35 @@ $(document).ready(function(){
                 'sLast': '尾页'
             }
         }
+    });
+
+    $("#terminalSearch").click(function(){
+        var terminal_query_vt = $('#terminal_query').validate({
+           rules: {
+               s_terminal_id: {
+                   required: false,
+                   maxlength: 20
+               }
+           },
+           messages: {
+               s_terminal_id: {
+                   required: '请输入通道ID',
+                   maxlength: $.validator.format("请输入一个长度最多是 {0} 的字符串")
+               }
+           },
+           errorPlacement: function(error, element){
+               var $error_element = element.parent().parent().next();
+               $error_element.text('');
+               error.appendTo($error_element);
+           }
+        });
+        var ok = terminal_query_vt.form();
+        if(!ok){
+            $("#query_label_error").show();
+            $("#query_label_error").fadeOut(1000);
+            return false;
+        }
+        $('#terminalList').DataTable().draw();
     });
 
 })
