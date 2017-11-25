@@ -42,3 +42,15 @@ class CardBin(core.Handler):
     @posp_check_session_for_page(g_rt.redis_pool, cookie_conf)
     def GET(self):
         self.write(template.render('cardbin.html'))
+
+
+class Terminal(core.Handler):
+    @posp_check_session_for_page(g_rt.redis_pool, cookie_conf)
+    def GET(self):
+        self.write(template.render('terminal.html'))
+
+
+class TerminalBind(core.Handler):
+    @posp_check_session_for_page(g_rt.redis_pool, cookie_conf)
+    def GET(self):
+        self.write(template.render('termbind.html'))

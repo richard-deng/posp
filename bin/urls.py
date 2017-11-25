@@ -53,9 +53,11 @@ urls = (
     # 页面
     ('^/$', page.Root),
     ('^/posp/v1/page/login.html$', page.Login),
-    ('^/posp/v1/page/merchant.html', page.Merchant),
-    ('^/posp/v1/page/channel.html', page.Channel),
-    ('^/posp/v1/page/channel/bind.html', page.ChannelBind),
-    ('^/posp/v1/page/cardbin.html', page.CardBin),
+    ('^/posp/v1/page/merchant.html$', page.Merchant),
+    ('^/posp/v1/page/channel.html$', page.Channel),
+    ('^/posp/v1/page/channel/bind.html$', page.ChannelBind),
+    ('^/posp/v1/page/cardbin.html$', page.CardBin),
+    ('^/posp/v1/page/terminal.html$', page.Terminal),
+    ('^/posp/v1/page/terminal/bind.html$', page.TerminalBind),
 
 )
