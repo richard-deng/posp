@@ -1,5 +1,8 @@
 # coding:utf-8
 
+class DATETIMEException(Exception):
+    pass
+
 POSP_OP_OK = 0
 POSP_OP_ERR = -1
 
@@ -20,3 +23,4 @@ POSP_USER_STATE_MAP = {
 # DB TOKEN
 TOKEN_POSP_CORE = 'posp_core'
 TOKEN_POSP_MIS = 'posp_mis'
+TOKEN_POSP_TRADE = 'posp_trade'
