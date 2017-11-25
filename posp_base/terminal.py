@@ -78,7 +78,10 @@ class Terminal:
         other = kwargs.get('other', '')
         page = kwargs.get('page', 1)
         page_size = kwargs.get('maxnum', 10)
-        keep_fields = cls.TERMINAL_KEY + cls.TABLE_ID
+        log.debug('TERMINAL_KEY=%s', cls.TERMINAL_KEY)
+        cls.TERMINAL_KEY.append(cls.TABLE_ID)
+        keep_fields = cls.TERMINAL_KEY
+        log.debug('keep_fields=%s', keep_fields)
         with get_connection_exception(TOKEN_POSP_MIS) as conn:
             sql = conn.select_sql(table=Terminal.TABLE, where=where, fields=keep_fields, other=other)
             pager = conn.select_page(sql, pagecur=page, pagesize=page_size)

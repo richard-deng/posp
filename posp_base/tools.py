@@ -6,7 +6,7 @@ def trans_time(data, datetime_keys):
     if not data:
         return {}
 
-    for key, data_type in datetime_keys:
+    for key, data_type in datetime_keys.iteritems():
         if data.get(key):
             if data_type in ('time', 'date'):
                 data[key] = str(data[key])

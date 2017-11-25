@@ -20,11 +20,9 @@ log = logging.getLogger()
 class TerminalListHandler(BaseHandler):
 
     _get_handler_fields = [
-        Field(key, tp, True) for key, tp in Terminal.QUERY_KEY.iteritems()
-    ].append([
         Field('page', T_INT, False),
         Field('maxnum', T_INT, False)
-    ])
+    ]
 
     @posp_check_session(g_rt.redis_pool, cookie_conf)
     @with_validator_self

@@ -83,7 +83,8 @@ class TermBind:
         other = kwargs.get('other', '')
         page = kwargs.get('page', 1)
         page_size = kwargs.get('maxnum', 10)
-        keep_fields = cls.TERMBIND_KEY + cls.TABLE_ID
+        cls.TERMBIND_KEY.append(cls.TABLE_ID)
+        keep_fields = cls.TERMBIND_KEY
         with get_connection_exception(TOKEN_POSP_CORE) as conn:
             sql = conn.select_sql(table=TermBind.TABLE, where=where, fields=keep_fields, other=other)
             pager = conn.select_page(sql, pagecur=page, pagesize=page_size)
