@@ -20,7 +20,10 @@ class TermBindListHandler(BaseHandler):
 
     _get_handler_fields = [
         Field('page', T_INT, False),
-        Field('maxnum', T_INT, False)
+        Field('maxnum', T_INT, False),
+        Field('userid', T_STR, True),
+        Field('terminalid', T_STR, True),
+        Field('psamid', T_STR, True),
     ]
 
     @posp_check_session(g_rt.redis_pool, cookie_conf)

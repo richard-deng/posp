@@ -34,10 +34,20 @@ $(document).ready(function(){
             var se_userid = window.localStorage.getItem('myid');
             get_data.se_userid = se_userid;
 
-            var termbind_name = $("#s_termbind_name").val();
+            var termbind_id = $("#s_termbind_id").val();
+            var userid = $("#s_userid").val();
+            var psamid = $("#s_psamid").val();
 
-            if(termbind_name){
-                get_data.name = termbind_name;
+            if(termbind_id){
+                get_data.terminalid = termbind_id;
+            }
+
+            if(userid){
+                get_data.userid = userid;
+            }
+
+            if(psamid){
+                get_data.psamid = psamid;
             }
 
             $.ajax({
@@ -113,6 +123,57 @@ $(document).ready(function(){
                 'sLast': '尾页'
             }
         }
+    });
+
+    $("#termbindSearch").click(function(){
+        var termbind_query_vt = $('#termbind_query').validate({
+           rules: {
+               s_terminal_id: {
+                   required: false,
+                   maxlength: 20,
+                   digits: true
+               },
+               s_userid: {
+                   required: false,
+                   maxlength: 20,
+                   digits: true
+               },
+               s_psamid: {
+                   required: false,
+                   maxlength: 20,
+                   digits: true
+               }
+           },
+           messages: {
+               s_terminal_id: {
+                   required: '请输入通道ID',
+                   maxlength: $.validator.format("请输入一个长度最多是 {0} 的字符串"),
+                   digits: '请输入整数'
+               },
+               s_userid: {
+                   required: '请输入商户ID',
+                   maxlength: $.validator.format("请输入一个长度最多是 {0} 的字符串"),
+                   digits: '请输入整数'
+               },
+               s_psamid: {
+                   required: '请输入PSAMID',
+                   maxlength: $.validator.format("请输入一个长度最多是 {0} 的字符串"),
+                   digits: '请输入整数'
+               }
+           },
+           errorPlacement: function(error, element){
+               var $error_element = element.parent().parent().next();
+               $error_element.text('');
+               error.appendTo($error_element);
+           }
+        });
+        var ok = termbind_query_vt.form();
+        if(!ok){
+            $("#query_label_error").show();
+            $("#query_label_error").fadeOut(1000);
+            return false;
+        }
+        $('#termbindList').DataTable().draw();
     });
 
 })

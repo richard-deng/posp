@@ -21,10 +21,19 @@
                 <div class="row">
                     <form class="form-inline" id="termbind_query">
                         <div class="form-group">
-                            <label for="s_termbind_name">终端名称</label>
-                            <input type="text" class="form-control" id="s_termbind_name" name="s_termbind_name" placeholder="">
+                            <label for="s_userid">商户ID</label>
+                            <input type="text" class="form-control" id="s_userid" name="s_userid" placeholder="">
                         </div>
-                        <button type="button" class="btn btn-primary" id="termbindNameSearch">搜索</button>
+                        <div class="form-group">
+                            <label for="s_termbind_id">终端ID</label>
+                            <input type="text" class="form-control" id="s_termbind_id" name="s_termbind_id" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="s_psamid">PSAMID</label>
+                            <input type="text" class="form-control" id="s_psamid" name="s_psamid" placeholder="">
+                        </div>
+
+                        <button type="button" class="btn btn-primary" id="termbindSearch">搜索</button>
                         <button type="button" class="btn btn-default" id="termbindCreate">添加</button>
                     </form>
                     <label id="query_label_error"></label>
