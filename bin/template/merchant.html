@@ -6,6 +6,14 @@
 
 <%block name="head_media">
 <link href="/static/css/posp/define_label_error.css" rel="stylesheet">
+<style>
+    .users_query {
+        padding-left: 15px!important;
+    }
+    .dataTables_length {
+        padding-left: 30px!important;
+    }
+</style>
 </%block>
 
 <%block name="page">
@@ -19,7 +27,7 @@
             <!-- /.panel-heading -->
             <div class="panel-body">
                 <div class="row">
-                    <form class="form-inline" id="users_query">
+                    <form class="form-inline users_query" id="users_query">
                         <div class="form-group">
                             <label for="s_merchant_id">商户ID</label>
                             <input type="text" class="form-control" id="s_merchant_id" name="s_merchant_id" placeholder="">

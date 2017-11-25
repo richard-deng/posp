@@ -6,6 +6,14 @@
 
 <%block name="head_media">
 <link href="/static/css/posp/define_label_error.css" rel="stylesheet">
+<style>
+    .channel_query {
+        padding-left: 15px!important;
+    }
+    .dataTables_length {
+        padding-left: 30px!important;
+    }
+</style>
 </%block>
 
 <%block name="page">
@@ -19,7 +27,7 @@
             <!-- /.panel-heading -->
             <div class="panel-body">
                 <div class="row">
-                    <form class="form-inline" id="channel_query">
+                    <form class="form-inline channel_query" id="channel_query">
                         <div class="form-group">
                             <label for="s_channel_name">通道名称</label>
                             <input type="text" class="form-control" id="s_channel_name" name="s_channel_name" placeholder="">

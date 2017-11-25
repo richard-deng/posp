@@ -6,6 +6,14 @@
 
 <%block name="head_media">
 <link href="/static/css/posp/define_label_error.css" rel="stylesheet">
+<style>
+    .termbind_query {
+        padding-left: 15px!important;
+    }
+    .dataTables_length {
+        padding-left: 30px!important;
+    }
+</style>
 </%block>
 
 <%block name="page">
@@ -19,7 +27,7 @@
             <!-- /.panel-heading -->
             <div class="panel-body">
                 <div class="row">
-                    <form class="form-inline" id="termbind_query">
+                    <form class="form-inline termbind_query" id="termbind_query">
                         <div class="form-group">
                             <label for="s_userid">商户ID</label>
                             <input type="text" class="form-control" id="s_userid" name="s_userid" placeholder="">

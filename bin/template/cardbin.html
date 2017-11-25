@@ -6,6 +6,14 @@
 
 <%block name="head_media">
 <link href="/static/css/posp/define_label_error.css" rel="stylesheet">
+<style>
+    .card_bin_query {
+        padding-left: 15px!important;
+    }
+    .dataTables_length {
+        padding-left: 30px!important;
+    }
+</style>
 </%block>
 
 <%block name="page">
@@ -19,7 +27,7 @@
             <!-- /.panel-heading -->
             <div class="panel-body">
                 <div class="row">
-                    <form class="form-inline" id="card_bin_query">
+                    <form class="form-inline card_bin_query" id="card_bin_query">
                         <div class="form-group">
                             <label for="s_bank_name">银行名称</label>
                             <input type="text" class="form-control" id="s_bank_name" name="s_bank_name" placeholder="">
