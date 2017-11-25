@@ -16,3 +16,15 @@ function check_obj_val(obj){
     }
     return true;
 }
+
+function split_key(key) {
+    if(key === null){
+        return '';
+    }
+    var len = key.length;
+    if(len > 16){
+        return key.slice(0,16)+'<br>' + key.slice(16, -1);
+    } else {
+        return key;
+    }
+}

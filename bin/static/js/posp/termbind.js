@@ -1,3 +1,4 @@
+
 $(document).ready(function(){
 
     var table = $('#termbindList').DataTable({
@@ -70,6 +71,12 @@ $(document).ready(function(){
             });
         },
         'columnDefs': [
+            {
+                targets: 1,
+                render: function(data, type, full) {
+                    return split_key(data);
+                }
+            },
             {
                 targets: 11,
                 data: '操作',
