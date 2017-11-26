@@ -469,7 +469,7 @@ $(document).ready(function(){
         post_data.model = $('#model_view').val();
         post_data.tck = $('#tck_view').val();
         post_data.advice = $('#advice_view').val();
-        post_data.qpos_pubkey = $('#qpos_pubkey_view').valid();
+        post_data.qpos_pubkey = $('#qpos_pubkey_view').val();
         post_data.used = $('#used_view').val();
         post_data.state = $('#state_view').val();
 
