@@ -25,7 +25,10 @@ class TradeList:
         'cardcd': T_STR,
         'retcd': T_STR,
         'sysdtm': T_STR,
-        'servername': T_STR
+        'servername': T_STR,
+        'cancel': T_INT,
+        'txamt': T_INT,
+        'origssn': T_STR,
     }
 
     DATETIME_KEY = {
