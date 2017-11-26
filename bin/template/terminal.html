@@ -85,7 +85,7 @@
 							<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 							<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
 						</div>
-						<input type="hidden" id="produce_time_add" value=""><br>
+						<input type="hidden" id="produce_time_add" value="" name="produce_time_add"><br>
 					</div>
 
 					<div class="form-group">
@@ -95,7 +95,7 @@
 							<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
 							<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
 						</div>
-						<input type="hidden" id="deliver_time_add" value=""><br>
+						<input type="hidden" id="deliver_time_add" value="" name="deliver_time_add"><br>
 					</div>
 
                     <div class="form-group">
@@ -141,9 +141,20 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="used_add" class="col-sm-2 control-label">USED</label>
+                        <label for="used_add" class="col-sm-2 control-label">Used</label>
                         <div class="col-sm-10">
                             <select class="form-control used_add" id="used_add" name="used_add">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="state_add" class="col-sm-2 control-label">State</label>
+                        <div class="col-sm-10">
+                            <select class="form-control used_add" id="state_add" name="state_add">
                                 <option value="0">0</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
