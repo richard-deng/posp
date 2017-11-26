@@ -86,7 +86,7 @@ class TerminalCreateHandle(BaseHandler):
         Field('psamid', T_STR, False),
         Field('producer', T_STR, False),
         Field('model', T_STR, False),
-        Field('product_date', T_STR, False),
+        Field('produce_date', T_STR, False),
         Field('deliver_date', T_STR, True),
         Field('tck', T_STR, False),
         Field('used', T_INT, False),

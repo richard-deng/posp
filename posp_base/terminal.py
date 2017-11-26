@@ -47,12 +47,15 @@ class Terminal:
     def __init__(self, terminal_id):
         self.id = terminal_id
         self.data = {}
-        self.keys = Terminal.TERMINAL_KEY + Terminal.TABLE_ID
+        self.keys = {}
 
     def load(self):
         where = {'id': self.id}
+        Terminal.TERMINAL_KEY.append(Terminal.TABLE_ID)
+        keep_fields = Terminal.TERMINAL_KEY
+        self.keys = keep_fields
         with get_connection_exception(TOKEN_POSP_MIS) as conn:
-            record = conn.select_one(table=Terminal.TABLE, fields=self.keys, where=where)
+            record = conn.select_one(table=Terminal.TABLE, fields=keep_fields, where=where)
             ret = tools.trans_time(data=record, datetime_keys=Terminal.TERMINAL_DATETIME_KEY)
             return ret
 

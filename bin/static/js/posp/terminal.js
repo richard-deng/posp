@@ -283,10 +283,9 @@ $(document).ready(function(){
                 }
                 else {
                     toastr.success('添加终端成功');
-                    search_source();
-                    $("#channelCreateModal").modal('hide');
+                    $("#terminalCreateModal").modal('hide');
                     location.reload();
-                    $('#channelList').DataTable().draw();
+                    $('#terminalList').DataTable().draw();
                 }
             },
             error: function(data) {
