@@ -176,4 +176,10 @@ $(document).ready(function(){
         $('#termbindList').DataTable().draw();
     });
 
-})
+    $("#termbindCreate").click(function(){
+        $("#termbindCreateForm").resetForm();
+        $("label.error").remove();
+        $("#termbindCreateModal").modal();
+    });
+
+});
