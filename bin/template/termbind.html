@@ -90,6 +90,7 @@
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" id="termbindCreateForm" role="form">
+                    
                     <div class="form-group">
                         <label for="active_date_add" class="col-sm-2 control-label">激活日期</label>
                         <div class="input-group date form_date col-sm-10" data-date="" data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="active_date_add" data-link-format="yyyy-mm-dd hh:ii:ss" id="datetimepicker1">
@@ -244,6 +245,174 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                 <button type="button" class="btn btn-primary" id="termbindCreateSubmit">提交</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="termbindViewModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">查看</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="termbindViewForm" role="form">
+                    <div class="form-group">
+                        <label for="active_date_view" class="col-sm-2 control-label">激活日期</label>
+                        <div class="input-group date form_date col-sm-10" data-date="" data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="active_date_view" data-link-format="yyyy-mm-dd hh:ii:ss" id="datetimepicker1">
+                            <input class="form-control sea_date" type="text" value="" readonly="">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                        </div>
+                        <input type="hidden" id="active_date_view" value="" name="active_date_view"><br>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userid_view" class="col-sm-2 control-label">商户ID</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="userid_view" name="userid_view" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="udid_view" class="col-sm-2 control-label">udid</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="udid_view" name="udid_view" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="terminal_id_view" class="col-sm-2 control-label">终端ID</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="terminal_id_view" name="terminal_id_view" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="psamid_view" class="col-sm-2 control-label">Psamid</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="psamid_view" name="psamid_view" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="psamtp_view" class="col-sm-2 control-label">Psamtp</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="psamtp_view" name="psamtp_view" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tckkey_view" class="col-sm-2 control-label">Tckkey</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="tckkey_view" name="tckkey_view" placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pinkey1_view" class="col-sm-2 control-label">Pinkey1</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="pinkey1_view" name="pinkey1_view"  placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pinkey2_view" class="col-sm-2 control-label">Pinkey2</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="pinkey2_view" name="pinkey2_view"  placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mackey_view" class="col-sm-2 control-label">mackey</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="mackey_view" name="mackey_view"  placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="diskey_view" class="col-sm-2 control-label">diskey</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="diskey_view" name="diskey_view"  placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="fackey_view" class="col-sm-2 control-label">fackey</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="fackey_view" name="fackey_view"  placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="enc_pin_key_view" class="col-sm-2 control-label">enc_pin_key</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="enc_pin_key_view" name="enc_pin_key_view"  placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tmk_view" class="col-sm-2 control-label">tmk</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="tmk_view" name="tmk_view"  placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="os_view" class="col-sm-2 control-label">系统</label>
+                        <div class="col-sm-10">
+                            <select class="form-control os_view" id="os_view" name="os_view">
+                                <option value="0">安卓</option>
+                                <option value="1">其它</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="os_ver_view" class="col-sm-2 control-label">系统版本</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="os_ver_view" name="os_ver_view"  placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="key_version_view" class="col-sm-2 control-label">秘钥版本</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="key_version_view" name="key_version_view"  placeholder="必填">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="state_view" class="col-sm-2 control-label">State</label>
+                        <div class="col-sm-10">
+                            <select class="form-control state_view" id="state_view" name="state_view">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="qpos_pubkey_view" class="col-sm-2 control-label">公钥</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control qpos_pubkey_view" id="qpos_pubkey_view" name="qpos_pubkey_view" placeholder="必填"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dig_env_view" class="col-sm-2 control-label">dig_env</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control dig_env_view" id="dig_env_view" name="dig_env_view" placeholder="必填"></textarea>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="termbindViewSubmit">提交</button>
             </div>
         </div>
     </div>
