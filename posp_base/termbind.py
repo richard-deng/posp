@@ -52,14 +52,14 @@ class TermBind:
     def __init__(self, tb_id):
         self.id = tb_id
         self.data = {}
-        self.keys = TermBind.TERMBIND_KEY + TermBind.TABLE_ID
 
     def load(self):
         where = {'id': self.id}
+        TermBind.TERMBIND_KEY.append(TermBind.TABLE_ID)
+        keep_fields = TermBind.TERMBIND_KEY
         with get_connection_exception(TOKEN_POSP_CORE) as conn:
-            record = conn.select_one(table=TermBind.TABLE, fields=self.keys, where=where)
-            ret = tools.trans_time(record, TermBind.TERMBIND_DATETIME_KEY)
-            return ret
+            record = conn.select_one(table=TermBind.TABLE, fields=keep_fields, where=where)
+            self.data = tools.trans_time(record, TermBind.TERMBIND_DATETIME_KEY)
 
     def update(self, values):
         where = {'id': self.id}
