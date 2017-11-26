@@ -193,7 +193,7 @@
                     <div class="form-group">
                         <label for="produce_time_view" class="col-sm-2 control-label">生产日期</label>
                         <div class="input-group date form_date col-sm-10" data-date="" data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="produce_time_view" data-link-format="yyyy-mm-dd hh:ii:ss" id="datetimepicker3">
-                            <input class="form-control sea_date" type="text" value="" readonly="">
+                            <input class="form-control sea_date" type="text" value="" readonly="" name="produce_time_view">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                             <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                         </div>
@@ -203,7 +203,7 @@
                     <div class="form-group">
                         <label for="deliver_time_view" class="col-sm-2 control-label">交付日期</label>
                         <div class="input-group date form_date col-sm-10" data-date="" data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="deliver_time_view" data-link-format="yyyy-mm-dd hh:ii:ss" id="datetimepicker4">
-                            <input class="form-control sea_date" type="text" value="" readonly="">
+                            <input class="form-control sea_date" type="text" value="" readonly="" name="deliver_time_view">
                             <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
                             <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
                         </div>
@@ -321,7 +321,7 @@
             up: "fa fa-arrow-up",
             down: "fa fa-arrow-down"
         },
-        sideBySide: true,
+        sideBySide: true
 	});
     $(".form_date input.sea_date").on({
 		'mouseenter': function() {

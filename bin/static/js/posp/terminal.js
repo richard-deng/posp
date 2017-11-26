@@ -321,8 +321,10 @@ $(document).ready(function(){
 
                     var terminal = data.data;
 
-                    $('#produce_time_view').val(terminal.produce_date);
-                    $('#deliver_time_view').val(terminal.deliver_date);
+                    //$('#produce_time_view').val(terminal.produce_date);
+                    //$('#deliver_time_view').val(terminal.deliver_date);
+                    $('input[name=produce_time_view]').val(terminal.produce_date);
+                    $('input[name=deliver_time_view]').val(terminal.deliver_date);
                     $('#terminal_id_view').val(terminal.terminalid);
                     $('#psamid_view').val(terminal.psamid);
                     $('#producer_view').val(terminal.producer);
@@ -332,6 +334,9 @@ $(document).ready(function(){
                     $('#used_view').val(terminal.used);
                     $('#state_view').val(terminal.state);
                     $('#qpos_pubkey_view').val(terminal.qpos_pubkey);
+
+                    $('#datetimepicker3').datetimepicker('update');
+                    $('#datetimepicker4').datetimepicker('update');
 
                     $("#terminalViewModal").modal();
                 }
