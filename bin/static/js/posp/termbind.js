@@ -92,7 +92,7 @@ $(document).ready(function(){
                 data: '操作',
                 render: function(data, type, full) {
                     var termbind_id =full.id;
-                    var view ="<button type='button' class='btn btn-warning btn-sm viewEdit' data-termbind__id="+termbind_id+">"+'查看'+"</button>";
+                    var view ="<button type='button' class='btn btn-warning btn-sm viewEdit' data-termbind_id="+termbind_id+">"+'查看'+"</button>";
                     return view;
                 }
             }
@@ -389,6 +389,64 @@ $(document).ready(function(){
                     $("#termbindCreateModal").modal('hide');
                     location.reload();
                     $('#termbindList').DataTable().draw();
+                }
+            },
+            error: function(data) {
+                toastr.warning('请求异常');
+            }
+        });
+    });
+
+    $(document).on('click', '.viewEdit', function(){
+        $("label.error").remove();
+        var se_userid = window.localStorage.getItem('myid');
+        var termbind_id = $(this).data('termbind_id');
+        $('#view_termbind_id').text(termibind_id);
+        var get_data = {
+            'se_userid': se_userid,
+            'termbind_id': termbind_id
+        };
+        $.ajax({
+            url: '/posp/v1/api/terminal/bind/view',
+            type: 'GET',
+            dataType: 'json',
+            data: get_data,
+            success: function(data) {
+                var respcd = data.respcd;
+                if(respcd != '0000'){
+                    var resperr = data.resperr;
+                    var respmsg = data.respmsg;
+                    var msg = resperr ? resperr : respmsg;
+                    toastr.warning(msg);
+                }
+                else {
+                    console.log(data.data);
+
+                    var bind = data.data;
+
+                    $('input[name=active_date_view]').val(bind.active_date);
+                    $('#userid_view').val(bind.userid);
+                    $('#udid_view').val(bind.udid);
+                    $('#terminal_id_view').val(bind.terminalid);
+                    $('#psamid_view').val(bind.psamid);
+                    $('#psamtp_view').val(bind.psamtp);
+                    $('#tckkey_view').val(bind.tckkey);
+                    $('#pinkey1_view').val(bind.pinkey1);
+                    $('#pinkey2_view').val(bind.pinkey2);
+                    $('#mackey_view').val(bind.mackey);
+                    $('#diskey_view').val(bind.diskey);
+                    $('#fackey_view').val(bind.fackey);
+                    $('#enc_pin_key_view').val(bind.enc_pin_key);
+                    $('#tmk_view').val(bind.tmk);
+                    $('#os_view').val(bind.os);
+                    $('#os_ver_view').val(bind.os_ver);
+                    $('#state_view').val(bind.state);
+                    $('#qpos_pubkey_view').val(bind.qpos_pubkey);
+                    $('#dig_env_view').val(bind.dig_env);
+
+                    $('#datetimepicker2').datetimepicker('update');
+
+                    $("#termbindViewModal").modal();
                 }
             },
             error: function(data) {
