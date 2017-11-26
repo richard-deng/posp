@@ -59,5 +59,6 @@ urls = (
     ('^/posp/v1/page/cardbin.html$', page.CardBin),
     ('^/posp/v1/page/terminal.html$', page.Terminal),
     ('^/posp/v1/page/terminal/bind.html$', page.TerminalBind),
+    ('^/posp/v1/page/trade/list.html$', page.TradeList),
 
 )
