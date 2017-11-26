@@ -270,11 +270,10 @@ def build_terminal_create(params):
     return data
 
 def build_termbind_edit(params):
-    # active_date 后面加
     data = {}
     for key in params.keys():
         if key in TermBind.TERMBIND_MUST_KEY.keys():
-            if params.get(key):
+            if params.get(key) not in INVALID_VALUE:
                 data[key] = params.get(key)
             else:
                 if TermBind.TERMBIND_MUST_KEY.get(key) == T_INT:
@@ -288,13 +287,14 @@ def build_termbind_edit(params):
             if params.get(key):
                 data[key] = params.get(key)
 
+    return data
+
 
 def build_termbind_create(params):
-    # active_date 后面加
     data = {}
     for key in TermBind.TERMBIND_KEY:
         if key in TermBind.TERMBIND_MUST_KEY.keys():
-            if params.get(key):
+            if params.get(key) not in INVALID_VALUE:
                 data[key] = params.get(key)
             else:
                 if TermBind.TERMBIND_MUST_KEY.get(key) == T_INT:
@@ -307,3 +307,5 @@ def build_termbind_create(params):
         if key in TermBind.TERMBIND_OPTION_KEY.keys():
             if params.get(key):
                 data[key] = params.get(key)
+
+    return data

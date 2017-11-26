@@ -194,6 +194,10 @@ $(document).ready(function(){
                     required: true,
                     maxlength: 20
                 },
+                udid_add: {
+                    required: true,
+                    maxlength: 60
+                },
                 terminal_id_add: {
                     required: true,
                     maxlength: 20
@@ -240,7 +244,8 @@ $(document).ready(function(){
                 },
                 os_ver_add: {
                     required: true,
-                    maxlength: 8
+                    maxlength: 8,
+                    digits: true
                 },
                 key_version_add: {
                     required: true,
@@ -309,7 +314,8 @@ $(document).ready(function(){
                 },
                 os_ver_add: {
                     required: '请输入系统版本',
-                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串"),
+                    digits: '请输入整数'
                 },
                 key_version_add: {
                     required: '请输入秘钥版本',
@@ -345,6 +351,7 @@ $(document).ready(function(){
         post_data.se_userid = se_userid;
         post_data.active_date = $('#active_date_add').val();
         post_data.userid = $('#userid_add').val();
+        post_data.udid = $('#udid_add').val();
         post_data.terminalid = $('#terminal_id_add').val();
         post_data.psamid = $('#psamid_add').val();
         post_data.psamtp = $('#psamtp_add').val();

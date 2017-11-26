@@ -22,7 +22,7 @@ class TermBind:
         'pinkey1': T_STR,
         'pinkey2': T_STR,
         'mackey': T_STR,
-        'os': T_STR,
+        'os': T_INT,
         'active_date': T_STR,
         'state': T_INT,
     }
