@@ -58,6 +58,15 @@ class Terminal:
             record = conn.select_one(table=Terminal.TABLE, fields=keep_fields, where=where)
             self.data = tools.trans_time(data=record, datetime_keys=Terminal.TERMINAL_DATETIME_KEY)
 
+    @classmethod
+    def load_by_terminalid(cls, terminalid):
+        where = {'terminalid': terminalid}
+        with get_connection_exception(TOKEN_POSP_MIS) as conn:
+            record = conn.select_one(table=cls.TABLE, fields='*', where=where)
+            ret = tools.trans_time(data=record, datetime_keys=cls.TERMINAL_DATETIME_KEY)
+            cls.data = ret
+            return cls
+
     def update(self, values):
         where = {'id': self.id}
         with get_connection_exception(TOKEN_POSP_MIS) as conn:
