@@ -39,11 +39,11 @@ class TerminalListHandler(BaseHandler):
 class TerminalViewHandler(BaseHandler):
 
     _get_handler_fields = [
-        Field('terminal_id', T_INT, False)
+        Field('terminal_table_id', T_INT, False)
     ]
 
     _post_handler_fields = [
-        Field('terminal_id', T_INT, False),
+        Field('terminal_table_id', T_INT, False),
 
         Field('terminalid', T_STR, False),
         Field('psamid', T_STR, False),
@@ -61,8 +61,8 @@ class TerminalViewHandler(BaseHandler):
     @with_validator_self
     def _get_handler(self):
         params = self.validator.data
-        terminal_id = params.get('terminal_id')
-        terminal = Terminal(terminal_id)
+        terminal_table_id = params.get('terminal_table_id')
+        terminal = Terminal(terminal_table_id)
         terminal.load()
         return success(data=terminal.data)
 
@@ -70,8 +70,8 @@ class TerminalViewHandler(BaseHandler):
     @with_validator_self
     def _post_handler(self):
         params = self.validator.data
-        terminal_id = params.pop('terminal_id')
-        terminal = Terminal(terminal_id)
+        terminal_table_id = params.pop('terminal_table_id')
+        terminal = Terminal(terminal_table_id)
         values = tools.build_terminal_edit(params)
         ret = terminal.update(values)
         if ret == 1:

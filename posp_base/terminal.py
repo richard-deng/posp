@@ -56,8 +56,7 @@ class Terminal:
         self.keys = keep_fields
         with get_connection_exception(TOKEN_POSP_MIS) as conn:
             record = conn.select_one(table=Terminal.TABLE, fields=keep_fields, where=where)
-            ret = tools.trans_time(data=record, datetime_keys=Terminal.TERMINAL_DATETIME_KEY)
-            return ret
+            self.data = tools.trans_time(data=record, datetime_keys=Terminal.TERMINAL_DATETIME_KEY)
 
     def update(self, values):
         where = {'id': self.id}

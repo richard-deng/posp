@@ -294,4 +294,51 @@ $(document).ready(function(){
         });
     });
 
+    $(document).on('click', '.viewEdit', function(){
+        $("label.error").remove();
+        var se_userid = window.localStorage.getItem('myid');
+        var terminal_table_id = $(this).data('terminal_table_id');
+        $('#view_terminal_table_id').text(terminal_table_id);
+        var get_data = {
+            'se_userid': se_userid,
+            'terminal_table_id': terminal_table_id
+        };
+        $.ajax({
+            url: '/posp/v1/api/terminal/view',
+            type: 'GET',
+            dataType: 'json',
+            data: get_data,
+            success: function(data) {
+                var respcd = data.respcd;
+                if(respcd != '0000'){
+                    var resperr = data.resperr;
+                    var respmsg = data.respmsg;
+                    var msg = resperr ? resperr : respmsg;
+                    toastr.warning(msg);
+                }
+                else {
+                    console.log(data.data);
+
+                    var terminal = data.data;
+
+                    $('#produce_time_view').val(terminal.produce_date);
+                    $('#deliver_time_view').val(terminal.deliver_date);
+                    $('#terminal_id_view').val(terminal.terminalid);
+                    $('#psamid_view').val(terminal.psamid);
+                    $('#producer_view').val(terminal.producer);
+                    $('#model_view').val(terminal.model);
+                    $('#tck_view').val(terminal.tck);
+                    $('#advice_view').val(terminal.advice);
+                    $('#used_view').val(terminal.used);
+                    $('#state_view').val(terminal.state);
+                    $('#qpos_pubkey_view').val(terminal.qpos_pubkey);
+
+                    $("#terminalViewModal").modal();
+                }
+            },
+            error: function(data) {
+                toastr.warning('请求异常');
+            }
+        });
+    });
 });
