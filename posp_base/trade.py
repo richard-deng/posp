@@ -108,6 +108,27 @@ class TradeList:
         other = kwargs.get('other', '')
         page = kwargs.get('page', 1)
         page_size = kwargs.get('maxnum', 10)
+        cls.QUERY_KEY.keys().append('id')
+        keep_fields = cls.QUERY_KEY.keys()
+        keep_fields.append(('id'))
+        log.debug('keep_fields=%s', keep_fields)
+        table = 'record_201709'
+        with get_connection_exception(TOKEN_POSP_TRADE) as conn:
+            sql = conn.select_sql(table=table, where=where, fields=keep_fields, other=other)
+            pager = conn.select_page(sql, pagecur=page, pagesize=page_size)
+            pager.split()
+            return pager.pagedata.data, pager.count
+
+    @classmethod
+    def page_more(cls, **kwargs):
+        need_query = cls.QUERY_KEY.keys()
+        where = {}
+        for k, v in kwargs.iteritems():
+            if k in need_query and kwargs.get(k):
+                where[k] = kwargs.get(k)
+        other = kwargs.get('other', '')
+        page = kwargs.get('page', 1)
+        page_size = kwargs.get('maxnum', 10)
         start_time = kwargs.get('start_time')
         end_time = kwargs.get('end_time')
         table_list = cls._gen_tables(start_time, end_time)

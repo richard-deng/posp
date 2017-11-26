@@ -4,6 +4,7 @@ from handler import (
     ping,
     page,
     login,
+    trade,
     channel,
     cardbin,
     merchant,
@@ -49,6 +50,9 @@ urls = (
     ('^/posp/v1/api/terminal/bind/list$', termbind.TermBindListHandler),
     ('^/posp/v1/api/terminal/bind/view$', termbind.TermBindViewHandler),
     ('^/posp/v1/api/terminal/bind/create$', termbind.TermBindCreateHandler),
+
+    # 交易
+    ('^/posp/v1/api/trade/list$', trade.TradeListHandler),
 
     # 页面
     ('^/$', page.Root),
