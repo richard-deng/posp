@@ -5,6 +5,7 @@
 </%block>
 
 <%block name="head_media">
+<link href="/static/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 <link href="/static/css/posp/define_label_error.css" rel="stylesheet">
 <style>
     .termbind_query {
@@ -12,6 +13,10 @@
     }
     .dataTables_length {
         padding-left: 30px!important;
+    }
+    .form_date {
+        padding-right: 15px!important;
+        padding-left: 15px!important;
     }
 </style>
 </%block>
@@ -244,8 +249,38 @@
 <script src="/static/js/jquery.validate.messages_cn.js" type="text/javascript"></script>
 <script src="/static/js/jquery.form.js" type="text/javascript"></script>
 <script src="/static/js/bootstrap-typeahead.js" type="text/javascript"></script>
+<script src="/static/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<script src="/static/js/bootstrap-datetimepicker.zh-CN.js" type="text/javascript"></script>
 <script src="/static/js/toastr.js" type="text/javascript"></script>
 <script src="/static/js/md5.min.js" type="text/javascript"></script>
 <script src="/static/js/posp/base.js" type="text/javascript"></script>
 <script src="/static/js/posp/termbind.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $('.form_date').datetimepicker({
+        language:  'zh-CN',
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 0,
+        forceParse: 0,
+        minuteStep: 1,
+        icons:{
+            time: "fa fa-clock-o",
+            date: "fa fa-calendar",
+            up: "fa fa-arrow-up",
+            down: "fa fa-arrow-down"
+        },
+        sideBySide: true
+    });
+    $(".form_date input.sea_date").on({
+        'mouseenter': function() {
+            $(this).attr('readonly', 'readonly');
+        },
+        'mouseleave': function() {
+            $(this).removeAttr('readonly');
+        }
+    });
+</script>
 </%block>
