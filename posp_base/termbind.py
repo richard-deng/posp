@@ -35,6 +35,7 @@ class TermBind:
         'dig_env': T_STR,
         'enc_pin_key': T_STR,
         'tmk': T_STR,
+        'qpos_pubkey': T_STR,
     }
     TERMBIND_DATETIME_KEY = {
         'active_date': 'datetime',
