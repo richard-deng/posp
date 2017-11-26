@@ -401,7 +401,7 @@ $(document).ready(function(){
         $("label.error").remove();
         var se_userid = window.localStorage.getItem('myid');
         var termbind_id = $(this).data('termbind_id');
-        $('#view_termbind_id').text(termibind_id);
+        $('#view_termbind_id').text(termbind_id);
         var get_data = {
             'se_userid': se_userid,
             'termbind_id': termbind_id
