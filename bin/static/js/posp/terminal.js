@@ -232,7 +232,7 @@ $(document).ready(function(){
                 },
 
                 qpos_pubkey_add: {
-                    required: '请输入通道商户名称',
+                    required: '请输入公钥',
                     maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
                 }
 
@@ -321,8 +321,6 @@ $(document).ready(function(){
 
                     var terminal = data.data;
 
-                    //$('#produce_time_view').val(terminal.produce_date);
-                    //$('#deliver_time_view').val(terminal.deliver_date);
                     $('input[name=produce_time_view]').val(terminal.produce_date);
                     $('input[name=deliver_time_view]').val(terminal.deliver_date);
                     $('#terminal_id_view').val(terminal.terminalid);
@@ -339,6 +337,161 @@ $(document).ready(function(){
                     $('#datetimepicker4').datetimepicker('update');
 
                     $("#terminalViewModal").modal();
+                }
+            },
+            error: function(data) {
+                toastr.warning('请求异常');
+            }
+        });
+    });
+
+    $('#terminalViewSubmit').click(function(){
+
+        var terminal_edit_vt = $('#terminalViewForm').validate({
+            rules: {
+                produce_time_view: {
+                    required: true,
+                    maxlength: 20
+                },
+                deliver_time_view: {
+                    required: true,
+                    maxlength: 20
+                },
+
+                terminal_id_view: {
+                    required: true,
+                    maxlength: 20
+                },
+
+                psamid_view: {
+                    required: true,
+                    maxlength: 8
+                },
+
+                producer_view: {
+                    required: true,
+                    maxlength: 4
+                },
+
+                model_view: {
+                    required: true,
+                    maxlength: 4
+                },
+
+                tck_view: {
+                    required: true,
+                    maxlength: 32
+                },
+
+                advice_view: {
+                    required: true,
+                    maxlength: 256
+                },
+
+                qpos_pubkey_view: {
+                    required: true,
+                    maxlength: 256
+                }
+
+            },
+            messages: {
+
+                produce_time_view: {
+                    required: '请选择生产日期',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                },
+                deliver_time_view: {
+                    required: '请选择交付日期',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                },
+
+                terminal_id_view: {
+                    required: '请输入终端ID',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                },
+
+                psamid_view: {
+                    required: '请输入psamid',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                },
+
+                producer_view: {
+                    required: '请输入生产商',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                },
+
+                model_view: {
+                    required: '请输入模型',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                },
+
+                tck_view: {
+                    required: '请输入tck',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                },
+
+                advice_view: {
+                    required: '请输入advice',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                },
+
+                qpos_pubkey_view: {
+                    required: '请输入公钥',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                }
+
+            },
+            errorPlacement: function(error, element){
+                if(element.is(':checkbox')){
+                    error.appendTo(element.parent().parent().parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+        var ok = terminal_edit_vt.form();
+        if(!ok){
+            return false;
+        }
+
+        var post_data = {};
+        var terminal_table_id = $('#view_terminal_table_id').text();
+        var se_userid = window.localStorage.getItem('myid');
+        post_data['se_userid'] = se_userid;
+
+        post_data.se_userid = se_userid;
+        post_data.terminal_table_id = terminal_table_id;
+        post_data.produce_date = $('#produce_time_view').val();
+        post_data.deliver_date = $('#deliver_time_view').val();
+        post_data.terminalid = $('#terminal_id_view').val();
+        post_data.psamid = $('#psamid_view').val();
+        post_data.producer = $('#producer_view').val();
+        post_data.model = $('#model_view').val();
+        post_data.tck = $('#tck_view').val();
+        post_data.advice = $('#advice_view').val();
+        post_data.qpos_pubkey = $('#qpos_pubkey_view').valid();
+        post_data.used = $('#used_view').val();
+        post_data.state = $('#state_view').val();
+
+        $.ajax({
+            url: '/posp/v1/api/terminal/view',
+            type: 'POST',
+            dataType: 'json',
+            data: post_data,
+            success: function(data) {
+                var respcd = data.respcd;
+                if(respcd != '0000'){
+                    var resperr = data.resperr;
+                    var respmsg = data.respmsg;
+                    var msg = resperr ? resperr : respmsg;
+                    toastr.warning(msg);
+                    return false;
+                }
+                else {
+                    toastr.success('保存修改成功');
+                    $("#terminalViewForm").resetForm();
+                    $("#terminalViewModal").modal('hide');
+                    $('#terminalList').DataTable().draw();
                 }
             },
             error: function(data) {
