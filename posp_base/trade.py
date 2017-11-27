@@ -4,10 +4,12 @@ import traceback
 import datetime
 
 import tools
+import page_tool
 from define import TOKEN_POSP_TRADE
 from zbase.base.dbpool import get_connection_exception
 from zbase.web.validator import T_INT, T_STR
 from define import DATETIMEException
+
 
 log = logging.getLogger()
 
@@ -79,27 +81,31 @@ class TradeList:
             return [table]
 
     @classmethod
-    def _count(cls, total_len, pagesize):
-        a = divmod(total_len, pagesize)
-        if a[1] > 0:
-            page_count = a[0] + 1
-        else:
-            page_count = a[0]
-        return page_count
-
-    @classmethod
-    def _gen_ret_range(cls, page, maxnum):
-        start = maxnum * page - maxnum
-        end = start + maxnum
-        return start, end
-
-    @classmethod
-    def _query_one_table(cls, table, where, other, page, page_size):
+    def _gen_table_map(cls, table_list, where={}, other=''):
+        ret = {}
+        ret2 = []
         with get_connection_exception(TOKEN_POSP_TRADE) as conn:
-            sql = conn.select_sql(table=table, where=where, fields='*', other=other)
-            pager = conn.select_page(sql, pagecur=page, pagesize=page_size)
-            pager.split()
-            return pager.pagedata.data, pager.count
+            for table in table_list:
+                record = conn.select_one(table=table, fields='count(*) as count', where=where, other=other)
+                ret[table] = record.get('count', 0)
+                ret2.append((table, record.get('count', 0)))
+
+            return ret, ret2
+
+    @classmethod
+    def _gen_reverse_table_map(cls, table_map):
+        ret = {}
+        for k, v in table_map.iteritems():
+            ret[v] = k
+        return ret
+
+
+    @classmethod
+    def _query_one_table(cls, table, fields, where, limit, offset):
+        with get_connection_exception(TOKEN_POSP_TRADE) as conn:
+            other = 'limit %d offset %d' % (limit, offset)
+            ret = conn.select(table=table, fields='*', where=where, other=other)
+            return ret
 
     @classmethod
     def page(cls, **kwargs):
@@ -132,16 +138,26 @@ class TradeList:
         other = kwargs.get('other', '')
         page = kwargs.get('page', 1)
         page_size = kwargs.get('maxnum', 10)
+        keep_fields = cls.QUERY_KEY.keys()
+        keep_fields.append(('id'))
         start_time = kwargs.get('start_time')
         end_time = kwargs.get('end_time')
-        table_list = cls._gen_tables(start_time, end_time)
-        if len(table_list) == 1:
-            records, num = cls._query_one_table(table_list[0], where, other, page, page_size)
-            info = [tools.trans_time(item, TradeList.DATETIME_KEY) for item in records]
-            return info, num
+        table_arr = ['record_201707', 'record_201708', 'record_201709']
+        table_map, table_list = cls._gen_table_map(table_arr)
+        table_reverse_map = cls._gen_reverse_table_map(table_map)
+        total, origin, judge, judge_map = page_tool.gen_from_table(table_list, page, page_size)
+        pages = page_tool.gen_total_pages(total, page_size)
+        page_range = page_tool.gen_page_range(pages, page_size)
+        from_table = page_tool.gen_table_list(judge, judge_map, page, page_range)
+        start, end = page_range.get(page)
+        table_range_map, start_table, end_table = page_tool.table_to_sql(from_table, table_reverse_map, start, end)
+        if start_table == end_table:
+            count, offset = page_tool.gen_one_count_offset(start_table, start, end, table_map, table_range_map)
+            info = cls._query_one_table(table=start_table, fields=keep_fields, where=where, limit=count, offset=offset)
+            return info, total
         else:
-            records = cls._query(table_list=table_list, where=where, other=other)
-            num = len(records)
-            info = [tools.trans_time(item, TradeList.DATETIME_KEY) for item in records]
-
-
+            ret = page_tool.gen_two_count_offset(start_table, end_table, start, end, table_map, table_range_map)
+            info = cls._query_one_table(start_table, fields=keep_fields, where=where, limit=ret[start_table][0], offset=ret[start_table][1])
+            info1 = cls._query_one_table(end_table, fields=keep_fields, where=where, limit=ret[end_table][0], offset=ret[end_table][1])
+            info.extend(info1)
+            return info, total
