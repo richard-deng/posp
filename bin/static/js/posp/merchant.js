@@ -220,7 +220,7 @@ $(document).ready(function(){
                 },
                 */
                 email: {
-                    required: true,
+                    required: false,
                     maxlength: 75
                 },
 
@@ -237,32 +237,32 @@ $(document).ready(function(){
                 */
 
                 idnumber: {
-                    required: true,
+                    required: false,
                     maxlength: 20
                 },
 
                 province: {
-                    required: true,
+                    required: false,
                     maxlength: 10
                 },
 
                 city: {
-                    required: true,
+                    required: false,
                     maxlength: 32
                 },
 
                 bankname: {
-                    required: true,
+                    required: false,
                     maxlength: 256
                 },
 
                 bankuser: {
-                    required: true,
+                    required: false,
                     maxlength: 32
                 },
 
                 bankaccount: {
-                    required: true,
+                    required: false,
                     maxlength: 32
                 },
 
@@ -423,7 +423,7 @@ $(document).ready(function(){
                 },
                 */
                 email_add: {
-                    required: true,
+                    required: false,
                     maxlength: 75
                 },
 
@@ -440,32 +440,32 @@ $(document).ready(function(){
                 */
 
                 idnumber_add: {
-                    required: true,
+                    required: false,
                     maxlength: 20
                 },
 
                 province_add: {
-                    required: true,
+                    required: false,
                     maxlength: 10
                 },
 
                 city_add: {
-                    required: true,
+                    required: false,
                     maxlength: 32
                 },
 
                 bankname_add: {
-                    required: true,
+                    required: false,
                     maxlength: 256
                 },
 
                 bankuser_add: {
-                    required: true,
+                    required: false,
                     maxlength: 32
                 },
 
                 bankaccount_add: {
-                    required: true,
+                    required: false,
                     maxlength: 32
                 },
 
