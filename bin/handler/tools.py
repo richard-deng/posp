@@ -3,8 +3,8 @@ import logging
 import traceback
 import datetime
 from constant import INVALID_VALUE
-from conf.config import REGISTER_STATE
-from conf.config import DEFAULT_ACTIVE
+from config import REGISTER_STATE
+from config import DEFAULT_ACTIVE
 from zbase.base.dbpool import get_connection_exception
 from zbase.web.validator import T_INT, T_STR
 from posp_base.merchant import User
