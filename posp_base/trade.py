@@ -140,7 +140,10 @@ class TradeList:
                 return False, [], 0
             with get_connection_exception(TOKEN_POSP_TRADE) as conn:
                 info = conn.select_one(table=table_name, fields='*', where={'syssn': syssn})
-                return True, [info], 1
+                if info:
+                    return True, [info], 1
+                else:
+                    return True, [], 0
         table_arr = ['record_201707', 'record_201708', 'record_201709']
         table_map, table_list = cls._gen_table_map(table_arr)
         total, origin, judge, judge_map = page_tool.gen_from_table(table_list, page, page_size)
