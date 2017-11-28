@@ -21,6 +21,7 @@ class TradeListHandler(BaseHandler):
     _get_handler_fields = [
         Field('page', T_INT, False),
         Field('maxnum', T_INT, False),
+        Field('syssn', T_STR, True),
     ]
 
     @posp_check_session(g_rt.redis_pool, cookie_conf)
@@ -29,7 +30,6 @@ class TradeListHandler(BaseHandler):
         data = {}
         params = self.validator.data
         info, num = TradeList.page_more(**params)
-        print 'num', num
         data['num'] = num
         data['info'] = [trans_time(item, TradeList.DATETIME_KEY) for item in info]
         return success(data=data)

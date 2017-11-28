@@ -111,4 +111,33 @@ $(document).ready(function () {
         }
     });
 
+    $("#tradeSearch").click(function(){
+        var trade_query_vt = $('#trade_query').validate({
+           rules: {
+               s_syssn: {
+                   required: false,
+                   maxlength: 60
+               }
+           },
+           messages: {
+               s_syssn: {
+                   required: '请输入流水号',
+                   maxlength: $.validator.format("请输入一个长度最多是 {0} 的字符串")
+               }
+           },
+           errorPlacement: function(error, element){
+               var $error_element = element.parent().parent().next();
+               $error_element.text('');
+               error.appendTo($error_element);
+           }
+        });
+        var ok = trade_query_vt.form();
+        if(!ok){
+            $("#query_label_error").show();
+            $("#query_label_error").fadeOut(1400);
+            return false;
+        }
+        $('#tradeList').DataTable().draw();
+    });
+
 });

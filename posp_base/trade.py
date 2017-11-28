@@ -133,6 +133,13 @@ class TradeList:
         keep_fields.append(('id'))
         start_time = kwargs.get('start_time')
         end_time = kwargs.get('end_time')
+        syssn = kwargs.get('syssn', '')
+        if syssn:
+            table_name = syssn[:6]
+            with get_connection_exception(TOKEN_POSP_TRADE) as conn:
+                record = conn.select_one(table=table_name, fields='*', where={'syssn': syssn})
+                info = tools.trans_time(record, cls.DATETIME_KEY)
+                return info, len(info)
         table_arr = ['record_201707', 'record_201708', 'record_201709']
         table_map, table_list = cls._gen_table_map(table_arr)
         total, origin, judge, judge_map = page_tool.gen_from_table(table_list, page, page_size)
