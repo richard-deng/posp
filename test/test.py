@@ -18,7 +18,7 @@ class TestPospInstrument(unittest.TestCase):
         self.timeout = 2000
         self.server = [{'addr': (self.host, self.port), 'timeout': self.timeout}, ]
         self.client = HttpClient(self.server, client_class=RequestsClient)
-        self.headers = {'sessionid': '61ab563b-efd3-425c-ba2f-338a4042f604'}
+        self.headers = {'sessionid': '87e281fc-415b-49fc-a155-c09588e8d18b'}
         self.cookie = self.headers
 
     @unittest.skip("skipping")

@@ -96,7 +96,8 @@ class TradeList:
     def _gen_reverse_table_map(cls, table_map):
         ret = {}
         for k, v in table_map.iteritems():
-            ret[v] = k
+            new_key = '%s_%s' % (v, k)
+            ret[new_key] = k
         return ret
 
 
@@ -144,20 +145,24 @@ class TradeList:
         end_time = kwargs.get('end_time')
         table_arr = ['record_201707', 'record_201708', 'record_201709']
         table_map, table_list = cls._gen_table_map(table_arr)
-        table_reverse_map = cls._gen_reverse_table_map(table_map)
-        total, origin, judge, judge_map = page_tool.gen_from_table(table_list, page, page_size)
-        pages = page_tool.gen_total_pages(total, page_size)
+        count, origin, judge, judge_map = page_tool.gen_from_table(table_list, page, page_size)
+        range_map = page_tool.table_range_map(table_list)
+        pages = page_tool.gen_total_pages(count, page_size)
         page_range = page_tool.gen_page_range(pages, page_size)
-        from_table = page_tool.gen_table_list(judge, judge_map, page, page_range)
         start, end = page_range.get(page)
-        table_range_map, start_table, end_table = page_tool.table_to_sql(from_table, table_reverse_map, start, end)
+        start_table, end_table = page_tool.query_from(range_map, page, page_range)
         if start_table == end_table:
-            count, offset = page_tool.gen_one_count_offset(start_table, start, end, table_map, table_range_map)
+            count, offset = page_tool.gen_one_limit_offset(range_map, start_table, start, end)
             info = cls._query_one_table(table=start_table, fields=keep_fields, where=where, limit=count, offset=offset)
-            return info, total
         else:
-            ret = page_tool.gen_two_count_offset(start_table, end_table, start, end, table_map, table_range_map)
-            info = cls._query_one_table(start_table, fields=keep_fields, where=where, limit=ret[start_table][0], offset=ret[start_table][1])
-            info1 = cls._query_one_table(end_table, fields=keep_fields, where=where, limit=ret[end_table][0], offset=ret[end_table][1])
-            info.extend(info1)
-            return info, total
+            if start_table and end_table:
+                ret = page_tool.gen_two_limit_offset(range_map, start_table, end_table, start, end)
+                info1 = cls._query_one_table(table=start_table, fields=keep_fields, where=where, limit=ret[0][start_table][0], offset=ret[0][start_table][1])
+                info2 = cls._query_one_table(table=start_table, fields=keep_fields, where=where, limit=ret[1][start_table][0], offset=ret[1][start_table][1])
+                info1.extend(info2)
+                info = info1
+            else:
+                count, offset = page_tool.gen_one_limit_offset(range_map, start_table, start, end)
+                info = cls._query_one_table(table=start_table, fields=keep_fields, where=where, limit=count, offset=offset)
+        return info, count
+
