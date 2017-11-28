@@ -1,6 +1,8 @@
 # coding: utf-8
 import logging
 
+import tools
+from zbase.web.validator import T_INT, T_STR
 from zbase.base.dbpool import get_connection_exception
 
 log = logging.getLogger()
@@ -8,45 +10,52 @@ log = logging.getLogger()
 class Profile:
 
     TABLE = 'profile'
-    PROFILE_MUST_KEY = [
-        'user_state', 'banktype', 'allowarea', 'groupid', 'is_developer',
-        'last_admin', 'brchbank_code', 'is_salesman', 'swiftCode',
-        'last_modify', 'licenseactive_date',
-    ]
-    PROFILE_OPTION_KEY = [
-        'nickname', 'name', 'idnumber', 'province', 'city', 'bankname',
-        'bankuser', 'bankaccount', 'mobile', 'email',
-    ]
-    PROFILE_DATETIME_KEY = {'last_modify': 'date', 'licenseactive_date': 'date'}
-    PROFILE_KEY = list(set(PROFILE_MUST_KEY + PROFILE_OPTION_KEY + PROFILE_DATETIME_KEY.keys()))
+    TABLE_ID = 'id'
+    MUST_KEY = {
+        'user_state': T_INT,
+        'banktype': T_INT,
+        'allowarea': T_INT,
+        'groupid': T_INT,
+        'is_developer': T_INT,
+        'last_admin': T_INT,
+        'brchbank_code': T_STR,
+        'is_salesman': T_INT,
+        'swiftCode': T_STR,
+        'last_modify': T_STR,
+        'licenseactive_date': T_STR,
+    }
+    OPTION_KEY = {
+        'nickname': T_STR,
+        'name': T_STR,
+        'idnumber': T_STR,
+        'province': T_STR,
+        'city': T_STR,
+        'bankname': T_STR,
+        'bankuser': T_STR,
+        'bankaccount': T_STR,
+        'mobile': T_STR,
+        'email': T_STR,
+    }
+    DATETIME_KEY = {
+        'last_modify': 'date',
+        'licenseactive_date': 'date'
+    }
+    KEYS = list(set(MUST_KEY.keys() + OPTION_KEY.keys() + DATETIME_KEY.keys()))
 
     def __init__(self, userid):
         self.userid = userid
         self.data = {}
-        self.keys = Profile.PROFILE_KEY
+        self.keys = Profile.KEYS
         self.load()
 
     def load(self):
         keep_fields = self.keys
+        keep_fields.append(Profile.TABLE_ID)
         where = {'userid': self.userid}
         with get_connection_exception('posp_core') as conn:
             record = conn.select_one(table=Profile.TABLE, fields=keep_fields, where=where)
-            self.data = self.trans_time(record)
+            self.data = tools.trans_time(record, Profile.DATETIME_KEY)
 
-    def trans_time(self, data):
-
-        if not data:
-            return {}
-
-        for key, data_type in Profile.PROFILE_DATETIME_KEY.iteritems():
-            if data.get(key):
-                if data_type in ('time', 'date'):
-                    data[key] = str(data[key])
-                elif data_type == 'datetime':
-                    data[key] = data.get(key).strftime('%Y-%m-%d %H:%M:%S')
-                else:
-                    pass
-        return data
 
     def update(self, values):
         func = 'update'

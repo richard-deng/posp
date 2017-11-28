@@ -91,56 +91,55 @@ def update_merchant(merchant_id, values):
     func = 'update_merchant'
     log.debug('func=%s|merchant_id=%s|values=%s', func, merchant_id, values)
 
-    now = datetime.datetime.now()
-    user_values = {}
-    profile_values = {}
+    user = {}
+    profile = {}
 
-    profile_values['name'] = values.pop('name')
-    # profile_values['nickname'] = values.pop('nickname')
-    profile_values['idnumber'] = values.pop('idnumber')
-    profile_values['province'] = values.pop('province')
-    profile_values['city'] = values.pop('city')
-    profile_values['bankname'] = values.pop('bankname')
-    profile_values['bankuser'] = values.pop('bankuser')
-    profile_values['bankaccount'] = values.pop('bankaccount')
-    profile_values['last_modify'] = now.strftime('%Y-%m-%d')
-
-    user_values['mobile'] = values.pop('mobile')
-    user_values['email'] = values.pop('email')
-    # user_values['is_active'] = values.pop('is_active')
-    # user_values['state'] = values.pop('state')
+    for key, value in values.iteritems():
+        if value not in INVALID_VALUE:
+            if key in User.KEYS:
+                user[key] = value
+            if key in Profile.KEYS:
+                profile[key] = value
+        else:
+            log.debug('ingore key=%s', key)
 
     user = User(merchant_id)
-    user.update(user_values)
+    user.update(user)
 
     profile = Profile(merchant_id)
-    profile.update(profile_values)
+    profile.update(profile)
 
 
 def build_user(values):
     func='build_user'
     log.debug('func=%s|input=%s', func, values)
-
-    # 添加其它数据
     user = {}
     now = datetime.datetime.now()
-    now_str = now.strftime('%Y-%m-%d %H:%M:%S')
 
-    mobile = values.pop('mobile')
-    user['email'] = values.pop('email')
+    for key in User.KEYS:
+        value = values.get(key)
+        if key in User.MUST_KEY.keys():
+            if value not in INVALID_VALUE:
+                user[key] = value
+            else:
+                if User.MUST_KEY.get(key) == T_INT:
+                    user[key] = 0
+                else:
+                    user[key] = ''
+
+        if key in User.OPTION_KEY.keys():
+            if value not in INVALID_VALUE:
+                user[key] = value
+
+        if key in User.DATETIME_KEY.keys():
+            if User.DATETIME_KEY.get(key) == 'date':
+                user[key] = now.strftime('%Y-%m-%d')
+            if Profile.DATETIME_KEY.get(key) == 'datetime':
+                user[key] = now.strftime('%Y-%m-%d %H:%M:%S')
+
     user['state'] = REGISTER_STATE
     user['is_active'] = DEFAULT_ACTIVE
-
-    user['username'] = mobile
-    user['mobile'] = mobile
-    user['merchant_code'] = ''
-    user['user_type'] = 0
-    user['password'] = gen_passwd(values.get('password'))
-    user['admin_password'] = ''
-    user['is_staff'] = 0
-    user['is_superuser'] = 0
-    user['last_login'] = now_str
-    user['date_joined'] = now_str
+    user['password'] = gen_passwd(values.get('mobile')[-6:])
 
     log.debug('func=%s|output=%s', func, user)
     return user
@@ -150,28 +149,30 @@ def build_profile(values):
     # 添加其它数据
     func = 'build_profile'
     log.debug('func=%s|input=%s', func, values)
-    now = datetime.datetime.now()
 
     profile = {}
-    # profile['nickname'] = values.pop('nickname')
-    profile['name'] = values.pop('name')
-    profile['idnumber'] = values.pop('idnumber')
-    profile['province'] = values.pop('province')
-    profile['city'] = values.pop('city')
-    profile['bankname'] = values.pop('bankname')
-    profile['bankuser'] = values.pop('bankuser')
-    profile['bankaccount'] = values.pop('bankaccount')
-    profile['user_state'] = REGISTER_STATE
-    profile['banktype'] = 0
-    profile['allowarea'] = 0
-    profile['groupid'] = 0
-    profile['is_developer'] = 0
-    profile['last_modify'] = now.strftime('%Y-%m-%d')
-    profile['brchbank_code'] = '0'
-    profile['is_salesman'] = 0
-    profile['swiftCode'] = 0
-    profile['licenseactive_date'] = '1970-01-01 00:00:00'
-    profile['last_admin'] = 0
+    now = datetime.datetime.now()
+
+    for key in Profile.KEYS:
+        value = values.get(key)
+        if key in Profile.MUST_KEY.keys():
+            if value not in INVALID_VALUE:
+                profile[key] = value
+            else:
+                if Profile.MUST_KEY.get(key) == T_INT:
+                    profile[key] = 0
+                else:
+                    profile[key] = ''
+
+        if key in Profile.OPTION_KEY.keys():
+            if value not in INVALID_VALUE:
+                profile[key] = value
+
+        if key in Profile.DATETIME_KEY.keys():
+            if Profile.DATETIME_KEY.get(key) == 'date':
+                profile[key] = now.strftime('%Y-%m-%d')
+            if Profile.DATETIME_KEY.get(key) == 'datetime':
+                profile[key] = now.strftime('%Y-%m-%d %H:%M:%S')
 
     log.debug('func=%s|output=%s', func, profile)
     return profile

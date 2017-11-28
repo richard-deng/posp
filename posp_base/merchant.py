@@ -9,6 +9,7 @@ import traceback
 
 from profile import Profile
 from zbase.base.dbpool import get_connection_exception
+from zbase.web.validator import T_INT, T_STR
 
 log = logging.getLogger()
 
@@ -58,26 +59,43 @@ def check_password(raw_password, enc_password):
 class User:
 
     TABLE = 'auth_user'
-    USER_MUST_KEY = [
-        'id', 'username', 'mobile', 'merchant_code', 'user_type',
-        'state', 'email', 'password', 'admin_password', 'is_staff',
-        'is_active', 'is_superuser', 'last_login', 'date_joined',
-    ]
-    USER_OPTION_KEY = ['user_level']
-    USER_DATETIME_KEY = {'last_login': 'datetime', 'date_joined': 'datetime'}
-    USER_KEY = list(set(USER_MUST_KEY + USER_OPTION_KEY + USER_DATETIME_KEY.keys()))
+    TABLE_ID = 'id'
+    MUST_KEY = {
+        'username': T_STR,
+        'merchant_code': T_STR,
+        'user_type': T_INT,
+        'state': T_INT,
+        'email': T_STR,
+        'mobile': T_STR,
+        'password': T_STR,
+        'admin_password': T_STR,
+        'is_staff': T_INT,
+        'is_active': T_INT,
+        'is_superuser': T_INT,
+        'last_login': T_STR,
+        'date_logined': T_STR
+    }
+    OPTION_KEY = {
+        'user_level': T_INT,
+    }
+    DATETIME_KEY = {
+        'last_login': 'datetime',
+        'date_joined': 'datetime'
+    }
+    KEYS = list(set(MUST_KEY.keys() + OPTION_KEY.keys() + DATETIME_KEY.keys()))
 
 
     def __init__(self, userid):
         self.userid = userid
         self.data = {}
         self.login = False
-        self.keys = User.USER_KEY
+        self.keys = User.KEYS
 
     @classmethod
     def load_user_by_mobile(cls, mobile):
         where = {'mobile': mobile}
-        keep_fields = cls.USER_KEY
+        keep_fields = cls.KEYS
+        keep_fields.append(cls.TABLE_ID)
         with get_connection_exception('posp_core') as conn:
             record = conn.select_one(table=User.TABLE, fields=keep_fields, where=where)
             log.debug('func=load_user_by_mobile|mobile=%s|record=%s', mobile, record)
@@ -97,7 +115,7 @@ class User:
         if not data:
             return {}
 
-        for key, data_type in User.USER_DATETIME_KEY.iteritems():
+        for key, data_type in User.DATETIME_KEY.iteritems():
             if data.get(key):
                 if data_type in ('time', 'date'):
                     data[key] = str(data[key])

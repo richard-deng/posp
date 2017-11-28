@@ -91,11 +91,7 @@ class MerchantViewHandler(BaseHandler):
         Field('merchant_id', T_INT, False),
         Field('mobile', T_STR, False),
         Field('email', T_STR, True),
-        # Field('is_active', T_INT, False),
-        # Field('state', T_INT, False),
-
         Field('name', T_STR, False),
-        # Field('nickname', T_STR, False),
         Field('idnumber', T_STR, True),
         Field('province', T_STR, True),
         Field('city', T_STR, True),
@@ -135,13 +131,7 @@ class MerchantCreateHandler(BaseHandler):
     _post_handler_fields = [
         Field('mobile', T_STR, False),
         Field('email', T_STR, True),
-        Field('password', T_STR, False),
-        # Field('state', T_INT, False),
-        # Field('is_active', T_INT, False),
-
-
         Field('name', T_STR, False),
-        # Field('nickname', T_STR, False),
         Field('idnumber', T_STR, True),
         Field('province', T_STR, True),
         Field('city', T_STR, True),
