@@ -24,7 +24,6 @@
             <div class="panel-heading">
                 商户信息
             </div>
-            <!-- /.panel-heading -->
             <div class="panel-body">
                 <div class="row">
                     <form class="form-inline users_query" id="users_query">
@@ -50,16 +49,9 @@
                         <tr>
                             <th>id</th>
                             <th>名称</th>
-                            <!--
-                            <th>收据名称</th>
-                            -->
                             <th>手机号</th>
                             <th>身份证号</th>
                             <th>状态</th>
-                            <!--
-                            <th>渠道</th>
-                            <th>MCC</th>
-                            -->
                             <th>注册时间</th>
                             <th>操作</th>
                         </tr>
@@ -69,9 +61,7 @@
                     </table>
                 </div>
             </div>
-            <!-- /.panel-body -->
         </div>
-        <!-- /.panel -->
     </div>
 </div>
 
@@ -92,33 +82,10 @@
                         </div>
                     </div>
 
-                    <!--
-                    <div class="form-group">
-                        <label for="state" class="col-sm-2 control-label">用户状态</label>
-                        <div class="col-sm-10">
-                            <select class="form-control state" id="state" name="state">
-                                <option value="2">禁用</option>
-                                <option value="1">XX</option>
-                                <option value="0">启用</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="is_active" class="col-sm-2 control-label">激活状态</label>
-                        <div class="col-sm-10">
-                            <select class="form-control is_active" id="is_active" name="is_active">
-                                <option value="1">禁用</option>
-                                <option value="0">启用</option>
-                            </select>
-                        </div>
-                    </div>
-                    -->
-
                     <div class="form-group">
                         <label for="email" class="col-sm-2 control-label">邮箱</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="email" name="email" placeholder="">
+                            <input type="text" class="form-control" id="email" name="email" placeholder="必填">
                         </div>
                     </div>
 
@@ -129,54 +96,45 @@
                         </div>
                     </div>
 
-                    <!--
-                    <div class="form-group">
-                        <label for="nickname" class="col-sm-2 control-label">收据名称</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="nickname" name="nickname" placeholder="必填">
-                        </div>
-                    </div>
-                    -->
-
                     <div class="form-group">
                         <label for="idnumber" class="col-sm-2 control-label">身份证号</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="idnumber" name="idnumber" placeholder="必填">
+                            <input type="text" class="form-control" id="idnumber" name="idnumber" placeholder="">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="province" class="col-sm-2 control-label">省份</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="province" name="province" placeholder="必填">
+                            <input type="text" class="form-control" id="province" name="province" placeholder="">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="city" class="col-sm-2 control-label">城市</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="city" name="city"  placeholder="必填">
+                            <input type="text" class="form-control" id="city" name="city"  placeholder="">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="bankname" class="col-sm-2 control-label">开户行名称</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="bankname" name="bankname"  placeholder="必填">
+                            <input type="text" class="form-control" id="bankname" name="bankname"  placeholder="">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="bankuser" class="col-sm-2 control-label">持卡人</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="bankuser" name="bankuser"  placeholder="必填">
+                            <input type="text" class="form-control" id="bankuser" name="bankuser"  placeholder="">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="bankaccount" class="col-sm-2 control-label">银行账号</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="bankaccount" name="bankaccout"  placeholder="必填">
+                            <input type="text" class="form-control" id="bankaccount" name="bankaccout"  placeholder="">
                         </div>
                     </div>
 
@@ -207,41 +165,10 @@
                         </div>
                     </div>
 
-                    <!--
-                    <div class="form-group">
-                        <label for="state_add" class="col-sm-2 control-label">用户状态</label>
-                        <div class="col-sm-10">
-                            <select class="form-control state" id="state_add" name="state_add">
-                                <option value="2">禁用</option>
-                                <option value="1">XX</option>
-                                <option value="0">启用</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="is_active_add" class="col-sm-2 control-label">激活状态</label>
-                        <div class="col-sm-10">
-                            <select class="form-control is_active_add" id="is_active_add" name="is_active_add">
-                                <option value="1">禁用</option>
-                                <option value="0">启用</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    -->
-
-                    <div class="form-group">
-                        <label for="password_add" class="col-sm-2 control-label">密码</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="password_add" name="password_add" placeholder="必填">
-                        </div>
-                    </div>
-
                     <div class="form-group">
                         <label for="email_add" class="col-sm-2 control-label">邮箱</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="email_add" name="email_add" placeholder="">
+                            <input type="text" class="form-control" id="email_add" name="email_add" placeholder="必填">
                         </div>
                     </div>
 
@@ -251,15 +178,6 @@
                             <input type="text" class="form-control" id="name_add" name="name_add" placeholder="必填">
                         </div>
                     </div>
-
-                    <!--
-                    <div class="form-group">
-                        <label for="nickname_add" class="col-sm-2 control-label">收据名称</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="nickname_add" name="nickname_add" placeholder="必填">
-                        </div>
-                    </div>
-                    -->
 
                     <div class="form-group">
                         <label for="idnumber_add" class="col-sm-2 control-label">身份证号</label>
