@@ -147,7 +147,6 @@ class TradeList:
         table_map, table_list = cls._gen_table_map(table_arr)
         total, origin, judge, judge_map = page_tool.gen_from_table(table_list, page, page_size)
         range_map = page_tool.table_range_map(table_list)
-        log.debug('range_map=%s', range_map)
         pages = page_tool.gen_total_pages(total, page_size)
         page_range = page_tool.gen_page_range(pages, page_size)
         start, end = page_range.get(page)
@@ -158,9 +157,6 @@ class TradeList:
         else:
             if start_table and end_table:
                 ret = page_tool.gen_two_limit_offset(range_map, start_table, end_table, start, end)
-                log.debug('two tables ret=%s', ret)
-                log.debug('two tables ret[0]=%s', ret[0])
-                log.debug('two tables ret[1]=%s', ret[1])
                 info1 = cls._query_one_table(table=start_table, fields=keep_fields, where=where, limit=ret[0][start_table][0], offset=ret[0][start_table][1])
                 info2 = cls._query_one_table(table=end_table, fields=keep_fields, where=where, limit=ret[1][end_table][0], offset=ret[1][end_table][1])
                 info1.extend(info2)
