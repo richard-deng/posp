@@ -26,13 +26,6 @@ def gen_passwd(password):
     return finish_passwd
 
 
-def gen_old_password(origin_password):
-    password_plus = '360'+origin_password+'Huyan'
-    client_password = base64.b64encode(hashlib.sha512(password_plus).digest())
-    enc_password = hashlib.sha512(client_password).hexdigest()
-    return enc_password
-
-
 def constant_time_compare(val1, val2):
     if len(val1) != len(val2):
         return False
