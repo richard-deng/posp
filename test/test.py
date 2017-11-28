@@ -184,7 +184,7 @@ class TestPospInstrument(unittest.TestCase):
     def test_trade_list(self):
         self.url = '/posp/v1/api/trade/list'
         self.send.update({
-            'page': 1,
+            'page': 3,
             'maxnum': 10
         })
         ret = self.client.get(self.url, self.send, cookies=self.cookie)

@@ -11,7 +11,7 @@ LOGFILE = {
         }
     }
 }
-LOGFILE = None
+# LOGFILE = None
 
 database = {
     'posp_core':{
