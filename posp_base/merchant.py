@@ -73,7 +73,7 @@ class User:
         'is_active': T_INT,
         'is_superuser': T_INT,
         'last_login': T_STR,
-        'date_logined': T_STR
+        'date_joined': T_STR
     }
     OPTION_KEY = {
         'user_level': T_INT,
