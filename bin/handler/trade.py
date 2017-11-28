@@ -29,7 +29,9 @@ class TradeListHandler(BaseHandler):
     def _get_handler(self):
         data = {}
         params = self.validator.data
-        info, num = TradeList.page_more(**params)
+        flag, info, num = TradeList.page_more(**params)
+        if not flag:
+            return error(RESP_CODE.DATAERR)
         data['num'] = num
         data['info'] = [trans_time(item, TradeList.DATETIME_KEY) for item in info]
         return success(data=data)

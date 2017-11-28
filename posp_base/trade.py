@@ -47,20 +47,19 @@ class TradeList:
             self.data = tools.trans_time(record, TradeList.DATETIME_KEY)
 
     @classmethod
-    def _query(cls, table_list, where, other):
-        result = []
+    def _table_exists(cls, table):
         with get_connection_exception(TOKEN_POSP_TRADE) as conn:
-            for table_name in table_list:
-                try:
-                    ret = conn.select(table=table_name, fields='*', where=where, other=other)
-                    result.extend(ret)
-                except Exception as e:
-                    if len(e.args) > 0 and e[0] in (1146, ):
-                        log.warn('cannot find table=%s', table_name)
-                        continue
-                    else:
-                        raise e
-        return result
+            try:
+                ret = conn.select_one(table=table, fields='*')
+                if ret:
+                    return True
+                return False
+            except Exception as e:
+                if len(e.args) > 0 and e[0] in (1146, ):
+                    log.warn('cannot find table=%s', table)
+                else:
+                    raise e
+        return False
 
     @classmethod
     def _gen_tables(cls, start_time, end_time):
@@ -136,9 +135,12 @@ class TradeList:
         syssn = kwargs.get('syssn', '')
         if syssn:
             table_name = 'record_'+syssn[:6]
+            flag = cls._table_exists(table_name)
+            if not flag:
+                return False, [], 0
             with get_connection_exception(TOKEN_POSP_TRADE) as conn:
                 info = conn.select_one(table=table_name, fields='*', where={'syssn': syssn})
-                return [info], 1
+                return True, [info], 1
         table_arr = ['record_201707', 'record_201708', 'record_201709']
         table_map, table_list = cls._gen_table_map(table_arr)
         total, origin, judge, judge_map = page_tool.gen_from_table(table_list, page, page_size)
@@ -160,5 +162,5 @@ class TradeList:
             else:
                 count, offset = page_tool.gen_one_limit_offset(range_map, start_table, start, end)
                 info = cls._query_one_table(table=start_table, fields=keep_fields, where=where, limit=count, offset=offset)
-        return info, total
+        return True, info, total
 
