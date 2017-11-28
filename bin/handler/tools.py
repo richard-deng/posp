@@ -91,23 +91,23 @@ def update_merchant(merchant_id, values):
     func = 'update_merchant'
     log.debug('func=%s|merchant_id=%s|values=%s', func, merchant_id, values)
 
-    user = {}
-    profile = {}
+    user_value = {}
+    profile_value = {}
 
     for key, value in values.iteritems():
         if value not in INVALID_VALUE:
             if key in User.KEYS:
-                user[key] = value
+                user_value[key] = value
             if key in Profile.KEYS:
-                profile[key] = value
+                profile_value[key] = value
         else:
             log.debug('ingore key=%s', key)
 
     user = User(merchant_id)
-    user.update(user)
+    user.update(user_value)
 
     profile = Profile(merchant_id)
-    profile.update(profile)
+    profile.update(profile_value)
 
 
 def build_user(values):
@@ -131,10 +131,10 @@ def build_user(values):
             if value not in INVALID_VALUE:
                 user[key] = value
 
-        if key in User.DATETIME_KEY.keys():
+        for key in User.DATETIME_KEY.keys():
             if User.DATETIME_KEY.get(key) == 'date':
                 user[key] = now.strftime('%Y-%m-%d')
-            if Profile.DATETIME_KEY.get(key) == 'datetime':
+            if User.DATETIME_KEY.get(key) == 'datetime':
                 user[key] = now.strftime('%Y-%m-%d %H:%M:%S')
 
     user['state'] = REGISTER_STATE
@@ -168,7 +168,7 @@ def build_profile(values):
             if value not in INVALID_VALUE:
                 profile[key] = value
 
-        if key in Profile.DATETIME_KEY.keys():
+        for key in Profile.DATETIME_KEY.keys():
             if Profile.DATETIME_KEY.get(key) == 'date':
                 profile[key] = now.strftime('%Y-%m-%d')
             if Profile.DATETIME_KEY.get(key) == 'datetime':
