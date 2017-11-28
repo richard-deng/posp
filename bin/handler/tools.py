@@ -3,6 +3,8 @@ import logging
 import traceback
 import datetime
 from constant import INVALID_VALUE
+from conf.config import REGISTER_STATE
+from conf.config import DEFAULT_ACTIVE
 from zbase.base.dbpool import get_connection_exception
 from zbase.web.validator import T_INT, T_STR
 from posp_base.merchant import User
@@ -12,6 +14,7 @@ from posp_base.cardbin import CardBin
 from posp_base.chnlbind import ChannelBind
 from posp_base.terminal import Terminal
 from posp_base.termbind import TermBind
+from posp_base.merchant import gen_passwd
 
 log = logging.getLogger()
 
@@ -93,7 +96,7 @@ def update_merchant(merchant_id, values):
     profile_values = {}
 
     profile_values['name'] = values.pop('name')
-    profile_values['nickname'] = values.pop('nickname')
+    # profile_values['nickname'] = values.pop('nickname')
     profile_values['idnumber'] = values.pop('idnumber')
     profile_values['province'] = values.pop('province')
     profile_values['city'] = values.pop('city')
@@ -104,8 +107,8 @@ def update_merchant(merchant_id, values):
 
     user_values['mobile'] = values.pop('mobile')
     user_values['email'] = values.pop('email')
-    user_values['is_active'] = values.pop('is_active')
-    user_values['state'] = values.pop('state')
+    # user_values['is_active'] = values.pop('is_active')
+    # user_values['state'] = values.pop('state')
 
     user = User(merchant_id)
     user.update(user_values)
@@ -125,14 +128,14 @@ def build_user(values):
 
     mobile = values.pop('mobile')
     user['email'] = values.pop('email')
-    user['state'] = values.pop('state')
-    user['is_active'] = values.pop('is_active')
+    user['state'] = REGISTER_STATE
+    user['is_active'] = DEFAULT_ACTIVE
 
     user['username'] = mobile
     user['mobile'] = mobile
     user['merchant_code'] = ''
     user['user_type'] = 0
-    user['password'] = '123456'
+    user['password'] = gen_passwd(values.get('password'))
     user['admin_password'] = ''
     user['is_staff'] = 0
     user['is_superuser'] = 0
@@ -150,7 +153,7 @@ def build_profile(values):
     now = datetime.datetime.now()
 
     profile = {}
-    profile['nickname'] = values.pop('nickname')
+    # profile['nickname'] = values.pop('nickname')
     profile['name'] = values.pop('name')
     profile['idnumber'] = values.pop('idnumber')
     profile['province'] = values.pop('province')
@@ -158,7 +161,7 @@ def build_profile(values):
     profile['bankname'] = values.pop('bankname')
     profile['bankuser'] = values.pop('bankuser')
     profile['bankaccount'] = values.pop('bankaccount')
-    profile['user_state'] = values.get('state')
+    profile['user_state'] = REGISTER_STATE
     profile['banktype'] = 0
     profile['allowarea'] = 0
     profile['groupid'] = 0

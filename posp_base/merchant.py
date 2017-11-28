@@ -131,10 +131,3 @@ class User:
                 log.warn(traceback.format_exc())
                 conn.rollback()
                 return False, None
-
-
-    def _check_permission(self, user_type):
-        pass
-
-    def check_user_login(self, mobile, password):
-        pass

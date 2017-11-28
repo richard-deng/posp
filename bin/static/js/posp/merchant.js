@@ -80,12 +80,10 @@ $(document).ready(function(){
         },
         'columnDefs': [
             {
-                targets: 9,
+                targets: 6,
                 data: '操作',
                 render: function(data, type, full) {
                     var userid = full.id;
-                    //var msg = '修改';
-                    //var op = "<button type='button' class='btn btn-success btn-sm modify' data-userid="+userid+">"+msg+"</button>";
                     var view ="<button type='button' class='btn btn-warning btn-sm viewEdit' data-userid="+userid+">"+'查看'+"</button>";
                     return view;
                 }
@@ -94,12 +92,12 @@ $(document).ready(function(){
         'columns': [
             { data: 'id' },
             { data: 'name' },
-            { data: 'nickname'},
+            //{ data: 'nickname'},
             { data: 'mobile' },
             { data: 'idnumber' },
             { data: 'state' },
-            { data: 'groupid' },
-            { data: 'mcc' },
+            //{ data: 'groupid' },
+            //{ data: 'mcc' },
             { data: 'date_joined'},
         ],
         'oLanguage': {
@@ -153,13 +151,6 @@ $(document).ready(function(){
         $('#userList').DataTable().draw();
     });
 
-    $(document).on('click', '.modify', function(){
-        var userid = $(this).data('userid');
-        alert(userid);
-        //$('#modify_userid').text(userid);
-        //$('#ModifyPassWordForm').resetForm();
-        //$('#ModifyPassWord').modal();
-    });
 
     $(document).on('click', '.viewEdit', function(){
         var se_userid = window.localStorage.getItem('myid');
@@ -188,11 +179,11 @@ $(document).ready(function(){
                     user_data = data.data;
 
                     $('#mobile').val(user_data.mobile);
-                    $('#state').val(user_data.state);
-                    $('#is_active').val(user_data.is_active);
+                    //$('#state').val(user_data.state);
+                    //$('#is_active').val(user_data.is_active);
                     $('#email').val(user_data.email);
                     $('#name').val(user_data.name);
-                    $('#nickname').val(user_data.nickname);
+                    //$('#nickname').val(user_data.nickname);
                     $('#idnumber').val(user_data.idnumber);
                     $('#province').val(user_data.province);
                     $('#city').val(user_data.city);
@@ -217,6 +208,7 @@ $(document).ready(function(){
                     required: true,
                     maxlength: 16
                 },
+                /*
                 state: {
                     required: true,
                     maxlength: 1
@@ -226,7 +218,7 @@ $(document).ready(function(){
                     required: true,
                     maxlength: 1
                 },
-
+                */
                 email: {
                     required: true,
                     maxlength: 75
@@ -237,10 +229,12 @@ $(document).ready(function(){
                     maxlength: 32
                 },
 
+                /*
                 nickname: {
                     required: true,
                     maxlength: 64
                 },
+                */
 
                 idnumber: {
                     required: true,
@@ -278,6 +272,7 @@ $(document).ready(function(){
                     required: '请输入手机号',
                     maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
                 },
+                /*
                 state: {
                     required: '请选择状态',
                     maxlength: $.validator.format("请选择")
@@ -287,7 +282,7 @@ $(document).ready(function(){
                     required: '请选择激活状态',
                     maxlength: $.validator.format("请选择")
                 },
-
+                */
                 email: {
                     required: '请输入邮箱',
                     maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
@@ -298,10 +293,12 @@ $(document).ready(function(){
                     maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
                 },
 
+                /*
                 nickname: {
                     required: '请输入收据名称',
                     maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
                 },
+                */
 
                 idnumber: {
                     required: '请输入身份证号',
@@ -354,12 +351,12 @@ $(document).ready(function(){
         post_data.se_userid = se_userid;
         post_data.merchant_id = $('#view_user_id').text();
         post_data.mobile = $('#mobile').val();
-        post_data.state = $('#state').val();
-        post_data.is_active = $('#is_active').val();
+        //post_data.state = $('#state').val();
+        //post_data.is_active = $('#is_active').val();
         post_data.email = $('#email').val();
 
         post_data.name = $('#name').val();
-        post_data.nickname = $('#nickname').val();
+        //post_data.nickname = $('#nickname').val();
         post_data.idnumber = $('#idnumber').val();
         post_data.province = $('#province').val();
         post_data.city = $('#city').val();
@@ -401,17 +398,174 @@ $(document).ready(function(){
     });
 
     $('#userCreateSubmit').click(function(){
+
+        var user_create_vt = $('#userCreateForm').validate({
+            rules: {
+                mobile_add: {
+                    required: true,
+                    maxlength: 16
+                },
+
+                password_add: {
+                    required: true,
+                    maxlength: 16
+                },
+
+                /*
+                state: {
+                    required: true,
+                    maxlength: 1
+                },
+
+                is_active: {
+                    required: true,
+                    maxlength: 1
+                },
+                */
+                email_add: {
+                    required: true,
+                    maxlength: 75
+                },
+
+                name_add: {
+                    required: true,
+                    maxlength: 32
+                },
+
+                /*
+                nickname: {
+                    required: true,
+                    maxlength: 64
+                },
+                */
+
+                idnumber_add: {
+                    required: true,
+                    maxlength: 20
+                },
+
+                province_add: {
+                    required: true,
+                    maxlength: 10
+                },
+
+                city_add: {
+                    required: true,
+                    maxlength: 32
+                },
+
+                bankname_add: {
+                    required: true,
+                    maxlength: 256
+                },
+
+                bankuser_add: {
+                    required: true,
+                    maxlength: 32
+                },
+
+                bankaccount_add: {
+                    required: true,
+                    maxlength: 32
+                },
+
+            },
+            messages: {
+                mobile_add: {
+                    required: '请输入手机号',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                },
+
+                password_add: {
+                    required: '请输入密码',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                },
+
+                /*
+                state: {
+                    required: '请选择状态',
+                    maxlength: $.validator.format("请选择")
+                },
+
+                is_active: {
+                    required: '请选择激活状态',
+                    maxlength: $.validator.format("请选择")
+                },
+                */
+                email_add: {
+                    required: '请输入邮箱',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                },
+
+                name_add: {
+                    required: '请输入商户名称',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                },
+
+                /*
+                nickname: {
+                    required: '请输入收据名称',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                },
+                */
+
+                idnumber_add: {
+                    required: '请输入身份证号',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                },
+
+                province_add: {
+                    required: '请输入省份',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                },
+
+                city_add: {
+                    required: '请输入城市',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                },
+
+                bankname_add: {
+                    required: '请输入开户行名称',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                },
+
+                bankuser_add: {
+                    required: '请输入持卡人名称',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                },
+
+                bankaccount_add: {
+                    required: '请输入银行账号',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                },
+
+            },
+            errorPlacement: function(error, element){
+                if(element.is(':checkbox')){
+                    error.appendTo(element.parent().parent().parent());
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        });
+
+        var ok = user_create_vt.form();
+        if(!ok){
+            return false;
+        }
+
         var se_userid = window.localStorage.getItem('myid');
 
         var post_data = {};
         post_data.se_userid = se_userid
         post_data.mobile = $('#mobile_add').val();
         post_data.email = $('#email_add').val();
-        post_data.is_active = $('#is_active_add').val();
-        post_data.state = $('#state_add').val();
+        post_data.password = $('#password_add').val();
+        //post_data.is_active = $('#is_active_add').val();
+        //post_data.state = $('#state_add').val();
 
         post_data.name = $('#name_add').val();
-        post_data.nickname = $('#nickname_add').val();
+        //post_data.nickname = $('#nickname_add').val();
         post_data.idnumber = $('#idnumber_add').val();
         post_data.province = $('#province_add').val();
         post_data.city = $('#city_add').val();
