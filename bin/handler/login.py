@@ -6,6 +6,7 @@ from config import cookie_conf
 from posp_base.merchant import User
 from base_handler import BaseHandler
 from posp_base.session import posp_set_cookie
+from posp_base.session import posp_check_session
 from posp_base.response import error, success, RESP_CODE
 from zbase.web.validator import (
     with_validator_self, Field, T_REG, T_INT, T_STR
@@ -31,3 +32,13 @@ class LoginHandler(BaseHandler):
         if user.data and user.userid:
             return success(data={'userid': user.userid})
         return error(RESP_CODE.DATAERR)
+
+
+class LogoutHandler(BaseHandler):
+
+    @posp_check_session(g_rt.redis_pool, cookie_conf)
+    def _get_handler(self):
+        # 删除session
+        self.resp.del_cookie('sessionid')
+        return success(RESP_CODE.OK)
+

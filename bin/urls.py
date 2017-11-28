@@ -17,7 +17,8 @@ urls = (
     # 接口
     ('^/ping$', ping.Ping),
     ('^/posp/v1/api/login$', login.LoginHandler),
-    
+    ('^/posp/v1/api/logout$', login.LogoutHandler),
+
     # 商户
     ('^/posp/v1/api/merchant/list$', merchant.MerchantListHandler),
     ('^/posp/v1/api/merchant/view$', merchant.MerchantViewHandler),
