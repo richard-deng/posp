@@ -5,6 +5,7 @@ from runtime import g_rt
 from config import cookie_conf
 from posp_base.merchant import User
 from base_handler import BaseHandler
+from posp_base.merchant import check_password
 from posp_base.session import posp_set_cookie
 from posp_base.session import posp_check_session
 from posp_base.response import error, success, RESP_CODE
@@ -30,6 +31,7 @@ class LoginHandler(BaseHandler):
         password = params["password"]
         user = User.load_user_by_mobile(mobile)
         if user.data and user.userid:
+            flag = check_password(password, user.data.get('password'))
             return success(data={'userid': user.userid})
         return error(RESP_CODE.DATAERR)
 

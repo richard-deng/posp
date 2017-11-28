@@ -62,12 +62,6 @@ def check_password(raw_password, enc_password):
     return constant_time_compare(hsh, get_hexdigest(algo, salt, raw_password))
 
 
-def check_old_password(raw_password, enc_password):
-    hsh = hashlib.sha512(raw_password).hexdigest()
-    log.debug('verify pass has=%s, enc=%s', hsh, enc_password)
-    return constant_time_compare(hsh, enc_password)
-
-
 class User:
 
     TABLE = 'auth_user'
