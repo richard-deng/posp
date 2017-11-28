@@ -32,6 +32,8 @@ class LoginHandler(BaseHandler):
         user = User.load_user_by_mobile(mobile)
         if user.data and user.userid:
             flag = check_password(password, user.data.get('password'))
+            if not flag:
+                return error(RESP_CODE.PWDERR)
             return success(data={'userid': user.userid})
         return error(RESP_CODE.DATAERR)
 
