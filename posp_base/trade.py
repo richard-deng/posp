@@ -14,8 +14,6 @@ from define import DATETIMEException
 log = logging.getLogger()
 
 
-
-
 class TradeList:
 
     QUERY_KEY = {
@@ -91,14 +89,6 @@ class TradeList:
                 ret2.append((table, record.get('count', 0)))
 
             return ret, ret2
-
-    @classmethod
-    def _gen_reverse_table_map(cls, table_map):
-        ret = {}
-        for k, v in table_map.iteritems():
-            new_key = '%s_%s' % (v, k)
-            ret[new_key] = k
-        return ret
 
 
     @classmethod
