@@ -20,6 +20,7 @@ def gen_from_table(table_list, page, page_size):
 
 
 def table_range_map(table_list):
+    log.debug('table_range_map input=%s', table_list)
     data = {}
     before = 0
     for table in table_list:
@@ -27,6 +28,7 @@ def table_range_map(table_list):
         log.debug('name=%s|value=%s|before=%s' % (name, value, before))
         data[name] = range(before+1, value+before+1)
         before += value
+    log.debug('table_range_map output=%s', data)
     return data
 
 

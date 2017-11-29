@@ -84,18 +84,30 @@ class TradeList:
         with get_connection_exception(TOKEN_POSP_TRADE) as conn:
             for table in table_list:
                 record = conn.select_one(table=table, fields='count(*) as count', where=where, other=other)
-                ret[table] = record.get('count', 0)
-                ret2.append((table, record.get('count', 0)))
+                if record.get('count') > 0:
+                    ret[table] = record.get('count', 0)
+                    ret2.append((table, record.get('count', 0)))
 
             return ret, ret2
 
+    @classmethod
+    def _query(cls, table, fields, where, other=''):
+        with get_connection_exception(TOKEN_POSP_TRADE) as conn:
+            ret = conn.select(table=table, fields=fields, where=where, other=other)
+            if ret:
+                return ret
+            else:
+                return []
 
     @classmethod
     def _query_one_table(cls, table, fields, where, limit, offset):
         with get_connection_exception(TOKEN_POSP_TRADE) as conn:
             other = 'limit %d offset %d' % (limit, offset)
             ret = conn.select(table=table, fields='*', where=where, other=other)
-            return ret
+            if ret:
+                return ret
+            else:
+                return []
 
     @classmethod
     def page(cls, **kwargs):
@@ -147,6 +159,12 @@ class TradeList:
         table_arr = ['record_201707', 'record_201708', 'record_201709']
         table_map, table_list = cls._gen_table_map(table_list=table_arr, where=where)
         total, origin, judge, judge_map = page_tool.gen_from_table(table_list, page, page_size)
+        if total <= page_size:
+            info = []
+            for table in table_list:
+                ret = cls._query(table=table[0], fields=keep_fields, where=where)
+                info.extend(ret)
+            return True, info, total
         range_map = page_tool.table_range_map(table_list)
         pages = page_tool.gen_total_pages(total, page_size)
         page_range = page_tool.gen_page_range(pages, page_size)
