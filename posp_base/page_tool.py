@@ -28,7 +28,7 @@ def table_range_map(table_list):
         log.debug('name=%s|value=%s|before=%s' % (name, value, before))
         data[name] = range(before+1, value+before+1)
         before += value
-    log.debug('table_range_map output=%s', data)
+    # log.debug('table_range_map output=%s', data)
     return data
 
 
