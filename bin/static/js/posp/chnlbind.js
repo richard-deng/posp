@@ -249,17 +249,17 @@ $(document).ready(function(){
                     digits:true
                 },
                 view_mchntid: {
-                    required: true,
+                    required: false,
                     maxlength: 64
                 },
 
                 view_termid: {
-                    required: true,
+                    required: false,
                     maxlength: 64
                 },
 
                 view_mchntnm: {
-                    required: true,
+                    required: false,
                     maxlength: 64
                 },
 
@@ -364,15 +364,15 @@ $(document).ready(function(){
                     digits:true
                 },
                 add_mchntid: {
-                    required: true,
+                    required: false,
                     maxlength: 64
                 },
                 add_termid: {
-                    required: true,
+                    required: false,
                     maxlength: 64
                 },
                 add_mchntnm: {
-                    required: true,
+                    required: false,
                     maxlength: 64
                 },
                 add_tradetype: {
