@@ -87,7 +87,7 @@ class TermBindCreateHandler(BaseHandler):
         Field('mackey', T_STR, True),
         Field('qpos_pubkey', T_STR, True),
         Field('tmk', T_STR, True),
-        Field('active_date', T_STR, True),
+        # Field('active_date', T_STR, True),
     ]
 
     @posp_check_session(g_rt.redis_pool, cookie_conf)
