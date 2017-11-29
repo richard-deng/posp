@@ -37,11 +37,37 @@
                             <label for="s_syssn">流水号</label>
                             <input type="text" class="form-control" id="s_syssn" name="s_syssn" placeholder="">
                         </div>
+
                         <div class="form-group">
                             <label for="s_userid">商户ID</label>
                             <input type="text" class="form-control" id="s_userid" name="s_userid" placeholder="">
                         </div>
-                        <button type="button" class="btn btn-primary" id="tradeSearch">搜索</button>
+
+						<div class="datetimepicker-container" style="margin-top: 12px;">
+							<span>时间</span>
+							<div class="form-group">
+								<div class="input-group date form_date" data-date="" data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="start_time" data-link-format="yyyy-mm-dd hh:ii:ss" id="datetimepicker1">
+									<input class="form-control sea_date" type="text" value="" readonly="">
+									<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+									<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+								</div>
+								<input type="hidden" id="start_time" value=""><br>
+							</div>
+							<span> - </span>
+							<div class="form-group">
+								<div class="input-group date form_date" data-date="" data-date-format="yyyy-mm-dd hh:ii:ss" data-link-field="end_time" data-link-format="yyyy-mm-dd hh:ii:ss" id="datetimepicker2">
+									<input class="form-control sea_date" type="text" value="" readonly="">
+									<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+									<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+								</div>
+								<input type="hidden" id="end_time" value=""><br>
+							</div>
+							<div class="form-group">
+                                <button type="button" class="btn btn-primary" id="tradeSearch">搜索</button>
+							</div>
+						</div>
+
+
                     </form>
                     <label id="query_label_error"></label>
                 </div>
@@ -115,5 +141,15 @@
             $(this).removeAttr('readonly');
         }
     });
+
+	$("#datetimepicker1").datetimepicker().on('changeDate', function(e){
+		$("#datetimepicker2").datetimepicker('setStartDate', e.date);
+	});
+
+	$("#datetimepicker2").datetimepicker().on('changeDate', function(e){
+		$("#datetimepicker1").datetimepicker('setEndDate', e.date);
+	});
+
 </script>
+
 </%block>
