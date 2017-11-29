@@ -47,6 +47,19 @@ $(document).ready(function () {
                 get_data.userid = userid;
             }
 
+            var start_time = $("#start_time").val();
+            var end_time = $("#end_time").val();
+            if(start_time && end_time){
+                var start_date = new Date(start_time);
+                var end_date = new Date(end_time);
+                if(end_date <= start_date){
+                    toastr.warning('请核实时间范围');
+                    return false;
+                }
+                get_data.start_time = start_time;
+                get_data.end_time = end_time;
+            }
+
             $.ajax({
                 url: '/posp/v1/api/trade/list',
                 type: 'GET',

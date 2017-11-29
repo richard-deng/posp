@@ -62,6 +62,16 @@ class TradeList:
         return False
 
     @classmethod
+    def _gen_valid_tables(cls, table_arr):
+        valid_arr = []
+        for table in table_arr:
+            flag = cls._table_exists(table)
+            if flag:
+                valid_arr.append(table)
+
+        return valid_arr
+
+    @classmethod
     def _gen_tables(cls, start_time, end_time):
         if all((start_time, end_time)):
             try:
@@ -144,6 +154,10 @@ class TradeList:
         keep_fields.append(('id'))
         start_time = kwargs.get('start_time')
         end_time = kwargs.get('end_time')
+        table_arr = cls._gen_tables(start_time, end_time)
+        table_arr = cls._gen_valid_tables(table_arr)
+        log.debug('table_arr=%s', table_arr)
+
         syssn = kwargs.get('syssn', '')
         if syssn:
             table_name = 'record_'+syssn[:6]
@@ -156,7 +170,7 @@ class TradeList:
                     return True, [info], 1
                 else:
                     return True, [], 0
-        table_arr = ['record_201707', 'record_201708', 'record_201709']
+
         table_map, table_list = cls._gen_table_map(table_list=table_arr, where=where)
         total, origin, judge, judge_map = page_tool.gen_from_table(table_list, page, page_size)
         if total <= page_size:

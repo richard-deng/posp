@@ -23,6 +23,8 @@ class TradeListHandler(BaseHandler):
         Field('maxnum', T_INT, False),
         Field('syssn', T_STR, True),
         Field('userid', T_INT, True),
+        Field('start_time', T_STR, True),
+        Field('end_time', T_STR, True),
     ]
 
     @posp_check_session(g_rt.redis_pool, cookie_conf)
