@@ -1,4 +1,5 @@
 # coding: utf-8
+import copy
 import logging
 
 import tools
@@ -13,7 +14,7 @@ class Terminal:
 
     TABLE = 'terminal'
     TABLE_ID = 'id'
-    TERMINAL_MUST_KEY = {
+    MUST_KEY = {
         'userid': T_INT,
         'terminalid': T_STR,
         'psamid': T_STR,
@@ -27,12 +28,12 @@ class Terminal:
         'last_modify': T_STR,
         'last_admin': T_INT,
     }
-    TERMINAL_OPTION_KEY = {
+    OPTION_KEY = {
         'advice': T_STR,
         'group_id': T_INT,
         'qpos_pubkey': T_STR
     }
-    TERMINAL_DATETIME_KEY = {
+    DATETIME_KEY = {
         'produce_date': 'datetime',
         'deliver_date': 'datetime',
         'last_modify': 'datetime',
@@ -42,7 +43,7 @@ class Terminal:
         'model': T_STR,
         'state': T_INT,
     }
-    TERMINAL_KEY = TERMINAL_MUST_KEY.keys() + TERMINAL_OPTION_KEY.keys()
+    KEYS = MUST_KEY.keys() + OPTION_KEY.keys()
 
     def __init__(self, terminal_id):
         self.id = terminal_id
@@ -51,19 +52,18 @@ class Terminal:
 
     def load(self):
         where = {'id': self.id}
-        Terminal.TERMINAL_KEY.append(Terminal.TABLE_ID)
-        keep_fields = Terminal.TERMINAL_KEY
-        self.keys = keep_fields
+        Terminal.KEYS.append(Terminal.TABLE_ID)
+        keep_fields = copy.deepcopy(Terminal.KEYS)
         with get_connection_exception(TOKEN_POSP_MIS) as conn:
             record = conn.select_one(table=Terminal.TABLE, fields=keep_fields, where=where)
-            self.data = tools.trans_time(data=record, datetime_keys=Terminal.TERMINAL_DATETIME_KEY)
+            self.data = tools.trans_time(data=record, datetime_keys=Terminal.DATETIME_KEY)
 
     @classmethod
     def load_by_terminalid(cls, terminalid):
         where = {'terminalid': terminalid}
         with get_connection_exception(TOKEN_POSP_MIS) as conn:
             record = conn.select_one(table=cls.TABLE, fields='*', where=where)
-            ret = tools.trans_time(data=record, datetime_keys=cls.TERMINAL_DATETIME_KEY)
+            ret = tools.trans_time(data=record, datetime_keys=cls.DATETIME_KEY)
             cls.data = ret
             return cls
 
@@ -89,9 +89,9 @@ class Terminal:
         other = kwargs.get('other', '')
         page = kwargs.get('page', 1)
         page_size = kwargs.get('maxnum', 10)
-        log.debug('TERMINAL_KEY=%s', cls.TERMINAL_KEY)
-        cls.TERMINAL_KEY.append(cls.TABLE_ID)
-        keep_fields = cls.TERMINAL_KEY
+        log.debug('TERMINAL_KEY=%s', cls.KEYS)
+        keep_fields = copy.deepcopy(cls.KEYS)
+        keep_fields.append(cls.TABLE_ID)
         log.debug('keep_fields=%s', keep_fields)
         with get_connection_exception(TOKEN_POSP_MIS) as conn:
             sql = conn.select_sql(table=Terminal.TABLE, where=where, fields=keep_fields, other=other)

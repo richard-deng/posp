@@ -35,7 +35,7 @@ class TermBindListHandler(BaseHandler):
         params = self.validator.data
         info, num = TermBind.page(**params)
         data['num'] = num
-        data['info'] = [trans_time(item, TermBind.TERMBIND_DATETIME_KEY) for item in info]
+        data['info'] = [trans_time(item, TermBind.DATETIME_KEY) for item in info]
         return success(data=data)
 
 

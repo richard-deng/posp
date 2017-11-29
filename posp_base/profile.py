@@ -1,4 +1,5 @@
 # coding: utf-8
+import copy
 import logging
 
 import tools
@@ -49,7 +50,7 @@ class Profile:
         self.load()
 
     def load(self):
-        keep_fields = self.keys
+        keep_fields = copy.deepcopy(self.keys)
         keep_fields.append(Profile.TABLE_ID)
         where = {'userid': self.userid}
         with get_connection_exception('posp_core') as conn:

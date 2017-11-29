@@ -1,5 +1,5 @@
 #coding: utf-8
-
+import copy
 import random
 import string
 import hashlib
@@ -7,6 +7,7 @@ import base64
 import logging
 import traceback
 
+import tools
 from profile import Profile
 from zbase.base.dbpool import get_connection_exception
 from zbase.web.validator import T_INT, T_STR
@@ -94,7 +95,7 @@ class User:
     @classmethod
     def load_user_by_mobile(cls, mobile):
         where = {'mobile': mobile}
-        keep_fields = cls.KEYS
+        keep_fields = copy.deepcopy(cls.KEYS)
         keep_fields.append(cls.TABLE_ID)
         with get_connection_exception('posp_core') as conn:
             record = conn.select_one(table=User.TABLE, fields=keep_fields, where=where)
@@ -105,25 +106,10 @@ class User:
 
     def load(self):
         where = {'id': self.userid}
-        keep_fields = self.keys
+        keep_fields = copy.deepcopy(self.keys)
         with get_connection_exception('posp_core') as conn:
             record = conn.select_one(table=User.TABLE, fields=keep_fields, where=where)
-            self.data = self.trans_time(record)
-
-    def trans_time(self, data):
-
-        if not data:
-            return {}
-
-        for key, data_type in User.DATETIME_KEY.iteritems():
-            if data.get(key):
-                if data_type in ('time', 'date'):
-                    data[key] = str(data[key])
-                elif data_type == 'datetime':
-                    data[key] = data.get(key).strftime('%Y-%m-%d %H:%M:%S')
-                else:
-                    pass
-        return data
+            self.data = tools.trans_time(record, User.DATETIME_KEY)
 
     def update(self, values):
         func = 'update'
@@ -149,3 +135,4 @@ class User:
                 log.warn(traceback.format_exc())
                 conn.rollback()
                 return False, None
+

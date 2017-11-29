@@ -1,4 +1,5 @@
 # coding: utf-8
+import copy
 import logging
 import datetime
 
@@ -42,7 +43,8 @@ class ChannelBind:
 
     def load(self):
         where = {'id': self.id}
-        keep_fields = ChannelBind.KEYS
+        keep_fields = copy.deepcopy(ChannelBind.KEYS)
+        log.debug('keep_fields=%s', keep_fields)
         keep_fields.append(ChannelBind.TABLE_ID)
         with get_connection_exception(TOKEN_POSP_CORE) as conn:
             record = conn.select_one(table=ChannelBind.TABLE, fields=keep_fields, where=where)

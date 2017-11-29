@@ -209,10 +209,10 @@ def find_user_by_mobile(mobile):
 
 def build_card_bin(params):
     data = {}
-    for key in CardBin.CARDBIN_MUST_KEY:
+    for key in CardBin.MUST_KEY:
         data[key] = params.get(key, '')
 
-    for key in CardBin.CARDBIN_OPTION_KEY:
+    for key in CardBin.OPTION_KEY:
         if key == '`foreign`':
             data[key] = params.get('foreign')
         else:
@@ -263,18 +263,18 @@ def build_channel_bind_create(params):
 def build_terminal_edit(params):
     data = {}
     for key in params.keys():
-        if key in Terminal.TERMINAL_MUST_KEY.keys():
+        if key in Terminal.MUST_KEY.keys():
             if params.get(key):
                 data[key] = params.get(key)
             else:
-                if Terminal.TERMINAL_MUST_KEY.get(key) == T_INT:
+                if Terminal.MUST_KEY.get(key) == T_INT:
                     data[key] = 0
-                elif Terminal.TERMINAL_MUST_KEY.get(key) == T_STR:
+                elif Terminal.MUST_KEY.get(key) == T_STR:
                     data[key] = ''
                 else:
                     log.info('build_terminal_edit key=%s|cannot find type', key)
 
-        if key in Terminal.TERMINAL_OPTION_KEY.keys() and params.get(key):
+        if key in Terminal.OPTION_KEY.keys() and params.get(key):
             data[key] = params.get(key)
 
         if key == 'last_modify':
@@ -286,19 +286,19 @@ def build_terminal_edit(params):
 
 def build_terminal_create(params):
     data = {}
-    for key in Terminal.TERMINAL_KEY:
-        if key in Terminal.TERMINAL_MUST_KEY.keys():
+    for key in Terminal.KEYS:
+        if key in Terminal.MUST_KEY.keys():
             if params.get(key):
                 data[key] = params.get(key)
             else:
-                if Terminal.TERMINAL_MUST_KEY.get(key) == T_INT:
+                if Terminal.MUST_KEY.get(key) == T_INT:
                     data[key] = 0
-                elif Terminal.TERMINAL_MUST_KEY.get(key) == T_STR:
+                elif Terminal.MUST_KEY.get(key) == T_STR:
                     data[key] = ''
                 else:
                     log.info('build_terminal_create key=%s|cannot find type', key)
 
-        if key in Terminal.TERMINAL_OPTION_KEY.keys() and params.get(key):
+        if key in Terminal.OPTION_KEY.keys() and params.get(key):
             data[key] = params.get(key)
 
         if key == 'last_modify':
@@ -310,18 +310,18 @@ def build_terminal_create(params):
 def build_termbind_edit(params):
     data = {}
     for key in params.keys():
-        if key in TermBind.TERMBIND_MUST_KEY.keys():
+        if key in TermBind.MUST_KEY.keys():
             if params.get(key) not in INVALID_VALUE:
                 data[key] = params.get(key)
             else:
-                if TermBind.TERMBIND_MUST_KEY.get(key) == T_INT:
+                if TermBind.MUST_KEY.get(key) == T_INT:
                     data[key] = 0
-                elif TermBind.TERMBIND_MUST_KEY.get(key) == T_STR:
+                elif TermBind.MUST_KEY.get(key) == T_STR:
                     data[key] = ''
                 else:
                     log.info('build_termbind_edit key=%s|cannot find default value', key)
 
-        if key in TermBind.TERMBIND_OPTION_KEY.keys():
+        if key in TermBind.OPTION_KEY.keys():
             if params.get(key):
                 data[key] = params.get(key)
 
@@ -330,19 +330,19 @@ def build_termbind_edit(params):
 
 def build_termbind_create(params):
     data = {}
-    for key in TermBind.TERMBIND_KEY:
-        if key in TermBind.TERMBIND_MUST_KEY.keys():
+    for key in TermBind.KEYS:
+        if key in TermBind.MUST_KEY.keys():
             if params.get(key) not in INVALID_VALUE:
                 data[key] = params.get(key)
             else:
-                if TermBind.TERMBIND_MUST_KEY.get(key) == T_INT:
+                if TermBind.MUST_KEY.get(key) == T_INT:
                     data[key] = 0
-                elif TermBind.TERMBIND_MUST_KEY.get(key) == T_STR:
+                elif TermBind.MUST_KEY.get(key) == T_STR:
                     data[key] = ''
                 else:
                     log.info('build_termbind_create key=%s|cannot find default value', key)
 
-        if key in TermBind.TERMBIND_OPTION_KEY.keys():
+        if key in TermBind.OPTION_KEY.keys():
             if params.get(key):
                 data[key] = params.get(key)
 

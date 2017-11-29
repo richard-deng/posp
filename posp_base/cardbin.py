@@ -1,4 +1,5 @@
 # coding: utf-8
+import copy
 import logging
 import datetime
 from zbase.base.dbpool import get_connection_exception
@@ -9,24 +10,27 @@ log = logging.getLogger()
 class CardBin:
 
     TABLE = 'cardbin'
-    CARDBIN_MUST_KEY = [
+    TABLE_ID = 'id'
+    MUST_KEY = [
         'bankname', 'bankid', 'cardcd', 'cardlen',
         'cardbin', 'cardname', 'cardtp', 'cardorg'
     ]
-    CARDBIN_OPTION_KEY = ['`foreign`']
-    CARDBIN_DATETIME_KEY = []
-    CARDBIN_KEY = CARDBIN_MUST_KEY + CARDBIN_OPTION_KEY
+    OPTION_KEY = ['`foreign`']
+    DATETIME_KEY = []
+    KEYS = MUST_KEY + OPTION_KEY
 
 
     def __init__(self, id):
         self.id = id
         self.data = {}
-        self.keys = CardBin.CARDBIN_KEY
+        self.keys = CardBin.KEYS
 
     def load(self):
         where = {'id': self.id}
+        keep_fields = copy.deepcopy(CardBin.KEYS)
+        keep_fields.append(CardBin.TABLE_ID)
         with get_connection_exception('posp_core') as conn:
-            record = conn.select_one(table=CardBin.TABLE, fields=self.keys, where=where)
+            record = conn.select_one(table=CardBin.TABLE, fields=keep_fields, where=where)
             self.data = record
 
     def update(self, valeus):
@@ -51,7 +55,8 @@ class CardBin:
         other = kwargs.get('other', '')
         page = kwargs.get('page', 1)
         page_size = kwargs.get('maxnum', 10)
-        keep_fields = cls.CARDBIN_KEY + ['id']
+        keep_fields = copy.deepcopy(cls.KEYS)
+        keep_fields.append(cls.TABLE_ID)
         with get_connection_exception('posp_core') as conn:
             sql = conn.select_sql(table=CardBin.TABLE, where=where, fields=keep_fields, other=other)
             pager = conn.select_page(sql, pagecur=page, pagesize=page_size)
