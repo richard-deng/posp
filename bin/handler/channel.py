@@ -149,21 +149,17 @@ class ChannelCreateHandler(BaseHandler):
 
     _post_handler_fields = [
         Field('name', T_STR, False),
-        Field('zmk', T_STR, False),
-        Field('zpk', T_STR, False),
-        # Field('mcc', T_STR, False),
-        Field('chcd', T_STR, False),
-        Field('inscd', T_STR, False),
-        Field('code', T_STR, False),
-        Field('mchntid', T_STR, False),
-        Field('mchntnm', T_STR, False),
-        #Field('terminalid', T_STR, False),
-        #Field('mode', T_STR, False),
-        #Field('parent', T_STR, False),
-        Field('route', T_STR, False),
-        Field('available', T_STR, False),
-        Field('tdkey', T_STR, False),
-        Field('mackey', T_STR, False),
+        Field('zmk', T_STR, True),
+        Field('zpk', T_STR, True),
+        Field('chcd', T_STR, True),
+        Field('inscd', T_STR, True),
+        Field('code', T_STR, True),
+        Field('mchntid', T_STR, True),
+        Field('mchntnm', T_STR, True),
+        Field('terminalid', T_STR, True),
+        Field('route', T_STR, True),
+        Field('tdkey', T_STR, True),
+        Field('mackey', T_STR, True),
     ]
 
     @posp_check_session(g_rt.redis_pool, cookie_conf)
