@@ -273,24 +273,14 @@ def build_terminal_edit(params):
 def build_terminal_create(params):
     data = {}
     for key in Terminal.KEYS:
-        if key in Terminal.MUST_KEY.keys():
-            if params.get(key):
-                data[key] = params.get(key)
-            else:
-                if Terminal.MUST_KEY.get(key) == T_INT:
-                    data[key] = 0
-                elif Terminal.MUST_KEY.get(key) == T_STR:
-                    data[key] = ''
-                else:
-                    log.info('build_terminal_create key=%s|cannot find type', key)
+        value = params.get(key)
+        if value not in INVALID_VALUE:
+            data[key] = value
+        else:
+            log.debug('ignore key=%s|value=%s', key, value)
 
-        if key in Terminal.OPTION_KEY.keys() and params.get(key):
-            data[key] = params.get(key)
-
-        if key == 'last_modify':
-            now = datetime.datetime.now()
-            data[key] = now.strftime('%Y-%m-%d %H:%M:%S')
-
+    now = datetime.datetime.now()
+    data['last_modify'] = now.strftime('%Y-%m-%d %H:%M:%S')
     data['state'] = TERMINAL_ACTIVATE
     return data
 
@@ -310,19 +300,10 @@ def build_termbind_edit(params):
 def build_termbind_create(params):
     data = {}
     for key in TermBind.KEYS:
-        if key in TermBind.MUST_KEY.keys():
-            if params.get(key) not in INVALID_VALUE:
-                data[key] = params.get(key)
-            else:
-                if TermBind.MUST_KEY.get(key) == T_INT:
-                    data[key] = 0
-                elif TermBind.MUST_KEY.get(key) == T_STR:
-                    data[key] = ''
-                else:
-                    log.info('build_termbind_create key=%s|cannot find default value', key)
-
-        if key in TermBind.OPTION_KEY.keys():
-            if params.get(key):
-                data[key] = params.get(key)
+        value = params.get(key)
+        if value not in INVALID_VALUE:
+            data[key] = value
+        else:
+            log.debug('ignore key=%s|value=%s', key, value)
 
     return data
