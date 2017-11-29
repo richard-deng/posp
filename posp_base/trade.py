@@ -145,7 +145,7 @@ class TradeList:
                 else:
                     return True, [], 0
         table_arr = ['record_201707', 'record_201708', 'record_201709']
-        table_map, table_list = cls._gen_table_map(table_arr)
+        table_map, table_list = cls._gen_table_map(table_list=table_arr, where=where)
         total, origin, judge, judge_map = page_tool.gen_from_table(table_list, page, page_size)
         range_map = page_tool.table_range_map(table_list)
         pages = page_tool.gen_total_pages(total, page_size)

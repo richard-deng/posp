@@ -37,9 +37,14 @@ $(document).ready(function () {
             get_data.se_userid = se_userid;
 
             var syssn = $("#s_syssn").val();
+            var userid = $("#s_userid").val();
 
             if(syssn){
                 get_data.syssn = syssn;
+            }
+
+            if(userid){
+                get_data.userid = userid;
             }
 
             $.ajax({
