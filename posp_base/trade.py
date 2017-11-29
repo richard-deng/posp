@@ -1,4 +1,5 @@
 # coding: utf-8
+import copy
 import logging
 import traceback
 import datetime
@@ -120,7 +121,20 @@ class TradeList:
                 return []
 
     @classmethod
-    def page(cls, **kwargs):
+    def page_syssn(cls, syssn):
+        table_name = 'record_' + syssn[:6]
+        flag = cls._table_exists(table_name)
+        if not flag:
+            return False, [], 0
+        with get_connection_exception(TOKEN_POSP_TRADE) as conn:
+            info = conn.select_one(table=table_name, fields='*', where={'syssn': syssn})
+            if info:
+                return True, [info], 1
+            else:
+                return True, [], 0
+
+    @classmethod
+    def page(cls, table, **kwargs):
         need_query = cls.QUERY_KEY.keys()
         where = {}
         for k, v in kwargs.iteritems():
@@ -129,16 +143,18 @@ class TradeList:
         other = kwargs.get('other', '')
         page = kwargs.get('page', 1)
         page_size = kwargs.get('maxnum', 10)
-        cls.QUERY_KEY.keys().append('id')
+        start_time = kwargs.get('start_time')
+        end_time = kwargs.get('end_time')
+        if start_time and end_time:
+            where.update({'sysdtm': ('between', (str(start_time), str(end_time)))})
         keep_fields = cls.QUERY_KEY.keys()
         keep_fields.append(('id'))
         log.debug('keep_fields=%s', keep_fields)
-        table = 'record_201709'
         with get_connection_exception(TOKEN_POSP_TRADE) as conn:
             sql = conn.select_sql(table=table, where=where, fields=keep_fields, other=other)
             pager = conn.select_page(sql, pagecur=page, pagesize=page_size)
             pager.split()
-            return pager.pagedata.data, pager.count
+            return True, pager.pagedata.data, pager.count
 
     @classmethod
     def page_more(cls, **kwargs):
@@ -154,22 +170,11 @@ class TradeList:
         keep_fields.append(('id'))
         start_time = kwargs.get('start_time')
         end_time = kwargs.get('end_time')
+        if start_time and end_time:
+            where.update({'sysdtm': ('between', (str(start_time), str(end_time)))})
         table_arr = cls._gen_tables(start_time, end_time)
         table_arr = cls._gen_valid_tables(table_arr)
         log.debug('table_arr=%s', table_arr)
-
-        syssn = kwargs.get('syssn', '')
-        if syssn:
-            table_name = 'record_'+syssn[:6]
-            flag = cls._table_exists(table_name)
-            if not flag:
-                return False, [], 0
-            with get_connection_exception(TOKEN_POSP_TRADE) as conn:
-                info = conn.select_one(table=table_name, fields='*', where={'syssn': syssn})
-                if info:
-                    return True, [info], 1
-                else:
-                    return True, [], 0
 
         table_map, table_list = cls._gen_table_map(table_list=table_arr, where=where)
         total, origin, judge, judge_map = page_tool.gen_from_table(table_list, page, page_size)
@@ -179,6 +184,7 @@ class TradeList:
                 ret = cls._query(table=table[0], fields=keep_fields, where=where)
                 info.extend(ret)
             return True, info, total
+
         range_map = page_tool.table_range_map(table_list)
         pages = page_tool.gen_total_pages(total, page_size)
         page_range = page_tool.gen_page_range(pages, page_size)
@@ -198,4 +204,3 @@ class TradeList:
                 count, offset = page_tool.gen_one_limit_offset(range_map, start_table, start, end)
                 info = cls._query_one_table(table=start_table, fields=keep_fields, where=where, limit=count, offset=offset)
         return True, info, total
-

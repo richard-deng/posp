@@ -1,5 +1,6 @@
 # coding: utf-8
 import logging
+import datetime
 
 from runtime import g_rt
 from config import cookie_conf
@@ -32,7 +33,26 @@ class TradeListHandler(BaseHandler):
     def _get_handler(self):
         data = {}
         params = self.validator.data
-        flag, info, num = TradeList.page_more(**params)
+        syssn = params.get('syssn')
+        start_time = params.get('start_time')
+        end_time = params.get('end_time')
+
+        if syssn:
+            flag, info, num = TradeList.page_syssn(syssn)
+
+        elif start_time and end_time:
+            table_arr = TradeList._gen_tables(start_time, end_time)
+            table_arr = TradeList._gen_valid_tables(table_arr)
+            if len(table_arr) > 1:
+                flag, info, num = TradeList.page_more(**params)
+            else:
+                flag, info, num = TradeList.page(table=table_arr[0], **params)
+        else:
+            # 默认当月
+            now = datetime.datetime.now()
+            table = 'record_' + now.strftime('%Y%m')
+            flag, info, num = TradeList.page(table=table, **params)
+
         if not flag:
             return error(RESP_CODE.DATAERR)
         data['num'] = num
