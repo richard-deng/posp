@@ -227,13 +227,8 @@ def build_channel_bind_edit(params):
         if value not in INVALID_VALUE:
             values[key] = value
         else:
-            if key in ChannelBind.MUST_KEY:
-                if ChannelBind.MUST_KEY.get(key) == T_INT:
-                    values[key] = 0
-                if ChannelBind.MUST_KEY.get(key) == T_STR:
-                    values[key] = ''
-            else:
-                log.debug('ignore key=%s|value=%s', key, value)
+            # 修改时不加默认值
+            log.debug('ignore key=%s|value=%s', key, value)
     now = datetime.datetime.now()
     values['update_time'] = now.strftime('%Y-%m-%d %H:%M:%S')
     return values
@@ -262,25 +257,15 @@ def build_channel_bind_create(params):
 
 def build_terminal_edit(params):
     data = {}
-    for key in params.keys():
-        if key in Terminal.MUST_KEY.keys():
-            if params.get(key):
-                data[key] = params.get(key)
-            else:
-                if Terminal.MUST_KEY.get(key) == T_INT:
-                    data[key] = 0
-                elif Terminal.MUST_KEY.get(key) == T_STR:
-                    data[key] = ''
-                else:
-                    log.info('build_terminal_edit key=%s|cannot find type', key)
+    for key in Terminal.KEYS:
+        value = params.get(key)
+        if key not in INVALID_VALUE:
+            data[key] = value
+        else:
+            log.info('build_terminal_edit key=%s|cannot find type', key)
 
-        if key in Terminal.OPTION_KEY.keys() and params.get(key):
-            data[key] = params.get(key)
-
-        if key == 'last_modify':
-            now = datetime.datetime.now()
-            data[key] = now.strftime('%Y-%m-%d %H:%M:%S')
-
+    now = datetime.datetime.now()
+    data['last_modify'] = now.strftime('%Y-%m-%d %H:%M:%S')
     return data
 
 
@@ -309,21 +294,13 @@ def build_terminal_create(params):
 
 def build_termbind_edit(params):
     data = {}
-    for key in params.keys():
-        if key in TermBind.MUST_KEY.keys():
-            if params.get(key) not in INVALID_VALUE:
-                data[key] = params.get(key)
-            else:
-                if TermBind.MUST_KEY.get(key) == T_INT:
-                    data[key] = 0
-                elif TermBind.MUST_KEY.get(key) == T_STR:
-                    data[key] = ''
-                else:
-                    log.info('build_termbind_edit key=%s|cannot find default value', key)
 
-        if key in TermBind.OPTION_KEY.keys():
-            if params.get(key):
-                data[key] = params.get(key)
+    for key in TermBind.KEYS:
+        value = params.get(key)
+        if value not in INVALID_VALUE:
+            data[key] = value
+        else:
+            log.debug('ignore key=%s|value=%s', key, value)
 
     return data
 

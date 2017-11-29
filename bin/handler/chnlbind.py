@@ -48,6 +48,7 @@ class ChannelBindViewHandler(BaseHandler):
     _post_handler_fields = [
         Field('channel_bind_id', T_INT, False),
 
+        Field('userid', T_INT, False),
         Field('priority', T_INT, False),
         Field('chnlid', T_INT, False),
         Field('mchntid', T_STR, True),

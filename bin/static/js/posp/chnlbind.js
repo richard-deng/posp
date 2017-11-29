@@ -309,7 +309,7 @@ $(document).ready(function(){
         post_data['se_userid'] = se_userid;
 
         post_data['channel_bind_id'] = channel_bind_id;
-
+        post_data['userid'] = $('#view_userid').val();
 		post_data['priority'] = $('#view_priority').val();
 		post_data['available'] = $('#view_available').val();
 		post_data['chnlid'] = $('#view_channel_name').val();
