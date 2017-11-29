@@ -73,6 +73,7 @@ class ChannelBind:
         on = {'chnlbind.chnlid': 'channel.id'}
         keep_fields = [cls.TABLE + '.' + key for key in cls.KEYS]
         keep_fields.append(Channel.TABLE+'.'+'name')
+        keep_fields.append(ChannelBind.TABLE+'.'+'id')
         with get_connection_exception(TOKEN_POSP_CORE) as conn:
             sql = conn.select_join_sql(
                 table1=cls.TABLE,
