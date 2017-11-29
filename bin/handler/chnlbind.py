@@ -50,17 +50,10 @@ class ChannelBindViewHandler(BaseHandler):
 
         Field('priority', T_INT, False),
         Field('chnlid', T_INT, False),
-        Field('mchntid', T_STR, False),
-        Field('termid', T_STR, False),
-        Field('mchntnm', T_STR, False),
-        Field('mcc', T_STR, False),
+        Field('mchntid', T_STR, True),
+        Field('termid', T_STR, True),
+        Field('mchntnm', T_STR, True),
         Field('tradetype', T_INT, False),
-        Field('tag1', T_STR, False),
-        Field('tag2', T_STR, False),
-        Field('key1', T_STR, False),
-        Field('key2', T_STR, False),
-        Field('key3', T_STR, False),
-        Field('available', T_INT, False),
     ]
 
     @posp_check_session(g_rt.redis_pool, cookie_conf)
@@ -92,17 +85,10 @@ class ChannelBindCreateHandler(BaseHandler):
         Field('userid', T_INT, False),
         Field('priority', T_INT, False),
         Field('chnlid', T_INT, False),
-        Field('mchntid', T_STR, False),
-        Field('termid', T_STR, False),
-        Field('mchntnm', T_STR, False),
-        Field('mcc', T_STR, False),
+        Field('mchntid', T_STR, True),
+        Field('termid', T_STR, True),
+        Field('mchntnm', T_STR, True),
         Field('tradetype', T_INT, False),
-        Field('tag1', T_STR, False),
-        Field('tag2', T_STR, False),
-        Field('key1', T_STR, False),
-        Field('key2', T_STR, False),
-        Field('key3', T_STR, False),
-        Field('available', T_INT, False),
     ]
 
     @posp_check_session(g_rt.redis_pool, cookie_conf)

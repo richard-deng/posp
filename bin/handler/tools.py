@@ -221,7 +221,19 @@ def build_card_bin(params):
 
 
 def build_channel_bind_edit(params):
-    values = params
+    values = {}
+    for key in ChannelBind.KEYS:
+        value = params.get(key)
+        if value not in INVALID_VALUE:
+            values[key] = value
+        else:
+            if key in ChannelBind.MUST_KEY:
+                if ChannelBind.MUST_KEY.get(key) == T_INT:
+                    values[key] = 0
+                if ChannelBind.MUST_KEY.get(key) == T_STR:
+                    values[key] = ''
+            else:
+                log.debug('ignore key=%s|value=%s', key, value)
     now = datetime.datetime.now()
     values['update_time'] = now.strftime('%Y-%m-%d %H:%M:%S')
     return values
@@ -231,11 +243,18 @@ def build_channel_bind_create(params):
     data = {}
     now = datetime.datetime.now()
 
-    for key in ChannelBind.CHNLBIND_KEY:
-        if key in ChannelBind.CHNLBIND_MUST_KEY and not params.get(key, None):
-            data[key] = 0
+    for key in ChannelBind.KEYS:
+        value = params.get(key)
+        if value not in INVALID_VALUE:
+            data[key] = value
         else:
-            data[key] = params.get(key)
+            if key in ChannelBind.MUST_KEY:
+                if ChannelBind.MUST_KEY.get(key) == T_INT:
+                    data[key] = 0
+                if ChannelBind.MUST_KEY.get(key) == T_STR:
+                    data[key] = ''
+            else:
+                log.debug('ignore key=%s|value=%s', key, value)
 
     data['create_time'] = now.strftime('%Y-%m-%d %H:%M:%S')
     return data
