@@ -16,6 +16,7 @@ from posp_base.terminal import Terminal
 from posp_base.termbind import TermBind
 from posp_base.merchant import gen_passwd
 from posp_base.define import TERMINAL_ACTIVATE
+from posp_base.define import TERMINAL_BIND
 
 log = logging.getLogger()
 
@@ -284,6 +285,7 @@ def build_terminal_create(params):
     data['state'] = TERMINAL_ACTIVATE
     return data
 
+
 def build_termbind_edit(params):
     data = {}
 
@@ -306,4 +308,5 @@ def build_termbind_create(params):
         else:
             log.debug('ignore key=%s|value=%s', key, value)
 
+    data['state'] = TERMINAL_BIND
     return data

@@ -25,7 +25,6 @@ class TermBindListHandler(BaseHandler):
         Field('maxnum', T_INT, False),
         Field('userid', T_STR, True),
         Field('terminalid', T_STR, True),
-        Field('psamid', T_STR, True),
     ]
 
     @posp_check_session(g_rt.redis_pool, cookie_conf)
@@ -49,23 +48,12 @@ class TermBindViewHandler(BaseHandler):
         Field('termbind_id', T_INT, False),
 
         Field('userid', T_INT, False),
-        Field('udid', T_STR, False),
         Field('terminalid', T_STR, False),
-        Field('psamid', T_STR, False),
-        Field('psamtp', T_STR, False),
-        Field('tckkey', T_STR, False),
-        Field('pinkey1', T_STR, False),
-        Field('pinkey2', T_STR, False),
-        Field('mackey', T_STR, False),
-        Field('diskey', T_STR, True),
-        Field('os', T_INT, False),
-        Field('os_ver', T_STR, False),
-        Field('state', T_INT, False),
-        Field('fackey', T_STR, True),
-        Field('key_version', T_STR, True),
+        Field('pinkey1', T_STR, True),
+        Field('pinkey2', T_STR, True),
+        Field('mackey', T_STR, True),
+        Field('state', T_INT, True),
         Field('qpos_pubkey', T_STR, True),
-        Field('dig_env', T_STR, True),
-        Field('enc_pin_key', T_STR, True),
         Field('tmk', T_STR, True),
     ]
 
@@ -93,23 +81,11 @@ class TermBindCreateHandler(BaseHandler):
 
     _post_handler_fields = [
         Field('userid', T_INT, False),
-        Field('udid', T_STR, False),
         Field('terminalid', T_STR, False),
-        Field('psamid', T_STR, False),
-        Field('psamtp', T_STR, False),
-        Field('tckkey', T_STR, False),
-        Field('pinkey1', T_STR, False),
-        Field('pinkey2', T_STR, False),
-        Field('mackey', T_STR, False),
-        Field('diskey', T_STR, True),
-        Field('os', T_INT, False),
-        Field('os_ver', T_STR, False),
-        Field('state', T_INT, False),
-        Field('fackey', T_STR, True),
-        Field('key_version', T_STR, True),
+        Field('pinkey1', T_STR, True),
+        Field('pinkey2', T_STR, True),
+        Field('mackey', T_STR, True),
         Field('qpos_pubkey', T_STR, True),
-        Field('dig_env', T_STR, True),
-        Field('enc_pin_key', T_STR, True),
         Field('tmk', T_STR, True),
         Field('active_date', T_STR, True),
     ]
