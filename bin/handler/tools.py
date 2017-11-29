@@ -15,6 +15,7 @@ from posp_base.chnlbind import ChannelBind
 from posp_base.terminal import Terminal
 from posp_base.termbind import TermBind
 from posp_base.merchant import gen_passwd
+from posp_base.define import TERMINAL_ACTIVATE
 
 log = logging.getLogger()
 
@@ -290,6 +291,7 @@ def build_terminal_create(params):
             now = datetime.datetime.now()
             data[key] = now.strftime('%Y-%m-%d %H:%M:%S')
 
+    data['state'] = TERMINAL_ACTIVATE
     return data
 
 def build_termbind_edit(params):

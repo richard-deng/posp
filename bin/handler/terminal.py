@@ -46,15 +46,13 @@ class TerminalViewHandler(BaseHandler):
         Field('terminal_table_id', T_INT, False),
 
         Field('terminalid', T_STR, False),
-        Field('psamid', T_STR, False),
-        Field('producer', T_STR, False),
-        Field('model', T_STR, False),
-        Field('produce_date', T_STR, False),
+        Field('producer', T_STR, True),
+        Field('model', T_STR, True),
+        Field('produce_date', T_STR, True),
         Field('deliver_date', T_STR, True),
-        Field('tck', T_STR, False),
-        Field('used', T_INT, False),
-        Field('state', T_INT, False),
-        Field('qpos_pubkey', T_STR, False),
+        Field('tck', T_STR, True),
+        Field('state', T_INT, True),
+        Field('qpos_pubkey', T_STR, True),
     ]
 
     @posp_check_session(g_rt.redis_pool, cookie_conf)
@@ -83,16 +81,13 @@ class TerminalCreateHandle(BaseHandler):
 
     _post_handler_fields = [
         Field('terminalid', T_STR, False),
-        Field('psamid', T_STR, False),
-        Field('producer', T_STR, False),
-        Field('model', T_STR, False),
-        Field('produce_date', T_STR, False),
+        Field('psamid', T_STR, True),
+        Field('producer', T_STR, True),
+        Field('model', T_STR, True),
+        Field('produce_date', T_STR, True),
         Field('deliver_date', T_STR, True),
-        Field('tck', T_STR, False),
-        Field('used', T_INT, False),
-        Field('state', T_INT, False),
-        Field('qpos_pubkey', T_STR, False),
-        Field('advice', T_STR, True),
+        Field('tck', T_STR, True),
+        Field('qpos_pubkey', T_STR, True),
     ]
 
     @posp_check_session(g_rt.redis_pool, cookie_conf)

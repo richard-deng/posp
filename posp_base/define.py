@@ -24,3 +24,7 @@ POSP_USER_STATE_MAP = {
 TOKEN_POSP_CORE = 'posp_core'
 TOKEN_POSP_MIS = 'posp_mis'
 TOKEN_POSP_TRADE = 'posp_trade'
+
+# 终端激活
+TERMINAL_ACTIVATE = 0
+TERMINAL_UN_ACTIVATE = 1
