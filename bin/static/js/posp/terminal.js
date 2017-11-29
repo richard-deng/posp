@@ -71,7 +71,7 @@ $(document).ready(function(){
         },
         'columnDefs': [
             {
-                targets: 8,
+                targets: 4,
                 data: '操作',
                 render: function(data, type, full) {
                     var terminal_table_id =full.id;
@@ -83,10 +83,6 @@ $(document).ready(function(){
 		'columns': [
 				{ data: 'terminalid'},
                 { data: 'psamid'},
-				{ data: 'model'},
-				{ data: 'deliver_date'},
-				{ data: 'tck'},
-				{ data: 'used'},
 				{ data: 'state'},
 				{ data: 'last_modify'},
 		],
