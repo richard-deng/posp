@@ -260,10 +260,10 @@ def build_terminal_edit(params):
     data = {}
     for key in Terminal.KEYS:
         value = params.get(key)
-        if key not in INVALID_VALUE:
+        if value not in INVALID_VALUE:
             data[key] = value
         else:
-            log.info('build_terminal_edit key=%s|cannot find type', key)
+            log.info('ignore key=%s|value=%s', key, value)
 
     now = datetime.datetime.now()
     data['last_modify'] = now.strftime('%Y-%m-%d %H:%M:%S')

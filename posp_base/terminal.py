@@ -52,8 +52,8 @@ class Terminal:
 
     def load(self):
         where = {'id': self.id}
-        Terminal.KEYS.append(Terminal.TABLE_ID)
         keep_fields = copy.deepcopy(Terminal.KEYS)
+        keep_fields.append(Terminal.TABLE_ID)
         with get_connection_exception(TOKEN_POSP_MIS) as conn:
             record = conn.select_one(table=Terminal.TABLE, fields=keep_fields, where=where)
             self.data = tools.trans_time(data=record, datetime_keys=Terminal.DATETIME_KEY)
