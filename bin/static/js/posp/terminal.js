@@ -142,11 +142,11 @@ $(document).ready(function(){
             rules: {
 
                 produce_time_add: {
-                    required: true,
+                    required: false,
                     maxlength: 20
                 },
                 deliver_time_add: {
-                    required: true,
+                    required: false,
                     maxlength: 20
                 },
 
@@ -155,33 +155,28 @@ $(document).ready(function(){
                     maxlength: 20
                 },
 
-                psamid_add: {
-                    required: true,
-                    maxlength: 8
-                },
-
                 producer_add: {
-                    required: true,
+                    required: false,
                     maxlength: 4
                 },
 
                 model_add: {
-                    required: true,
+                    required: false,
                     maxlength: 4
                 },
 
                 tck_add: {
-                    required: true,
+                    required: false,
                     maxlength: 32
                 },
 
                 advice_add: {
-                    required: true,
+                    required: false,
                     maxlength: 256
                 },
 
                 qpos_pubkey_add: {
-                    required: true,
+                    required: false,
                     maxlength: 256
                 }
 
@@ -202,11 +197,6 @@ $(document).ready(function(){
                     maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
                 },
 
-                psamid_add: {
-                    required: '请输入psamid',
-                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
-                },
-
                 producer_add: {
                     required: '请输入生产商',
                     maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
@@ -219,11 +209,6 @@ $(document).ready(function(){
 
                 tck_add: {
                     required: '请输入tck',
-                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
-                },
-
-                advice_add: {
-                    required: '请输入advice',
                     maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
                 },
 
@@ -254,14 +239,10 @@ $(document).ready(function(){
         post_data.produce_date = $('#produce_time_add').val();
         post_data.deliver_date = $('#deliver_time_add').val();
         post_data.terminalid = $('#terminal_id_add').val();
-        post_data.psamid = $('#psamid_add').val();
         post_data.producer = $('#producer_add').val();
         post_data.model = $('#model_add').val();
         post_data.tck = $('#tck_add').val();
-        post_data.advice = $('#advice_add').val();
         post_data.qpos_pubkey = $('#qpos_pubkey_add').val();
-        post_data.used = $('#used_add').val();
-        post_data.state = $('#state_add').val();
 
         $.ajax({
             url: '/posp/v1/api/terminal/create',
@@ -320,12 +301,9 @@ $(document).ready(function(){
                     $('input[name=produce_time_view]').val(terminal.produce_date);
                     $('input[name=deliver_time_view]').val(terminal.deliver_date);
                     $('#terminal_id_view').val(terminal.terminalid);
-                    $('#psamid_view').val(terminal.psamid);
                     $('#producer_view').val(terminal.producer);
                     $('#model_view').val(terminal.model);
                     $('#tck_view').val(terminal.tck);
-                    $('#advice_view').val(terminal.advice);
-                    $('#used_view').val(terminal.used);
                     $('#state_view').val(terminal.state);
                     $('#qpos_pubkey_view').val(terminal.qpos_pubkey);
 
@@ -346,52 +324,35 @@ $(document).ready(function(){
         var terminal_edit_vt = $('#terminalViewForm').validate({
             rules: {
                 produce_time_view: {
-                    required: true,
+                    required: false,
                     maxlength: 20
                 },
                 deliver_time_view: {
-                    required: true,
+                    required: false,
                     maxlength: 20
                 },
-
                 terminal_id_view: {
                     required: true,
                     maxlength: 20
                 },
-
-                psamid_view: {
-                    required: true,
-                    maxlength: 8
-                },
-
                 producer_view: {
-                    required: true,
+                    required: false,
                     maxlength: 4
                 },
-
                 model_view: {
-                    required: true,
+                    required: false,
                     maxlength: 4
                 },
-
                 tck_view: {
-                    required: true,
+                    required: false,
                     maxlength: 32
                 },
-
-                advice_view: {
-                    required: true,
-                    maxlength: 256
-                },
-
                 qpos_pubkey_view: {
-                    required: true,
+                    required: false,
                     maxlength: 256
                 }
-
             },
             messages: {
-
                 produce_time_view: {
                     required: '请选择生产日期',
                     maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
@@ -400,37 +361,22 @@ $(document).ready(function(){
                     required: '请选择交付日期',
                     maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
                 },
-
                 terminal_id_view: {
                     required: '请输入终端ID',
                     maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
                 },
-
-                psamid_view: {
-                    required: '请输入psamid',
-                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
-                },
-
                 producer_view: {
                     required: '请输入生产商',
                     maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
                 },
-
                 model_view: {
                     required: '请输入模型',
                     maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
                 },
-
                 tck_view: {
                     required: '请输入tck',
                     maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
                 },
-
-                advice_view: {
-                    required: '请输入advice',
-                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
-                },
-
                 qpos_pubkey_view: {
                     required: '请输入公钥',
                     maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
@@ -460,13 +406,10 @@ $(document).ready(function(){
         post_data.produce_date = $('#produce_time_view').val();
         post_data.deliver_date = $('#deliver_time_view').val();
         post_data.terminalid = $('#terminal_id_view').val();
-        post_data.psamid = $('#psamid_view').val();
         post_data.producer = $('#producer_view').val();
         post_data.model = $('#model_view').val();
         post_data.tck = $('#tck_view').val();
-        post_data.advice = $('#advice_view').val();
         post_data.qpos_pubkey = $('#qpos_pubkey_view').val();
-        post_data.used = $('#used_view').val();
         post_data.state = $('#state_view').val();
 
         $.ajax({
