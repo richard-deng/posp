@@ -150,6 +150,7 @@ $(document).ready(function(){
 
 
     $(document).on('click', '.viewEdit', function(){
+        $("label.error").remove();
         var se_userid = window.localStorage.getItem('myid');
         var userid = $(this).data('userid');
         $('#view_user_id').text(userid);
@@ -339,6 +340,7 @@ $(document).ready(function(){
 
     $('#userCreate').click(function(){
         $('#userCreateForm').resetForm();
+        $("label.error").remove();
         $('#userCreateModal').modal();
     });
 
