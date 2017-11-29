@@ -58,3 +58,19 @@ class TradeListHandler(BaseHandler):
         data['num'] = num
         data['info'] = [trans_time(item, TradeList.DATETIME_KEY) for item in info]
         return success(data=data)
+
+
+class TradeListViewHandler(BaseHandler):
+
+    _get_handler_fields = [
+        Field('syssn', T_STR, False)
+    ]
+
+    @posp_check_session(g_rt.redis_pool, cookie_conf)
+    @with_validator_self
+    def _get_handler(self):
+        params = self.validator.data
+        syssn = params.get('syssn')
+        trade = TradeList(syssn)
+        trade.load()
+        return success(data=trade.data)

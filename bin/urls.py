@@ -54,6 +54,7 @@ urls = (
 
     # 交易
     ('^/posp/v1/api/trade/list$', trade.TradeListHandler),
+    ('^/posp/v1/api/trade/view$', trade.TradeListViewHandler),
 
     # 页面
     ('^/$', page.Root),

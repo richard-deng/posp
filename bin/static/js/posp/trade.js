@@ -95,8 +95,8 @@ $(document).ready(function () {
                 targets: 11,
                 data: '操作',
                 render: function(data, type, full) {
-                    var trade_table_id =full.id;
-                    var view ="<button type='button' class='btn btn-warning btn-sm viewEdit' data-trade_table_id="+trade_table_id+">"+'查看'+"</button>";
+                    var syssn =full.syssn;
+                    var view ="<button type='button' class='btn btn-warning btn-sm viewEdit' data-syssn="+syssn+">"+'查看'+"</button>";
                     return view;
                 }
             }
@@ -156,6 +156,51 @@ $(document).ready(function () {
             return false;
         }
         $('#tradeList').DataTable().draw();
+    });
+
+    $(document).on('click', '.viewEdit', function(){
+        $("label.error").remove();
+        $("#tradeViewForm").resetForm();
+        var se_userid = window.localStorage.getItem('myid');
+        var syssn = $(this).data('syssn');
+        var get_data = {
+            'se_userid': se_userid,
+            'syssn': syssn
+        };
+        $.ajax({
+            url: '/posp/v1/api/trade/view',
+            type: 'GET',
+            dataType: 'json',
+            data: get_data,
+            success: function(data) {
+                var respcd = data.respcd;
+                if(respcd != '0000'){
+                    var resperr = data.resperr;
+                    var respmsg = data.respmsg;
+                    var msg = resperr ? resperr : respmsg;
+                    toastr.warning(msg);
+                }
+                else {
+                    trade = data.data;
+                    console.log(trade);
+                    $('#cardcd_view').val(trade.cardcd);
+                    $('#cardtp_view').val(trade.cardtp);
+                    $('#chnlid_view').val(trade.chnlid);
+                    $('#chnlsn_view').val(trade.chnlsn);
+                    $('#issuerbank_view').val(trade.issuerbank);
+                    $('#phonemodel_view').val(trade.phonemodel);
+                    $('#psamid_view').val(trade.psamid);
+                    $('#posentry_mode_view').val(trade.posentrymode);
+                    $('#real_retcd_view').val(trade.real_retcd);
+                    $('#terminal_id_view').val(trade.terminalid);
+
+                    $('#tradeViewModal').modal();
+                }
+            },
+            error: function(data) {
+                toastr.warning('请求异常');
+            }
+        });
     });
 
 });
