@@ -53,9 +53,17 @@ def get_channel_names():
 def update_channel(channel_id, values):
     func = 'update_channel'
     log.debug('func=%s|channel_id=%s|values=%s', func, channel_id, values)
+    channel_values = {}
+
+    for key in Channel.KEYS:
+        value = values.get(key)
+        if value in INVALID_VALUE:
+            log.debug('ignore invalid key=%s|value=%s', key, value)
+        else:
+            channel_values[key] = value
 
     channel = Channel(channel_id)
-    ret = channel.update(values)
+    ret = channel.update(channel_values)
     if ret == 1:
         return True
     return False
@@ -64,7 +72,14 @@ def update_channel(channel_id, values):
 def create_channel(values):
     func = 'create_channel'
     log.debug('func=%s|values=%s', func, values)
-    ret = Channel.create(values)
+    channel_values = {}
+    for key in Channel.KEYS:
+        value = values.get(key)
+        if value not in INVALID_VALUE:
+            channel_values[key] = value
+        else:
+            log.debug('ignore key=%s|value=%s', key, value)
+    ret = Channel.create(channel_values)
     if ret == 1:
         return True
     return False

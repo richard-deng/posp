@@ -108,19 +108,7 @@ $(document).ready(function(){
                 }
             },
             {
-                targets: 8,
-                render: function(data, type, full) {
-                    return split_key(data);
-                }
-            },
-            {
-                targets: 9,
-                render: function(data, type, full) {
-                    return split_key(data);
-                }
-            },
-            {
-                targets: 10,
+                targets: 7,
                 data: '操作',
                 render: function(data, type, full) {
                     var status = full.available;
@@ -134,16 +122,13 @@ $(document).ready(function(){
             }
         ],
 		'columns': [
-				{ data: 'name' },
-                { data: 'zmk' },
-				{ data: 'zpk' },
-				{ data: 'chcd' },
-				{ data: 'inscd' },
-				{ data: 'code' },
-				{ data: 'route' },
-				{ data: 'tdkey' },
-				{ data: 'mackey' },
-				{ data: 'available' },
+				{ data: 'name'},
+                { data: 'zmk'},
+				{ data: 'zpk'},
+				{ data: 'chcd'},
+				{ data: 'inscd'},
+				{ data: 'code'},
+				{ data: 'available'},
 		],
         'oLanguage': {
             'sProcessing': '<span style="color:red;">加载中....</span>',
@@ -202,55 +187,61 @@ $(document).ready(function(){
 
                 channel_name_add: {
                     required: true,
-                    maxlength: 256
-                },
-                zmk_add: {
-                    required: true,
                     maxlength: 32
+                },
+
+                zmk_add: {
+                    required: false,
+                    maxlength: 36
                 },
 
                 zpk_add: {
-                    required: true,
-                    maxlength: 32
+                    required: false,
+                    maxlength: 36
                 },
 
                 chcd_add: {
-                    required: true,
-                    maxlength: 128
+                    required: false,
+                    maxlength: 16
                 },
 
                 inscd_add: {
-                    required: true,
-                    maxlength: 32
+                    required: false,
+                    maxlength: 16
                 },
 
                 code_add: {
-                    required: true,
-                    maxlength: 32
+                    required: false,
+                    maxlength: 4
                 },
 
                 route_add: {
-                    required: true,
-                    maxlength: 256
-                },
-
-                mchntid_add: {
-                    required: true,
-                    maxlength: 256
-                },
-
-                mchntnm_add: {
-                    required: true,
-                    maxlength: 256
-                },
-
-                tdkey_add: {
-                    required: true,
+                    required: false,
                     maxlength: 32
                 },
 
+                mchntid_add: {
+                    required: false,
+                    maxlength: 32
+                },
+
+                mchntnm_add: {
+                    required: false,
+                    maxlength: 32
+                },
+
+                tdkey_add: {
+                    required: false,
+                    maxlength: 36
+                },
+
                 mackey_add: {
-                    required: true,
+                    required: false,
+                    maxlength: 36
+                },
+
+                terminal_id_add: {
+                    required: false,
                     maxlength: 32
                 },
 
@@ -302,12 +293,17 @@ $(document).ready(function(){
                 },
 
                 tdkey_add: {
-                    required: '请输入TDKEY',
+                    required: '请输入Tdkey',
                     maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
                 },
 
                 mackey_add: {
-                    required: '请输入MACKEY',
+                    required: '请输入Mackey',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                },
+
+                terminal_id_add: {
+                    required: '请输入终端ID',
                     maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
                 },
 
@@ -331,7 +327,6 @@ $(document).ready(function(){
 
         post_data['se_userid'] = se_userid;
         post_data['name'] = $('#channel_name_add').val();
-		post_data['available'] = $('#available_add').val();
 		post_data['zmk'] = $('#zmk_add').val();
 		post_data['zpk'] = $('#zpk_add').val();
 		post_data['chcd'] = $('#chcd_add').val();
@@ -342,6 +337,7 @@ $(document).ready(function(){
 		post_data['mchntnm'] = $('#mchntnm_add').val();
 		post_data['tdkey'] = $('#tdkey_add').val();
 		post_data['mackey'] = $('#mackey_add').val();
+		post_data['terminalid'] = $('#terminal_id_add').val();
 
         $.ajax({
 	        url: '/posp/v1/api/channel/create',
@@ -401,7 +397,6 @@ $(document).ready(function(){
                     var channel = data.data;
 
                     $('#channel_name').val(channel.name);
-                    $('#available').val(channel.available);
                     $('#zmk').val(channel.zmk);
                     $('#zpk').val(channel.zpk);
                     $('#chcd').val(channel.chcd);
@@ -412,6 +407,7 @@ $(document).ready(function(){
                     $('#mchntnm').val(channel.mchntnm);
                     $('#tdkey').val(channel.tdkey);
                     $('#mackey').val(channel.mackey);
+                    $('#terminal_id').val(channel.terminalid);
 
                     $("#channelViewModal").modal();
                 }
@@ -463,55 +459,60 @@ $(document).ready(function(){
             rules: {
                 channel_name: {
                     required: true,
-                    maxlength: 256
+                    maxlength: 32
                 },
                 zmk: {
-                    required: true,
-                    maxlength: 32
+                    required: false,
+                    maxlength: 36
                 },
 
                 zpk: {
-                    required: true,
-                    maxlength: 32
+                    required: false,
+                    maxlength: 36
                 },
 
                 chcd: {
-                    required: true,
-                    maxlength: 128
+                    required: false,
+                    maxlength: 16
                 },
 
                 inscd: {
-                    required: true,
-                    maxlength: 32
+                    required: false,
+                    maxlength: 16
                 },
 
                 code: {
-                    required: true,
-                    maxlength: 32
+                    required: false,
+                    maxlength: 4
                 },
 
                 route: {
-                    required: true,
-                    maxlength: 256
-                },
-
-                mchntid: {
-                    required: true,
-                    maxlength: 256
-                },
-
-                mchntnm: {
-                    required: true,
-                    maxlength: 256
-                },
-
-                tdkey: {
-                    required: true,
+                    required: false,
                     maxlength: 32
                 },
 
+                mchntid: {
+                    required: false,
+                    maxlength: 32
+                },
+
+                mchntnm: {
+                    required: false,
+                    maxlength: 32
+                },
+
+                tdkey: {
+                    required: false,
+                    maxlength: 36
+                },
+
                 mackey: {
-                    required: true,
+                    required: false,
+                    maxlength: 36
+                },
+
+                terminal_id: {
+                    required: false,
                     maxlength: 32
                 },
 
@@ -562,12 +563,17 @@ $(document).ready(function(){
                 },
 
                 tdkey: {
-                    required: '请输入TDKEY',
+                    required: '请输入Tdkey',
                     maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
                 },
 
                 mackey: {
-                    required: '请输入MACKEY',
+                    required: '请输入Mackey',
+                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                },
+
+                terminal_id: {
+                    required: '请输入终端ID',
                     maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
                 },
 
@@ -604,6 +610,7 @@ $(document).ready(function(){
 		post_data['mchntnm'] = $('#mchntnm').val();
 		post_data['tdkey'] = $('#tdkey').val();
 		post_data['mackey'] = $('#mackey').val();
+		post_data['terminalid'] = $('#terminal_id').val();
 
         $.ajax({
 	        url: '/posp/v1/api/channel/view',
