@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import hashlib
 import logging
 import traceback
 import datetime
@@ -156,8 +157,11 @@ def build_user(values):
 
     user['state'] = REGISTER_STATE
     user['is_active'] = DEFAULT_ACTIVE
-    user['password'] = gen_passwd(values.get('mobile')[-6:])
-
+    password = values.get('mobile')[-6:]
+    h = hashlib.md5(password)
+    md5_password = h.hexdigest()
+    log.info('md5_password=%s', md5_password)
+    user['password'] = gen_passwd(md5_password)
     log.debug('func=%s|output=%s', func, user)
     return user
 
