@@ -11,6 +11,7 @@ from constant import INVALID_VALUE
 from zbase.base.dbpool import with_database
 from posp_base.response import error, success, RESP_CODE
 from posp_base.session import posp_check_session
+from posp_base.define import POSP_USER_STATE_MAP
 from zbase.web.validator import (
     with_validator_self, Field, T_REG, T_INT, T_STR
 )
@@ -59,6 +60,7 @@ class MerchantListHandler(BaseHandler):
         for item in data:
             if item.get('date_joined'):
                 item['date_joined'] = tools.trans_datetime(item['date_joined'])
+            item['state_desc'] = POSP_USER_STATE_MAP.get(item['state'])
         return data
 
     @posp_check_session(g_rt.redis_pool, cookie_conf)

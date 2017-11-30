@@ -96,11 +96,11 @@ $(document).ready(function(){
             }
         ],
         'columns': [
-            { data: 'id' },
-            { data: 'name' },
-            { data: 'mobile' },
-            { data: 'idnumber' },
-            { data: 'state' },
+            { data: 'id'},
+            { data: 'name'},
+            { data: 'mobile'},
+            { data: 'idnumber'},
+            { data: 'state_desc'},
             { data: 'date_joined'},
         ],
         'oLanguage': {
