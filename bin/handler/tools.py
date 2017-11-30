@@ -24,10 +24,7 @@ log = logging.getLogger()
 
 
 def trans_datetime(date_value):
-    func = 'trans_datetime'
-    log.debug('func=%s|date_value=%s', func, date_value)
     date_str = datetime.datetime.strftime(date_value, '%Y-%m-%d %H:%M:%S')
-    log.debug('func=%s|date_value=%s|date_str=%s', func, date_value, date_str)
     return date_str
 
 

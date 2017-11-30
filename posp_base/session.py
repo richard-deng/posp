@@ -169,7 +169,6 @@ def posp_check_session_for_page(redis_pool, cookie_conf):
             try:
                 flag = True
                 sk = self.get_cookie("sessionid")
-                log.debug("sk: %s", sk)
                 self.session = Session(redis_pool, cookie_conf, sk)
                 v = self.session.get_session()
                 if not v:

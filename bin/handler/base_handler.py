@@ -30,9 +30,11 @@ class BaseHandler(core.Handler):
 
     def GET(self, *args):
         try:
+            log.info('<<< %s start >>>', self.__class__.__name__)
             self.set_headers(BaseHandler.headers)
             ret = self._get_handler()
-            log.debug("ret: %s", ret)
+            log.info("ret: %s", ret)
+            log.info('<<< %s end >>>', self.__class__.__name__)
             self.write(ret)
         except Exception:
             log.warn(traceback.format_exc())
@@ -40,9 +42,11 @@ class BaseHandler(core.Handler):
 
     def POST(self, *args):
         try:
+            log.info('<<< %s start >>>', self.__class__.__name__)
             self.set_headers(BaseHandler.headers)
             ret = self._post_handler()
-            log.debug("ret: %s", ret)
+            log.info("ret: %s", ret)
+            log.info('<<< %s end >>>', self.__class__.__name__)
             self.write(ret)
         except Exception:
             log.warn(traceback.format_exc())
