@@ -2,6 +2,12 @@
  * Created by admin on 2017/4/20.
  */
 $(document).ready(function(){
+    $.validator.addMethod("isMobile", function(value, element) {
+                var length = value.length;
+                var mobile = /^(1\d{10})$/;
+                return this.optional(element) || (length == 11 && mobile.test(value));
+            }, "请正确填写您的手机号码");
+    })
 
     $('#userList').DataTable({
         "autoWidth": false,     //通常被禁用作为优化
@@ -121,7 +127,8 @@ $(document).ready(function(){
                 },
                 s_mobile: {
                     required: false,
-                    maxlength: 11
+                    // maxlength: 11
+                    isMobile: '#s_mobile'
                 },
             },
             messages: {
@@ -130,7 +137,7 @@ $(document).ready(function(){
                 },
                 s_mobile: {
                     required: '请输入手机号',
-                    maxlength: $.validator.format("请输入一个长度最多是 {0} 的字符串")
+                    // maxlength: $.validator.format("请输入一个长度最多是 {0} 的字符串")
                 },
             },
             errorPlacement: function(error, element){
@@ -201,7 +208,8 @@ $(document).ready(function(){
             rules: {
                 mobile: {
                     required: true,
-                    maxlength: 16
+                    // maxlength: 16
+                    isMobile: '#mobile'
                 },
                 email: {
                     required: true,
@@ -239,7 +247,7 @@ $(document).ready(function(){
             messages: {
                 mobile: {
                     required: '请输入手机号',
-                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                    // maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
                 },
                 email: {
                     required: '请输入邮箱',
@@ -350,7 +358,8 @@ $(document).ready(function(){
             rules: {
                 mobile_add: {
                     required: true,
-                    maxlength: 16
+                    // maxlength: 16
+                    isMobile: '#mobile_add'
                 },
                 email_add: {
                     required: true,
@@ -389,7 +398,7 @@ $(document).ready(function(){
             messages: {
                 mobile_add: {
                     required: '请输入手机号',
-                    maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
+                    // maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
                 },
                 email_add: {
                     required: '请输入邮箱',
