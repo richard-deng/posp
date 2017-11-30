@@ -83,12 +83,12 @@ $(document).ready(function(){
         ],
 		'columns': [
 				{ data: 'bankname'},
-                { data: 'bankid' },
-				{ data: 'cardlen' },
-				{ data: 'cardbin' },
-				{ data: 'cardname' },
-				{ data: 'cardtp' },
-				{ data: 'foreign' }
+                { data: 'bankid'},
+				{ data: 'cardlen'},
+				{ data: 'cardbin'},
+				{ data: 'cardname'},
+				{ data: 'cardtp_desc'},
+				{ data: 'foreign_desc'}
 		],
         'oLanguage': {
             'sProcessing': '<span style="color:red;">加载中....</span>',
