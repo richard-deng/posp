@@ -70,6 +70,22 @@ class TermBindViewHandler(BaseHandler):
     @with_validator_self
     def _post_handler(self):
         params = self.validator.data
+
+        # 判断userid
+        userid = params.get('userid')
+        user = User(userid)
+        user.load()
+        if not user.data:
+            log.info('userid=%s|invalid', userid)
+            return error(RESP_CODE.DATAERR)
+
+        # 判断terminalid
+        terminalid = params.get('terminalid')
+        terminal = Terminal.load_by_terminalid(terminalid)
+        if not terminal.data:
+            log.info('terminalid=%s|invalid', terminalid)
+            return error(RESP_CODE.DATAERR)
+
         termbind_id = params.pop('termbind_id')
         termbind = TermBind(termbind_id)
         values = tools.build_termbind_edit(params)
