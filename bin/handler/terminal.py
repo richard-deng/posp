@@ -50,9 +50,9 @@ class TerminalViewHandler(BaseHandler):
         Field('model', T_STR, True),
         # Field('produce_date', T_STR, True),
         # Field('deliver_date', T_STR, True),
-        Field('tck', T_STR, True),
-        Field('state', T_INT, True),
-        Field('qpos_pubkey', T_STR, True),
+        # Field('tck', T_STR, True),
+        # Field('state', T_INT, True),
+        # Field('qpos_pubkey', T_STR, True),
     ]
 
     @posp_check_session(g_rt.redis_pool, cookie_conf)
@@ -86,8 +86,8 @@ class TerminalCreateHandle(BaseHandler):
         Field('model', T_STR, True),
         # Field('produce_date', T_STR, True),
         # Field('deliver_date', T_STR, True),
-        Field('tck', T_STR, True),
-        Field('qpos_pubkey', T_STR, True),
+        # Field('tck', T_STR, True),
+        # Field('qpos_pubkey', T_STR, True),
     ]
 
     @posp_check_session(g_rt.redis_pool, cookie_conf)
