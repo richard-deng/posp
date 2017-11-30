@@ -75,9 +75,9 @@ $(document).ready(function(){
                 data: '操作',
                 render: function(data, type, full) {
                     var card_bin_id =full.id;
-                    var op = "<button type='button' class='btn btn-danger btn-sm delete' data-card_bin_id="+card_bin_id+">"+'删除'+"</button>";
+                    //var op = "<button type='button' class='btn btn-danger btn-sm delete' data-card_bin_id="+card_bin_id+">"+'删除'+"</button>";
                     var view ="<button type='button' class='btn btn-success btn-sm viewEdit' data-card_bin_id="+card_bin_id+">"+'查看'+"</button>";
-                    return view+op;
+                    return view;
                 }
             }
         ],
