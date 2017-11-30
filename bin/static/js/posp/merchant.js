@@ -2,12 +2,12 @@
  * Created by admin on 2017/4/20.
  */
 $(document).ready(function(){
+
     $.validator.addMethod("isMobile", function(value, element) {
-                var length = value.length;
-                var mobile = /^(1\d{10})$/;
-                return this.optional(element) || (length == 11 && mobile.test(value));
-            }, "请正确填写您的手机号码");
-    })
+        var length = value.length;
+        var mobile = /^(1\d{10})$/;
+        return this.optional(element) || (length === 11 && mobile.test(value));
+    }, "请正确填写您的手机号码");
 
     $('#userList').DataTable({
         "autoWidth": false,     //通常被禁用作为优化
