@@ -175,6 +175,7 @@ $(document).ready(function(){
                     required: true,
                     maxlength: 20
                 },
+                /*
                 pinkey1_add: {
                     required: false,
                     maxlength: 32
@@ -195,6 +196,7 @@ $(document).ready(function(){
                     required: false,
                     maxlength: 256
                 }
+                */
             },
             messages: {
                 /*
@@ -211,6 +213,7 @@ $(document).ready(function(){
                     required: '请输入终端ID',
                     maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
                 },
+                /*
                 pinkey1_add: {
                     required: '请输入pinkey1',
                     maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
@@ -231,7 +234,7 @@ $(document).ready(function(){
                     required: '请输入公钥',
                     maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
                 }
-
+                */
             },
             errorPlacement: function(error, element){
                 if(element.is(':checkbox')){
@@ -254,11 +257,11 @@ $(document).ready(function(){
         //post_data.active_date = $('#active_date_add').val();
         post_data.userid = $('#userid_add').val();
         post_data.terminalid = $('#terminal_id_add').val();
-        post_data.pinkey1 = $('#pinkey1_add').val();
-        post_data.pinkey2 = $('#pinkey2_add').val();
-        post_data.mackey = $('#mackey_add').val();
-        post_data.tmk = $('#tmk_add').val();
-        post_data.qpos_pubkey = $('#qpos_pubkey_add').val();
+        //post_data.pinkey1 = $('#pinkey1_add').val();
+        //post_data.pinkey2 = $('#pinkey2_add').val();
+        //post_data.mackey = $('#mackey_add').val();
+        //post_data.tmk = $('#tmk_add').val();
+        //post_data.qpos_pubkey = $('#qpos_pubkey_add').val();
 
         $.ajax({
             url: '/posp/v1/api/terminal/bind/create',
@@ -317,12 +320,12 @@ $(document).ready(function(){
                     //$('input[name=active_date_view]').val(bind.active_date);
                     $('#userid_view').val(bind.userid);
                     $('#terminal_id_view').val(bind.terminalid);
-                    $('#pinkey1_view').val(bind.pinkey1);
-                    $('#pinkey2_view').val(bind.pinkey2);
-                    $('#mackey_view').val(bind.mackey);
-                    $('#tmk_view').val(bind.tmk);
-                    $('#state_view').val(bind.state);
-                    $('#qpos_pubkey_view').val(bind.qpos_pubkey);
+                    //$('#pinkey1_view').val(bind.pinkey1);
+                    //$('#pinkey2_view').val(bind.pinkey2);
+                    //$('#mackey_view').val(bind.mackey);
+                    //$('#tmk_view').val(bind.tmk);
+                    //$('#state_view').val(bind.state);
+                    //$('#qpos_pubkey_view').val(bind.qpos_pubkey);
 
                     //$('#datetimepicker2').datetimepicker('update');
 
@@ -354,6 +357,7 @@ $(document).ready(function(){
                     required: true,
                     maxlength: 20
                 },
+                /*
                 pinkey1_view: {
                     required: false,
                     maxlength: 32
@@ -374,6 +378,7 @@ $(document).ready(function(){
                     required: false,
                     maxlength: 256
                 }
+                */
             },
             messages: {
                 /*
@@ -390,6 +395,7 @@ $(document).ready(function(){
                     required: '请输入终端ID',
                     maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
                 },
+                /*
                 pinkey1_view: {
                     required: '请输入pinkey1',
                     maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
@@ -410,7 +416,7 @@ $(document).ready(function(){
                     required: '请输入公钥',
                     maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
                 }
-
+                */
             },
             errorPlacement: function(error, element){
                 if(element.is(':checkbox')){
@@ -435,12 +441,12 @@ $(document).ready(function(){
         //post_data.active_date = $('#active_date_view').val();
         post_data.userid = $('#userid_view').val();
         post_data.terminalid = $('#terminal_id_view').val();
-        post_data.pinkey1 = $('#pinkey1_view').val();
-        post_data.pinkey2 = $('#pinkey2_view').val();
-        post_data.mackey = $('#mackey_view').val();
-        post_data.tmk = $('#tmk_view').val();
-        post_data.qpos_pubkey = $('#qpos_pubkey_view').val();
-        post_data.state = $('#state_view').val();
+        //post_data.pinkey1 = $('#pinkey1_view').val();
+        //post_data.pinkey2 = $('#pinkey2_view').val();
+        //post_data.mackey = $('#mackey_view').val();
+        //post_data.tmk = $('#tmk_view').val();
+        //post_data.qpos_pubkey = $('#qpos_pubkey_view').val();
+        //post_data.state = $('#state_view').val();
 
         $.ajax({
             url: '/posp/v1/api/terminal/bind/view',
