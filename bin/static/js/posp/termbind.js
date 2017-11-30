@@ -77,6 +77,24 @@ $(document).ready(function(){
         },
         'columnDefs': [
             {
+                targets: 2,
+                render: function(data, type, full) {
+                    return split_key(data);
+                }
+            },
+            {
+                targets: 3,
+                render: function(data, type, full) {
+                    return split_key(data);
+                }
+            },
+            {
+                targets: 4,
+                render: function(data, type, full) {
+                    return split_key(data);
+                }
+            },
+            {
                 targets: 6,
                 data: '操作',
                 render: function(data, type, full) {
