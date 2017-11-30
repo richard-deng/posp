@@ -2,6 +2,7 @@
 import copy
 import logging
 import datetime
+from zbase.web.validator import T_INT, T_STR
 from zbase.base.dbpool import get_connection_exception
 
 log = logging.getLogger()
@@ -11,13 +12,22 @@ class CardBin:
 
     TABLE = 'cardbin'
     TABLE_ID = 'id'
-    MUST_KEY = [
-        'bankname', 'bankid', 'cardcd', 'cardlen',
-        'cardbin', 'cardname', 'cardtp', 'cardorg'
-    ]
-    OPTION_KEY = ['`foreign`']
+    MUST_KEY = {
+        'bankname': T_STR,
+        'bankid': T_STR,
+        'cardcd': T_STR,
+        'cardlen': T_INT,
+        'cardbin': T_STR,
+        'cardname': T_STR,
+        'cardtp': T_STR,
+        'cardorg': T_STR,
+    }
+
+    OPTION_KEY = {
+        '`foreign`': T_INT
+    }
     DATETIME_KEY = []
-    KEYS = MUST_KEY + OPTION_KEY
+    KEYS = MUST_KEY.keys() + OPTION_KEY.keys()
 
 
     def __init__(self, id):

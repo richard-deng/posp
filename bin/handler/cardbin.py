@@ -77,7 +77,7 @@ class CardBinViewHandler(BaseHandler):
     def _post_handler(self):
         params = self.validator.data
         card_bind_id = params.get('card_bin_id')
-        values = tools.build_card_bin(params)
+        values = tools.build_card_bin_edit(params)
         card = CardBin(card_bind_id)
         ret = card.update(values)
         return success(data={})

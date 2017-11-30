@@ -216,14 +216,41 @@ def find_user_by_mobile(mobile):
 
 def build_card_bin(params):
     data = {}
-    for key in CardBin.MUST_KEY:
+    for key in CardBin.MUST_KEY.keys():
         data[key] = params.get(key, '')
 
-    for key in CardBin.OPTION_KEY:
+    for key in CardBin.OPTION_KEY.keys():
         if key == '`foreign`':
             data[key] = params.get('foreign')
         else:
             data[key] = params.get(key, '')
+
+    cardcd = ''
+    cardbin = params.get('cardbin')
+    cardlen = params.get('cardlen')
+    if cardlen and cardbin:
+        cardcd = cardbin + (int(cardlen) - len(cardbin)) * 'x'
+    data['cardcd'] = cardcd
+
+    return data
+
+
+def build_card_bin_edit(params):
+    data = {}
+    for key in CardBin.KEYS:
+        value = params.get(key)
+        if value not in INVALID_VALUE:
+            data[key] = value
+        else:
+            log.info('ignore key=%s|value=%s', key, value)
+
+    cardcd = ''
+    cardbin = params.get('cardbin')
+    cardlen = params.get('cardlen')
+    if cardlen and cardbin:
+        cardcd = cardbin + (int(cardlen) - len(cardbin)) * 'x'
+    data['cardcd'] = cardcd
+
     return data
 
 
