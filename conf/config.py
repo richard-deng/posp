@@ -84,7 +84,7 @@ PORT = 8084
 #redis
 redis_url = 'redis://127.0.0.1:6379/0'
 #用户注册状态
-REGISTER_STATE = 3
+REGISTER_STATE = 2
 #注册激活
 DEFAULT_ACTIVE = 1
 #允许登录的手机号
