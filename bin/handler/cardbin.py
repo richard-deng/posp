@@ -9,6 +9,8 @@ from base_handler import BaseHandler
 from posp_base.response import error, success, RESP_CODE
 from posp_base.session import posp_check_session
 from posp_base.cardbin import CardBin
+from posp_base.tools import trans_bank_card_info
+
 from zbase.web.validator import (
     with_validator_self, Field, T_REG, T_INT, T_STR
 )
@@ -38,7 +40,7 @@ class CardBinListHandler(BaseHandler):
         data = {}
         params = self.validator.data
         info, num = self._query_handler(params)
-        data['info'] = info
+        data['info'] = [trans_bank_card_info(item) for item in info]
         data['num'] = num
         return success(data=data)
 

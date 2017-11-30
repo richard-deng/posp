@@ -57,7 +57,7 @@ TERMINAL_UN_BIND = 1
 CHANNEL_AVAILABLE = 1
 CHANNEL_UN_AVAILABLE = 0
 
-#银行卡类型
+# 银行卡类型
 BANK_CARD_MAP = {
     '00': '未识别卡',
     '01': '借记卡',
@@ -66,3 +66,7 @@ BANK_CARD_MAP = {
     '04': '储值卡'
 }
 
+FOREIGN_MAP = {
+    '0': '国内',
+    '1': '国外',
+}
