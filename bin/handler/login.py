@@ -3,6 +3,7 @@ import logging
 
 from runtime import g_rt
 from config import cookie_conf
+from config import ALLOW_LOGIN_MOBILE
 from posp_base.merchant import User
 from base_handler import BaseHandler
 from posp_base.merchant import check_password
@@ -29,6 +30,9 @@ class LoginHandler(BaseHandler):
         params = self.validator.data
         mobile = params['mobile']
         password = params["password"]
+        if mobile not in ALLOW_LOGIN_MOBILE:
+            log.info('mobile=%s forbidden', mobile)
+            return error(RESP_CODE.USERFORBIDDEN)
         user = User.load_user_by_mobile(mobile)
         if user.data and user.userid:
             flag = check_password(password, user.data.get('password'))

@@ -84,9 +84,11 @@ PORT = 8084
 #redis
 redis_url = 'redis://127.0.0.1:6379/0'
 #用户注册状态
-REGISTER_STATE = 2
+REGISTER_STATE = 3
 #注册激活
 DEFAULT_ACTIVE = 1
+#允许登录的手机号
+ALLOW_LOGIN_MOBILE = ['13802438716']
 #cookie 配置
 # cookie_conf = { 'expires':60*60*24*3, 'max_age':60*60*24*3, 'domain':'192.168.0.101', 'path':'/posp'}
 cookie_conf = { 'expires':60*60*24*3, 'max_age':60*60*24*3, 'domain':'127.0.0.1', 'path':'/posp'}

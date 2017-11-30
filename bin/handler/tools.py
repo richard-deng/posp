@@ -18,6 +18,7 @@ from posp_base.termbind import TermBind
 from posp_base.merchant import gen_passwd
 from posp_base.define import TERMINAL_ACTIVATE
 from posp_base.define import TERMINAL_BIND
+from posp_base.define import POSP_USER_STATE_OK
 
 log = logging.getLogger()
 
