@@ -208,11 +208,11 @@ $(document).ready(function(){
             rules: {
                 mobile: {
                     required: true,
-                    // maxlength: 16
                     isMobile: '#mobile'
                 },
                 email: {
                     required: true,
+                    email: true,
                     maxlength: 75
                 },
                 name: {
@@ -251,6 +251,7 @@ $(document).ready(function(){
                 },
                 email: {
                     required: '请输入邮箱',
+                    email: "请输入正确格式的电子邮件",
                     maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
                 },
 
@@ -363,6 +364,7 @@ $(document).ready(function(){
                 },
                 email_add: {
                     required: true,
+                    email: true,
                     maxlength: 75
                 },
                 name_add: {
@@ -402,6 +404,7 @@ $(document).ready(function(){
                 },
                 email_add: {
                     required: '请输入邮箱',
+                    email: "请输入正确格式的电子邮件",
                     maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
                 },
 
