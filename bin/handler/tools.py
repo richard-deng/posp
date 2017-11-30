@@ -4,8 +4,6 @@ import logging
 import traceback
 import datetime
 from constant import INVALID_VALUE
-from config import REGISTER_STATE
-from config import DEFAULT_ACTIVE
 from zbase.base.dbpool import get_connection_exception
 from zbase.web.validator import T_INT, T_STR
 from posp_base.merchant import User
@@ -17,8 +15,10 @@ from posp_base.terminal import Terminal
 from posp_base.termbind import TermBind
 from posp_base.merchant import gen_passwd
 from posp_base.define import TERMINAL_ACTIVATE
-from posp_base.define import TERMINAL_BIND
-from posp_base.define import POSP_USER_STATE_OK
+from config import (
+    REGISTER_STATE, DEFAULT_ACTIVE, TERMBIND_STATE
+)
+
 
 log = logging.getLogger()
 
@@ -288,6 +288,9 @@ def build_terminal_create(params):
     now = datetime.datetime.now()
     data['last_modify'] = now.strftime('%Y-%m-%d %H:%M:%S')
     data['state'] = TERMINAL_ACTIVATE
+    terminalid = params.get('terminalid')
+    psamid = terminalid[-8:]
+    data['psamid'] = psamid
     return data
 
 
@@ -313,5 +316,5 @@ def build_termbind_create(params):
         else:
             log.debug('ignore key=%s|value=%s', key, value)
 
-    data['state'] = TERMINAL_BIND
+    data['state'] = TERMBIND_STATE
     return data

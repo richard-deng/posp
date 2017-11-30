@@ -81,7 +81,7 @@ class TerminalCreateHandle(BaseHandler):
 
     _post_handler_fields = [
         Field('terminalid', T_STR, False),
-        Field('psamid', T_STR, True),
+        # Field('psamid', T_STR, True),
         Field('producer', T_STR, True),
         Field('model', T_STR, True),
         # Field('produce_date', T_STR, True),

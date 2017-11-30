@@ -49,12 +49,12 @@ class TermBindViewHandler(BaseHandler):
 
         Field('userid', T_INT, False),
         Field('terminalid', T_STR, False),
-        Field('pinkey1', T_STR, True),
-        Field('pinkey2', T_STR, True),
-        Field('mackey', T_STR, True),
-        Field('state', T_INT, True),
-        Field('qpos_pubkey', T_STR, True),
-        Field('tmk', T_STR, True),
+        # Field('pinkey1', T_STR, True),
+        # Field('pinkey2', T_STR, True),
+        # Field('mackey', T_STR, True),
+        # Field('state', T_INT, True),
+        # Field('qpos_pubkey', T_STR, True),
+        # Field('tmk', T_STR, True),
     ]
 
     @posp_check_session(g_rt.redis_pool, cookie_conf)
@@ -82,11 +82,11 @@ class TermBindCreateHandler(BaseHandler):
     _post_handler_fields = [
         Field('userid', T_INT, False),
         Field('terminalid', T_STR, False),
-        Field('pinkey1', T_STR, True),
-        Field('pinkey2', T_STR, True),
-        Field('mackey', T_STR, True),
-        Field('qpos_pubkey', T_STR, True),
-        Field('tmk', T_STR, True),
+        # Field('pinkey1', T_STR, True),
+        # Field('pinkey2', T_STR, True),
+        # Field('mackey', T_STR, True),
+        # Field('qpos_pubkey', T_STR, True),
+        # Field('tmk', T_STR, True),
         # Field('active_date', T_STR, True),
     ]
 

@@ -87,6 +87,8 @@ redis_url = 'redis://127.0.0.1:6379/0'
 REGISTER_STATE = 2
 #注册激活
 DEFAULT_ACTIVE = 1
+# 终端绑定默认2
+TERMBIND_STATE = 2
 #允许登录的手机号
 ALLOW_LOGIN_MOBILE = ['13802438716']
 #cookie 配置
