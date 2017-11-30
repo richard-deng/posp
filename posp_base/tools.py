@@ -46,7 +46,7 @@ def trans_amt(data):
 def trans_bank_card_info(data):
     if 'cardtp' in data.keys() and 'foreign' in data.keys():
         data['cardtp_desc'] = BANK_CARD_MAP.get(data['cardtp'])
-        data['foreign_desc'] = FOREIGN_MAP.get(data['foreign'])
+        data['foreign_desc'] = FOREIGN_MAP.get(str(data['foreign']))
     else:
         data['cardtp_desc'] = ''
         data['foreign_desc'] = ''
