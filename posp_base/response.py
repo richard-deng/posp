@@ -22,6 +22,7 @@ class RESP_CODE:
     PWDERR                = "2104"
     USERNOTEXISTS         = "2105"
     USERFORBIDDEN         = "2106"
+    USERSTATEERR          = "2107"
     REQERR                = "2200"
     IPERR                 = "2201"
     NODATA                = "2300"
@@ -53,6 +54,7 @@ error_map = {
     RESP_CODE.METHODERR             : u"函数未实现",
     RESP_CODE.VCODEERR              : u"验证码错误",
     RESP_CODE.USERFORBIDDEN         : u"该用户禁止登录",
+    RESP_CODE.USERSTATEERR          : u"用户状态错误",
 }
 
 def json_default_trans(obj):

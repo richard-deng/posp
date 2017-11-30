@@ -10,6 +10,7 @@ from posp_base.merchant import check_password
 from posp_base.session import posp_set_cookie
 from posp_base.session import posp_check_session
 from posp_base.response import error, success, RESP_CODE
+from posp_base.define import POSP_USER_STATE_OK
 from zbase.web.validator import (
     with_validator_self, Field, T_REG, T_INT, T_STR
 )
@@ -35,6 +36,9 @@ class LoginHandler(BaseHandler):
             return error(RESP_CODE.USERFORBIDDEN)
         user = User.load_user_by_mobile(mobile)
         if user.data and user.userid:
+            if user.data['state'] != POSP_USER_STATE_OK:
+                log.info('userid=%s|state=%s|forbidden login', user.userid, user.data['state'])
+                return error(RESP_CODE.USERSTATEERR)
             flag = check_password(password, user.data.get('password'))
             if not flag:
                 return error(RESP_CODE.PWDERR)
