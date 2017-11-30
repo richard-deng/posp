@@ -29,23 +29,12 @@ def gen_trade_table_list(start_time, end_time):
     return trade_table_list
 
 
-def gen_from_table(table_list, page, page_size):
-    '''
-    table_list : {
-        'record_201701': 15,
-        'record_201702': 23,
-        'record_201703': 33,
-        'record_201704': 45,
-    }
-    '''
-    origin = [v for k, v in table_list.iteritems()]
-    count = sum(origin)
-    judge = []
-    origin_snd = [0] + origin
-    for i, v in enumerate(origin_snd):
-        judge[i] = sum(origin[:i+1])
+def trans_amt(data):
+    if not data:
+        return data
 
-    print count
-    print origin
-    print origin_snd
-
+    txamt = data.get('txamt', 0)
+    amount = txamt / 100.0
+    txamt = '%.2f' % amount
+    data['txamt'] = txamt
+    return data

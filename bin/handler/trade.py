@@ -9,6 +9,7 @@ from posp_base.response import error, success, RESP_CODE
 from posp_base.session import posp_check_session
 from posp_base.trade import TradeList
 from posp_base.tools import trans_time
+from posp_base.tools import trans_amt
 from zbase.web.validator import (
     with_validator_self, Field, T_REG, T_INT, T_STR
 )
@@ -56,7 +57,8 @@ class TradeListHandler(BaseHandler):
         if not flag:
             return error(RESP_CODE.DATAERR)
         data['num'] = num
-        data['info'] = [trans_time(item, TradeList.DATETIME_KEY) for item in info]
+        ret  = [trans_time(item, TradeList.DATETIME_KEY) for item in info]
+        data['info'] = [trans_amt(item) for item in ret]
         return success(data=data)
 
 
@@ -73,4 +75,5 @@ class TradeListViewHandler(BaseHandler):
         syssn = params.get('syssn')
         trade = TradeList(syssn)
         trade.load()
-        return success(data=trade.data)
+        data = trans_amt(trade.data)
+        return success(data=data)
