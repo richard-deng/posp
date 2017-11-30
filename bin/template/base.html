@@ -115,11 +115,10 @@
           "showMethod": "fadeIn",
           "hideMethod": "fadeOut"
         };
-        console.log(toastr.options)
 
 		$('.logout').click(function(){
             var se_userid = window.localStorage.getItem('myid');
-            get_data = {}
+            get_data = {};
             get_data.se_userid = se_userid;
             $.ajax({
 	            url: '/posp/v1/api/logout',
@@ -128,7 +127,7 @@
 	            data: get_data,
 	            success: function(data) {
                     var respcd = data.respcd;
-                    if(respcd != '0000'){
+                    if(respcd !== '0000'){
                         var resperr = data.resperr;
                         var respmsg = data.respmsg;
                         var msg = resperr ? resperr : respmsg;
@@ -138,7 +137,7 @@
                         console.log(data);
                         options = {
                             'path': '/posp',
-                            'domain': document.domain,
+                            'domain': document.domain
                         };
                         $.cookie('sessionid', null, options);
                         window.location.href="/posp/v1/page/login.html"

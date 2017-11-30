@@ -348,6 +348,7 @@ $(document).ready(function(){
 	$("#chnlBindCreate").click(function(){
         $("#channelBindCreateForm").resetForm();
         $("label.error").remove();
+        get_channel();
 		$("#channelBindCreateModal").modal();
 	});
 
@@ -459,4 +460,39 @@ $(document).ready(function(){
         });
     });
 
-})
+});
+
+
+function get_channel() {
+    $('#add_channel_name').html('');
+    var se_userid = window.localStorage.getItem('myid');
+    get_data = {};
+    get_data.se_userid = se_userid;
+    $.ajax({
+        url: '/posp/v1/api/channel/names',
+        type: 'GET',
+        dataType: 'json',
+        data: get_data,
+        success: function(data) {
+            var respcd = data.respcd;
+            if(respcd !== '0000'){
+                var resperr = data.resperr;
+                var respmsg = data.respmsg;
+                var msg = resperr ? resperr : respmsg;
+                toastr.warning(msg);
+            }
+            else {
+                var channel = data.data;
+                for(var i=0; i<channel.length; i++) {
+                    var channel_name = channel[i].name;
+                    var channel_id = channel[i].id;
+                    var option_str = '<option value='+channel_id + '>' + channel_name + '</option>';
+                    $('#add_channel_name').append(option_str);
+                }
+            }
+        },
+        error: function(data) {
+            toastr.warning('请求异常');
+        }
+    });
+}

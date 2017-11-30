@@ -75,6 +75,7 @@ class Channel:
 
     @classmethod
     def load_names(cls):
+        keep_fields = ['name', 'id']
         with get_connection_exception(TOKEN_POSP_CORE) as conn:
-            ret = conn.select(table=Channel.TABLE, fields='name')
+            ret = conn.select(table=Channel.TABLE, fields=keep_fields)
             return ret
