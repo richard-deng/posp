@@ -91,7 +91,7 @@ class CardBinCreateHandler(BaseHandler):
         Field('cardlen', T_INT, False),
         Field('cardbin', T_STR, False),
         Field('cardname', T_STR, False),
-        Field('cardtp', T_INT, False),
+        Field('cardtp', T_STR, False),
         Field('foreign', T_INT, False),
     ]
 
