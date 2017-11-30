@@ -216,7 +216,7 @@ $(document).ready(function () {
                     trade = data.data;
                     console.log(trade);
                     $('#details_list').html('');
-                    $('#tradelist_details-head').html("详细信息  id=" + id);
+                    $('#tradelist_details-head').html("详细信息  syssn=" + syssn);
                     for (val1 in name2Chinese){
                         $('#details_list').append("<h4>" + headname[val1] + "</h4>");
                         var tmp = '';
