@@ -164,7 +164,7 @@ $(document).ready(function(){
                     required: false,
                     maxlength: 4
                 },
-
+                /*
                 tck_add: {
                     required: false,
                     maxlength: 32
@@ -178,7 +178,7 @@ $(document).ready(function(){
                 qpos_pubkey_add: {
                     required: false,
                     maxlength: 256
-                }
+                }*/
 
             },
             messages: {
@@ -208,6 +208,7 @@ $(document).ready(function(){
                     maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
                 },
 
+                /*
                 tck_add: {
                     required: '请输入tck',
                     maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
@@ -217,6 +218,7 @@ $(document).ready(function(){
                     required: '请输入公钥',
                     maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
                 }
+                */
 
             },
             errorPlacement: function(error, element){
@@ -242,8 +244,8 @@ $(document).ready(function(){
         post_data.terminalid = $('#terminal_id_add').val();
         post_data.producer = $('#producer_add').val();
         post_data.model = $('#model_add').val();
-        post_data.tck = $('#tck_add').val();
-        post_data.qpos_pubkey = $('#qpos_pubkey_add').val();
+        //post_data.tck = $('#tck_add').val();
+        //post_data.qpos_pubkey = $('#qpos_pubkey_add').val();
 
         $.ajax({
             url: '/posp/v1/api/terminal/create',
@@ -304,9 +306,9 @@ $(document).ready(function(){
                     $('#terminal_id_view').val(terminal.terminalid);
                     $('#producer_view').val(terminal.producer);
                     $('#model_view').val(terminal.model);
-                    $('#tck_view').val(terminal.tck);
-                    $('#state_view').val(terminal.state);
-                    $('#qpos_pubkey_view').val(terminal.qpos_pubkey);
+                    //$('#tck_view').val(terminal.tck);
+                    //$('#state_view').val(terminal.state);
+                    //$('#qpos_pubkey_view').val(terminal.qpos_pubkey);
 
                     //$('#datetimepicker3').datetimepicker('update');
                     //$('#datetimepicker4').datetimepicker('update');
@@ -346,6 +348,8 @@ $(document).ready(function(){
                     required: false,
                     maxlength: 4
                 },
+
+                /*
                 tck_view: {
                     required: false,
                     maxlength: 32
@@ -354,6 +358,7 @@ $(document).ready(function(){
                     required: false,
                     maxlength: 256
                 }
+                */
             },
             messages: {
                 /*
@@ -378,6 +383,8 @@ $(document).ready(function(){
                     required: '请输入模型',
                     maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
                 },
+
+                /*
                 tck_view: {
                     required: '请输入tck',
                     maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
@@ -386,6 +393,7 @@ $(document).ready(function(){
                     required: '请输入公钥',
                     maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
                 }
+                */
 
             },
             errorPlacement: function(error, element){
@@ -413,9 +421,9 @@ $(document).ready(function(){
         post_data.terminalid = $('#terminal_id_view').val();
         post_data.producer = $('#producer_view').val();
         post_data.model = $('#model_view').val();
-        post_data.tck = $('#tck_view').val();
-        post_data.qpos_pubkey = $('#qpos_pubkey_view').val();
-        post_data.state = $('#state_view').val();
+        //post_data.tck = $('#tck_view').val();
+        //post_data.qpos_pubkey = $('#qpos_pubkey_view').val();
+        //post_data.state = $('#state_view').val();
 
         $.ajax({
             url: '/posp/v1/api/terminal/view',
