@@ -60,7 +60,7 @@ class MerchantListHandler(BaseHandler):
         for item in data:
             if item.get('date_joined'):
                 item['date_joined'] = tools.trans_datetime(item['date_joined'])
-            item['state_desc'] = POSP_USER_STATE_MAP.get(item['state'])
+            item['state_desc'] = POSP_USER_STATE_MAP.get(item['state'], '')
         return data
 
     @posp_check_session(g_rt.redis_pool, cookie_conf)
