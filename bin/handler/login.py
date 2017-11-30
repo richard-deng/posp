@@ -46,7 +46,6 @@ class LogoutHandler(BaseHandler):
 
     @posp_check_session(g_rt.redis_pool, cookie_conf)
     def _get_handler(self):
-        # 删除session
+        self.session.rm_session()
         self.resp.del_cookie('sessionid')
         return success(RESP_CODE.OK)
-
