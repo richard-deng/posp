@@ -52,7 +52,7 @@ $(document).ready(function(){
 	            data: get_data,
 	            success: function(data) {
                     var respcd = data.respcd;
-                    if(respcd != '0000'){
+                    if(respcd !== '0000'){
                         $processing = $("#termbindList_processing");
                         $processing.css('display', 'none');
                         var resperr = data.resperr;
@@ -92,7 +92,7 @@ $(document).ready(function(){
                 { data: 'pinkey1'},
                 { data: 'mackey'},
                 { data: 'tmk'},
-				{ data: 'state'},
+				{ data: 'state'}
 		],
         'oLanguage': {
             'sProcessing': '<span style="color:red;">加载中....</span>',
@@ -267,7 +267,7 @@ $(document).ready(function(){
             data: post_data,
             success: function(data) {
                 var respcd = data.respcd;
-                if(respcd != '0000'){
+                if(respcd !== '0000'){
                     var resperr = data.resperr;
                     var respmsg = data.respmsg;
                     var msg = resperr ? resperr : respmsg;
@@ -303,7 +303,7 @@ $(document).ready(function(){
             data: get_data,
             success: function(data) {
                 var respcd = data.respcd;
-                if(respcd != '0000'){
+                if(respcd !== '0000'){
                     var resperr = data.resperr;
                     var respmsg = data.respmsg;
                     var msg = resperr ? resperr : respmsg;
@@ -373,7 +373,7 @@ $(document).ready(function(){
                 qpos_pubkey_view: {
                     required: false,
                     maxlength: 256
-                },
+                }
             },
             messages: {
                 /*
@@ -449,7 +449,7 @@ $(document).ready(function(){
             data: post_data,
             success: function(data) {
                 var respcd = data.respcd;
-                if(respcd != '0000'){
+                if(respcd !== '0000'){
                     var resperr = data.resperr;
                     var respmsg = data.respmsg;
                     var msg = resperr ? resperr : respmsg;

@@ -55,7 +55,7 @@ $(document).ready(function(){
 	            data: get_data,
 	            success: function(data) {
                     var respcd = data.respcd;
-                    if(respcd != '0000'){
+                    if(respcd !== '0000'){
                         $processing = $("#chnlbindList_processing");
                         $processing.css('display', 'none');
                         var resperr = data.resperr;
@@ -99,7 +99,7 @@ $(document).ready(function(){
 				{ data: 'mchntid'},
 				{ data: 'mchntnm'},
 				{ data: 'termid'},
-				{ data: 'available'},
+				{ data: 'available'}
 		],
         'oLanguage': {
             'sProcessing': '<span style="color:red;">加载中....</span>',
@@ -133,7 +133,7 @@ $(document).ready(function(){
 	        data: post_data,
 	        success: function(data) {
                 var respcd = data.respcd;
-                if(respcd != '0000'){
+                if(respcd !== '0000'){
                     var resperr = data.resperr;
                     var respmsg = data.respmsg;
                     var msg = resperr ? resperr : respmsg;
@@ -157,16 +157,16 @@ $(document).ready(function(){
                s_userid: {
                    required: false,
                    maxlength: 20,
-                   digits: true,
+                   digits: true
                },
                s_mchntid: {
                    required: false,
-                   maxlength: 30,
+                   maxlength: 30
                },
                s_termid: {
                    required: false,
-                   maxlength: 30,
-               },
+                   maxlength: 30
+               }
            },
            messages: {
                s_userid: {
@@ -222,12 +222,9 @@ $(document).ready(function(){
                 }
                 else {
                     var bind = data.data;
-                    console.log(bind);
-
+                    set_channel(bind.chnlid);
                     $('#view_userid').val(bind.userid);
                     $('#view_priority').val(bind.priority);
-                    //$('#view_channel_name').val(bind.chnlid);
-                    set_channel(bind.chnlid);
                     $('#view_mchntid').val(bind.mchntid);
                     $('#view_termid').val(bind.termid);
                     $('#view_mchntnm').val(bind.mchntnm);
@@ -268,7 +265,7 @@ $(document).ready(function(){
                 view_tradetype: {
                     required: true,
                     digits: true
-                },
+                }
             },
             messages: {
                 view_priority: {
@@ -381,7 +378,7 @@ $(document).ready(function(){
                 add_tradetype: {
                     required: true,
                     digits: true
-                },
+                }
             },
             messages: {
                 add_userid: {
@@ -407,7 +404,7 @@ $(document).ready(function(){
                 add_tradetype: {
                     required: '请输入交易类型',
                     digits: true
-                },
+                }
             },
             errorPlacement: function(error, element){
                 if(element.is(':checkbox')){
@@ -442,7 +439,7 @@ $(document).ready(function(){
 	        data: post_data,
 	        success: function(data) {
                 var respcd = data.respcd;
-                if(respcd != '0000'){
+                if(respcd !== '0000'){
                     var resperr = data.resperr;
                     var respmsg = data.respmsg;
                     var msg = resperr ? resperr : respmsg;

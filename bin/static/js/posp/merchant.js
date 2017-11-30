@@ -60,7 +60,7 @@ $(document).ready(function(){
                 data: get_data,
                 success: function(data) {
                     var respcd = data.respcd;
-                    if(respcd != '0000'){
+                    if(respcd !== '0000'){
                         $processing = $("#userList_processing");
                         $processing.css('display', 'none');
                         var resperr = data.resperr;
@@ -101,7 +101,7 @@ $(document).ready(function(){
             { data: 'mobile'},
             { data: 'idnumber'},
             { data: 'state_desc'},
-            { data: 'date_joined'},
+            { data: 'date_joined'}
         ],
         'oLanguage': {
             'sProcessing': '<span style="color:red;">加载中....</span>',
@@ -123,22 +123,22 @@ $(document).ready(function(){
         var user_query_vt = $('#users_query').validate({
             rules: {
                 s_merchant_id: {
-                    required: false,
+                    required: false
                 },
                 s_mobile: {
                     required: false,
                     // maxlength: 11
                     isMobile: '#s_mobile'
-                },
+                }
             },
             messages: {
                 s_merchant_id: {
                     required: '请输入商户ID'
                 },
                 s_mobile: {
-                    required: '请输入手机号',
+                    required: '请输入手机号'
                     // maxlength: $.validator.format("请输入一个长度最多是 {0} 的字符串")
-                },
+                }
             },
             errorPlacement: function(error, element){
                 var $error_element = element.parent().parent().next();
@@ -173,7 +173,7 @@ $(document).ready(function(){
 	        data: get_data,
 	        success: function(data) {
                 var respcd = data.respcd;
-                if(respcd != '0000'){
+                if(respcd !== '0000'){
                     var resperr = data.resperr;
                     var respmsg = data.respmsg;
                     var msg = resperr ? resperr : respmsg;
@@ -242,7 +242,7 @@ $(document).ready(function(){
                 bankaccount: {
                     required: false,
                     maxlength: 32
-                },
+                }
             },
             messages: {
                 mobile: {
@@ -287,7 +287,7 @@ $(document).ready(function(){
                 bankaccount: {
                     required: '请输入银行账号',
                     maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
-                },
+                }
 
             },
             errorPlacement: function(error, element){
@@ -306,7 +306,7 @@ $(document).ready(function(){
 
         var se_userid = window.localStorage.getItem('myid');
 
-        var post_data = {}
+        var post_data = {};
         post_data.se_userid = se_userid;
         post_data.merchant_id = $('#view_user_id').text();
         post_data.mobile = $('#mobile').val();
@@ -326,7 +326,7 @@ $(document).ready(function(){
 	        data: post_data,
 	        success: function(data) {
                 var respcd = data.respcd;
-                if(respcd != '0000'){
+                if(respcd !== '0000'){
                     var resperr = data.resperr;
                     var respmsg = data.respmsg;
                     var msg = resperr ? resperr : respmsg;
@@ -394,7 +394,7 @@ $(document).ready(function(){
                 bankaccount_add: {
                     required: false,
                     maxlength: 32
-                },
+                }
 
             },
             messages: {
@@ -454,7 +454,7 @@ $(document).ready(function(){
         var se_userid = window.localStorage.getItem('myid');
 
         var post_data = {};
-        post_data.se_userid = se_userid
+        post_data.se_userid = se_userid;
         post_data.mobile = $('#mobile_add').val();
         post_data.email = $('#email_add').val();
         post_data.name = $('#name_add').val();
@@ -472,7 +472,7 @@ $(document).ready(function(){
 	        data: post_data,
 	        success: function(data) {
                 var respcd = data.respcd;
-                if(respcd != '0000'){
+                if(respcd !== '0000'){
                     var resperr = data.resperr;
                     var respmsg = data.respmsg;
                     var msg = resperr ? resperr : respmsg;

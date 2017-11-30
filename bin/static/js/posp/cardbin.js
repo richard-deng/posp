@@ -46,7 +46,7 @@ $(document).ready(function(){
 	            data: get_data,
 	            success: function(data) {
                     var respcd = data.respcd;
-                    if(respcd != '0000'){
+                    if(respcd !== '0000'){
                         $processing = $("#cardBinList_processing");
                         $processing.css('display', 'none');
                         var resperr = data.resperr;
@@ -88,7 +88,7 @@ $(document).ready(function(){
 				{ data: 'cardbin' },
 				{ data: 'cardname' },
 				{ data: 'cardtp' },
-				{ data: 'foreign' },
+				{ data: 'foreign' }
 		],
         'oLanguage': {
             'sProcessing': '<span style="color:red;">加载中....</span>',
@@ -111,13 +111,13 @@ $(document).ready(function(){
                s_bank_name: {
                    required: false,
                    maxlength: 30
-               },
+               }
            },
            messages: {
                s_bank_name: {
                    required: '请输入银行名称',
                    maxlength: $.validator.format("请输入一个长度最多是 {0} 的字符串")
-               },
+               }
            },
            errorPlacement: function(error, element){
                var $error_element = element.parent().parent().next();
@@ -233,7 +233,7 @@ $(document).ready(function(){
             data: post_data,
             success: function(data) {
                 var respcd = data.respcd;
-                if(respcd != '0000'){
+                if(respcd !== '0000'){
                     var resperr = data.resperr;
                     var respmsg = data.respmsg;
                     var msg = resperr ? resperr : respmsg;
@@ -270,7 +270,7 @@ $(document).ready(function(){
             data: get_data,
             success: function(data) {
                 var respcd = data.respcd;
-                if(respcd != '0000'){
+                if(respcd !== '0000'){
                     var resperr = data.resperr;
                     var respmsg = data.respmsg;
                     var msg = resperr ? resperr : respmsg;
@@ -389,7 +389,7 @@ $(document).ready(function(){
             data: post_data,
             success: function(data) {
                 var respcd = data.respcd;
-                if(respcd != '0000'){
+                if(respcd !== '0000'){
                     var resperr = data.resperr;
                     var respmsg = data.respmsg;
                     var msg = resperr ? resperr : respmsg;

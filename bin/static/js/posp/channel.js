@@ -71,7 +71,7 @@ $(document).ready(function(){
 	            data: get_data,
 	            success: function(data) {
                     var respcd = data.respcd;
-                    if(respcd != '0000'){
+                    if(respcd !== '0000'){
                         $processing = $("#channelList_processing");
                         $processing.css('display', 'none');
                         var resperr = data.resperr;
@@ -128,7 +128,7 @@ $(document).ready(function(){
 				{ data: 'chcd'},
 				{ data: 'inscd'},
 				{ data: 'code'},
-				{ data: 'available'},
+				{ data: 'available'}
 		],
         'oLanguage': {
             'sProcessing': '<span style="color:red;">加载中....</span>',
@@ -243,7 +243,7 @@ $(document).ready(function(){
                 terminal_id_add: {
                     required: false,
                     maxlength: 32
-                },
+                }
 
             },
             messages: {
@@ -305,7 +305,7 @@ $(document).ready(function(){
                 terminal_id_add: {
                     required: '请输入终端ID',
                     maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
-                },
+                }
 
             },
             errorPlacement: function(error, element){
@@ -332,7 +332,7 @@ $(document).ready(function(){
 		post_data['chcd'] = $('#chcd_add').val();
 		post_data['inscd'] = $('#inscd_add').val();
 		post_data['code'] = $('#code_add').val();
-		post_data['route'] = $('#code_add').val();
+		post_data['route'] = $('#route_add').val();
 		post_data['mchntid'] = $('#mchntid_add').val();
 		post_data['mchntnm'] = $('#mchntnm_add').val();
 		post_data['tdkey'] = $('#tdkey_add').val();
@@ -346,7 +346,7 @@ $(document).ready(function(){
 	        data: post_data,
 	        success: function(data) {
                 var respcd = data.respcd;
-                if(respcd != '0000'){
+                if(respcd !== '0000'){
                     var resperr = data.resperr;
                     var respmsg = data.respmsg;
                     var msg = resperr ? resperr : respmsg;
@@ -374,9 +374,8 @@ $(document).ready(function(){
         var channel_id = $(this).data('channelid');
         $('#view_channel_id').text(channel_id);
         var get_data = {
-            //'userid': uid,
             'se_userid': se_userid,
-            'channel_id': channel_id,
+            'channel_id': channel_id
         };
         $.ajax({
 	        url: '/posp/v1/api/channel/view',
@@ -385,7 +384,7 @@ $(document).ready(function(){
 	        data: get_data,
 	        success: function(data) {
                 var respcd = data.respcd;
-                if(respcd != '0000'){
+                if(respcd !== '0000'){
                     var resperr = data.resperr;
                     var respmsg = data.respmsg;
                     var msg = resperr ? resperr : respmsg;
@@ -435,7 +434,7 @@ $(document).ready(function(){
 	        data: post_data,
 	        success: function(data) {
                 var respcd = data.respcd;
-                if(respcd != '0000'){
+                if(respcd !== '0000'){
                     var resperr = data.resperr;
                     var respmsg = data.respmsg;
                     var msg = resperr ? resperr : respmsg;
@@ -514,7 +513,7 @@ $(document).ready(function(){
                 terminal_id: {
                     required: false,
                     maxlength: 32
-                },
+                }
 
             },
             messages: {
@@ -575,7 +574,7 @@ $(document).ready(function(){
                 terminal_id: {
                     required: '请输入终端ID',
                     maxlength: $.validator.format("请输入一个 长度最多是 {0} 的字符串")
-                },
+                }
 
             },
             errorPlacement: function(error, element){
@@ -605,7 +604,7 @@ $(document).ready(function(){
 		post_data['chcd'] = $('#chcd').val();
 		post_data['inscd'] = $('#inscd').val();
 		post_data['code'] = $('#code').val();
-		post_data['route'] = $('#code').val();
+		post_data['route'] = $('#route').val();
 		post_data['mchntid'] = $('#mchntid').val();
 		post_data['mchntnm'] = $('#mchntnm').val();
 		post_data['tdkey'] = $('#tdkey').val();
@@ -619,7 +618,7 @@ $(document).ready(function(){
 	        data: post_data,
 	        success: function(data) {
                 var respcd = data.respcd;
-                if(respcd != '0000'){
+                if(respcd !== '0000'){
                     var resperr = data.resperr;
                     var respmsg = data.respmsg;
                     var msg = resperr ? resperr : respmsg;
@@ -643,9 +642,9 @@ $(document).ready(function(){
 });
 
 function search_source() {
-    var get_data = {}
+    var get_data = {};
     var se_userid = window.localStorage.getItem('myid');
-    get_data.se_userid = se_userid
+    get_data.se_userid = se_userid;
     $.ajax({
         url: '/posp/v1/api/channel/names',
         type: 'GET',
@@ -653,7 +652,7 @@ function search_source() {
         data: get_data,
         success: function(data) {
             var respcd = data.respcd;
-            if(respcd != '0000'){
+            if(respcd !== '0000'){
                 var resperr = data.resperr;
                 var respmsg = data.respmsg;
                 var msg = resperr ? resperr : respmsg;
@@ -661,8 +660,6 @@ function search_source() {
             }
             else {
                 var subjects = new Array();
-                console.log('subjects: ');
-                console.log(data.data);
                 for(var i=0; i<data.data.length; i++){
                     subjects.push(data.data[i].name)
                 }

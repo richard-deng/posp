@@ -67,7 +67,7 @@ $(document).ready(function () {
                 data: get_data,
                 success: function(data) {
                     var respcd = data.respcd;
-                    if(respcd != '0000'){
+                    if(respcd !== '0000'){
                         $processing = $("#tradeList_processing");
                         $processing.css('display', 'none');
                         var resperr = data.resperr;
@@ -174,7 +174,7 @@ $(document).ready(function () {
             data: get_data,
             success: function(data) {
                 var respcd = data.respcd;
-                if(respcd != '0000'){
+                if(respcd !== '0000'){
                     var resperr = data.resperr;
                     var respmsg = data.respmsg;
                     var msg = resperr ? resperr : respmsg;
