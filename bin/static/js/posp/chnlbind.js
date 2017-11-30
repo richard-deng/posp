@@ -199,12 +199,13 @@ $(document).ready(function(){
 
     $(document).on('click', '.viewEdit', function(){
         $("label.error").remove();
+
         var se_userid = window.localStorage.getItem('myid');
         var channel_bind_id = $(this).data('channel_bind_id');
         $('#view_channel_bind_id').text(channel_bind_id);
         var get_data = {
             'se_userid': se_userid,
-            'channel_bind_id': channel_bind_id,
+            'channel_bind_id': channel_bind_id
         };
         $.ajax({
 	        url: '/posp/v1/api/channel/bind/view',
@@ -213,7 +214,7 @@ $(document).ready(function(){
 	        data: get_data,
 	        success: function(data) {
                 var respcd = data.respcd;
-                if(respcd != '0000'){
+                if(respcd !== '0000'){
                     var resperr = data.resperr;
                     var respmsg = data.respmsg;
                     var msg = resperr ? resperr : respmsg;
@@ -221,11 +222,12 @@ $(document).ready(function(){
                 }
                 else {
                     var bind = data.data;
+                    console.log(bind);
 
                     $('#view_userid').val(bind.userid);
                     $('#view_priority').val(bind.priority);
-                    // 后面加
-                    // $('#view-channel-name').val(bind.);
+                    //$('#view_channel_name').val(bind.chnlid);
+                    set_channel(bind.chnlid);
                     $('#view_mchntid').val(bind.mchntid);
                     $('#view_termid').val(bind.termid);
                     $('#view_mchntnm').val(bind.mchntnm);
@@ -325,7 +327,7 @@ $(document).ready(function(){
 	        data: post_data,
 	        success: function(data) {
                 var respcd = data.respcd;
-                if(respcd != '0000'){
+                if(respcd !== '0000'){
                     var resperr = data.resperr;
                     var respmsg = data.respmsg;
                     var msg = resperr ? resperr : respmsg;
@@ -489,6 +491,41 @@ function get_channel() {
                     var option_str = '<option value='+channel_id + '>' + channel_name + '</option>';
                     $('#add_channel_name').append(option_str);
                 }
+            }
+        },
+        error: function(data) {
+            toastr.warning('请求异常');
+        }
+    });
+}
+
+function set_channel(default_channel_id) {
+    $('#view_channel_name').html('');
+    var se_userid = window.localStorage.getItem('myid');
+    get_data = {};
+    get_data.se_userid = se_userid;
+    $.ajax({
+        url: '/posp/v1/api/channel/names',
+        type: 'GET',
+        dataType: 'json',
+        data: get_data,
+        success: function(data) {
+            var respcd = data.respcd;
+            if(respcd !== '0000'){
+                var resperr = data.resperr;
+                var respmsg = data.respmsg;
+                var msg = resperr ? resperr : respmsg;
+                toastr.warning(msg);
+            }
+            else {
+                var channel = data.data;
+                for(var i=0; i<channel.length; i++) {
+                    var channel_name = channel[i].name;
+                    var channel_id = channel[i].id;
+                    var option_str = '<option value='+channel_id + '>' + channel_name + '</option>';
+                    $('#view_channel_name').append(option_str);
+                }
+                $('#view_channel_name').val(default_channel_id);
             }
         },
         error: function(data) {
