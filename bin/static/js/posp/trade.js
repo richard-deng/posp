@@ -160,9 +160,41 @@ $(document).ready(function () {
 
     $(document).on('click', '.viewEdit', function(){
         $("label.error").remove();
-        $("#tradeViewForm").resetForm();
         var se_userid = window.localStorage.getItem('myid');
         var syssn = $(this).data('syssn');
+
+        var user = {'userid':'用户ID'};
+        var trade = {
+            'busicd':'业务代码',
+            'txamt':'金额',
+            'cancel':'取消状态',
+            'retcd':'返回代码',
+            'origssn':'原交易流水号',
+            'syssn':'系统流水号',
+            'sysdtm':'系统时间',
+            'status':'交易状态',
+            'real_retcd':'通道返回码'
+        };
+        var terminal = {
+            'terminalid':'终端号',
+            'psamid':'psamid'
+        };
+
+        var headname = {
+            'user':'用户',
+            'trade':'交易',
+            'terminal':'终端'
+        };
+
+        var name2Chinese = {
+            'user':user,
+            'trade':trade,
+            'terminal':terminal
+        };
+
+
+        $('#tradelist-details').modal();
+
         var get_data = {
             'se_userid': se_userid,
             'syssn': syssn
@@ -183,18 +215,19 @@ $(document).ready(function () {
                 else {
                     trade = data.data;
                     console.log(trade);
-                    $('#cardcd_view').val(trade.cardcd);
-                    $('#cardtp_view').val(trade.cardtp);
-                    $('#chnlid_view').val(trade.chnlid);
-                    $('#chnlsn_view').val(trade.chnlsn);
-                    $('#issuerbank_view').val(trade.issuerbank);
-                    $('#phonemodel_view').val(trade.phonemodel);
-                    $('#psamid_view').val(trade.psamid);
-                    $('#posentry_mode_view').val(trade.posentrymode);
-                    $('#real_retcd_view').val(trade.real_retcd);
-                    $('#terminal_id_view').val(trade.terminalid);
+                    $('#details_list').html('');
+                    $('#tradelist_details-head').html("详细信息  id=" + id);
+                    for (val1 in name2Chinese){
+                        $('#details_list').append("<h4>" + headname[val1] + "</h4>");
+                        var tmp = '';
+                        tmp += "<div class='row'>";
 
-                    $('#tradeViewModal').modal();
+                        for (val2 in name2Chinese[val1]){
+                            tmp += ("<p class='col-sm-4'>" + name2Chinese[val1][val2] + "：" + trade[val2] + "</p>");
+                        }
+                        tmp += "</div>";
+                        $('#details_list').append(tmp);
+                    }
                 }
             },
             error: function(data) {

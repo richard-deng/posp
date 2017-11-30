@@ -101,89 +101,14 @@
     </div>
 </div>
 
-<div class="modal fade" tabindex="-1" role="dialog" id="tradeViewModal">
-    <div class="modal-dialog" role="document">
+<div class="modal fade" id="tradelist-details" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">查看</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="tradelist_details-head"></h4>
             </div>
-            <div class="modal-body">
-                <form class="form-horizontal" id="tradeViewForm" role="form">
-                    <div class="form-group">
-                        <label for="cardcd_view" class="col-sm-2 control-label">cardcd</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="cardcd_view" disabled>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="cardtp_view" class="col-sm-2 control-label">cardtp</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="cardtp_view" disabled>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="chnlid_view" class="col-sm-2 control-label">chnlid</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="chnlid_view" disabled>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="chnlsn_view" class="col-sm-2 control-label">chnlsn</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="chnlsn_view" disabled>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="issuerbank_view" class="col-sm-2 control-label">issuerbank</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="issuerbank_view" disabled>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="phonemodel_view" class="col-sm-2 control-label">phonemodel</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="phonemodel_view" disabled>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="posentry_mode_view" class="col-sm-2 control-label">posentrymode</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="posentry_mode_view" disabled>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="psamid_view" class="col-sm-2 control-label">psamid</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="psamid_view" disabled>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="real_retcd_view" class="col-sm-2 control-label">real_retcd</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="real_retcd_view" disabled>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="terminal_id_view" class="col-sm-2 control-label">terminalid</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" id="terminal_id_view" disabled>
-                        </div>
-                    </div>
-
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <div class="modal-body" id="details_list">
             </div>
         </div>
     </div>
