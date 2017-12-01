@@ -294,7 +294,7 @@ class TestPospInstrument(unittest.TestCase):
         respcd = json.loads(ret).get('respcd')
         self.assertEqual(respcd, '0000')
 
-    #@unittest.skip("skipping")
+    @unittest.skip("skipping")
     def test_terminal_create(self):
         self.url = '/posp/v1/api/terminal/create'
         self.send.update({
@@ -306,11 +306,59 @@ class TestPospInstrument(unittest.TestCase):
         self.assertEqual(respcd, '0000')
 
     @unittest.skip("skipping")
+    def test_terminal_bind_list(self):
+        self.url = '/posp/v1/api/terminal/bind/list'
+        self.send.update({
+            'page': 1,
+            'maxnum': 10
+        })
+        ret = self.client.get(self.url, self.send, cookies=self.cookie)
+        log.info(ret)
+        respcd = json.loads(ret).get('respcd')
+        self.assertEqual(respcd, '0000')
+
+    @unittest.skip("skipping")
+    def test_terminal_bind_view(self):
+        self.url = '/posp/v1/api/terminal/bind/view'
+        self.send.update({
+            'termbind_id': 767
+        })
+        ret = self.client.get(self.url, self.send, cookies=self.cookie)
+        log.info(ret)
+        respcd = json.loads(ret).get('respcd')
+        self.assertEqual(respcd, '0000')
+
+    @unittest.skip("skipping")
+    def test_terminal_bind_create(self):
+        self.url = '/posp/v1/api/terminal/bind/create'
+        self.send.update({
+            'userid': 10000,
+            'terminalid': '201712011531'
+        })
+        ret = self.client.post(self.url, self.send, cookies=self.cookie)
+        log.info(ret)
+        respcd = json.loads(ret).get('respcd')
+        self.assertEqual(respcd, '0000')
+
+    @unittest.skip("skipping")
     def test_trade_list(self):
         self.url = '/posp/v1/api/trade/list'
         self.send.update({
-            'page': 3,
-            'maxnum': 10
+            'page': 1,
+            'maxnum': 10,
+            'start_time': '2017-09-01 00:00:00',
+            'end_time': '2017-09-30 23:59:59'
+        })
+        ret = self.client.get(self.url, self.send, cookies=self.cookie)
+        log.info(ret)
+        respcd = json.loads(ret).get('respcd')
+        self.assertEqual(respcd, '0000')
+
+    #@unittest.skip("skipping")
+    def test_trade_view(self):
+        self.url = '/posp/v1/api/trade/view'
+        self.send.update({
+            'syssn': '20170925586205'
         })
         ret = self.client.get(self.url, self.send, cookies=self.cookie)
         log.info(ret)
