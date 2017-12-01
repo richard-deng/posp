@@ -354,7 +354,7 @@ class TestPospInstrument(unittest.TestCase):
         respcd = json.loads(ret).get('respcd')
         self.assertEqual(respcd, '0000')
 
-    #@unittest.skip("skipping")
+    @unittest.skip("skipping")
     def test_trade_view(self):
         self.url = '/posp/v1/api/trade/view'
         self.send.update({
