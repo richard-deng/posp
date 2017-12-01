@@ -27,6 +27,7 @@ config.URLS = urls.urls
 def install_db():
     dbpool.install(config.database)
 
+log.info('<<< server start >>>')
 install_db()
 app = core.WebApplication(config)
 

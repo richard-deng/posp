@@ -27,14 +27,9 @@ class Session:
     def set_session(self, value):
         svalue = {}
         svalue["userid"] = value["userid"]
-        print 'svalue', svalue
         client = redis.StrictRedis(connection_pool=self.redis_pool)
         client.set(self.sk, json.dumps(svalue))
         client.expire(self.sk, self.c_conf["expires"])
-
-        #client.rpush(svalue["userid"], self.sk)
-        #if svalue.get("login_id", None):
-        #    client.rpush(svalue["login_id"], self.sk)
 
     def get_session(self):
         client = redis.StrictRedis(connection_pool=self.redis_pool)
@@ -150,7 +145,6 @@ def posp_set_cookie(redis_pool, cookie_conf):
                 self.session.gen_skey()
 
                 v = json.loads(x)
-                print 'v', v
                 if v["respcd"] == RESP_CODE.OK:
                     self.session.set_session(v["data"])
                     self.set_cookie("sessionid", self.session.sk, **cookie_conf)
