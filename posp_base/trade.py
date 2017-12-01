@@ -150,6 +150,9 @@ class TradeList:
         keep_fields = cls.QUERY_KEY.keys()
         keep_fields.append(('id'))
         log.debug('keep_fields=%s', keep_fields)
+        flag = cls._table_exists(table=table)
+        if not flag:
+            return False, [], 0
         with get_connection_exception(TOKEN_POSP_TRADE) as conn:
             sql = conn.select_sql(table=table, where=where, fields=keep_fields, other=other)
             pager = conn.select_page(sql, pagecur=page, pagesize=page_size)
