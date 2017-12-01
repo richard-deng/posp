@@ -116,7 +116,7 @@ class TestPospInstrument(unittest.TestCase):
         respcd = json.loads(ret).get('respcd')
         self.assertEqual(respcd, '0000')
 
-    # @unittest.skip("skipping")
+    @unittest.skip("skipping")
     def test_channel_create(self):
         self.url = '/posp/v1/api/channel/create'
         self.send.update({
@@ -271,6 +271,39 @@ class TestPospInstrument(unittest.TestCase):
         respcd = json.loads(ret).get('respcd')
         self.assertEqual(respcd, '0000')
 
+    @unittest.skip("skipping")
+    def test_terminal_list(self):
+        self.url = '/posp/v1/api/terminal/list'
+        self.send.update({
+            'page': 1,
+            'maxnum': 10
+        })
+        ret = self.client.get(self.url, self.send, cookies=self.cookie)
+        log.info(ret)
+        respcd = json.loads(ret).get('respcd')
+        self.assertEqual(respcd, '0000')
+
+    @unittest.skip("skipping")
+    def test_terminal_view(self):
+        self.url = '/posp/v1/api/terminal/view'
+        self.send.update({
+            'terminal_table_id': 27000
+        })
+        ret = self.client.get(self.url, self.send, cookies=self.cookie)
+        log.info(ret)
+        respcd = json.loads(ret).get('respcd')
+        self.assertEqual(respcd, '0000')
+
+    #@unittest.skip("skipping")
+    def test_terminal_create(self):
+        self.url = '/posp/v1/api/terminal/create'
+        self.send.update({
+            'terminalid': '201712011531'
+        })
+        ret = self.client.post(self.url, self.send, cookies=self.cookie)
+        log.info(ret)
+        respcd = json.loads(ret).get('respcd')
+        self.assertEqual(respcd, '0000')
 
     @unittest.skip("skipping")
     def test_trade_list(self):
