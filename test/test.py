@@ -16,10 +16,15 @@ class TestPospInstrument(unittest.TestCase):
         self.host = '127.0.0.1'
         self.port = 8084
         self.timeout = 2000
-        self.server = [{'addr': (self.host, self.port), 'timeout': self.timeout}, ]
         self.client = HttpClient(self.server, client_class=RequestsClient)
         self.headers = {'sessionid': 'ea74f0cb-8f38-4325-88bf-1669314285be'}
         self.cookie = self.headers
+        self.server = [
+            {
+                'addr': (self.host, self.port),
+                'timeout': self.timeout
+            }
+        ]
 
     @unittest.skip("skipping")
     def test_login(self):
