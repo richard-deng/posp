@@ -74,6 +74,60 @@ class TestPospInstrument(unittest.TestCase):
         self.assertEqual(respcd, '0000')
 
     @unittest.skip("skipping")
+    def test_channel_list(self):
+        self.url = '/posp/v1/api/channel/list'
+        self.send.update({
+            'page': 1,
+            'maxnum': 10
+        })
+        ret = self.client.get(self.url, self.send, cookies=self.cookie)
+        log.info(ret)
+        respcd = json.loads(ret).get('respcd')
+        self.assertEqual(respcd, '0000')
+
+    @unittest.skip("skipping")
+    def test_channel_view(self):
+        self.url = '/posp/v1/api/channel/view'
+        self.send.update({
+            'channel_id': 1
+        })
+        ret = self.client.get(self.url, self.send, cookies=self.cookie)
+        log.info(ret)
+        respcd = json.loads(ret).get('respcd')
+        self.assertEqual(respcd, '0000')
+
+    @unittest.skip("skipping")
+    def test_channel_names(self):
+        self.url = '/posp/v1/api/channel/names'
+        ret = self.client.get(self.url, self.send, cookies=self.cookie)
+        log.info(ret)
+        respcd = json.loads(ret).get('respcd')
+        self.assertEqual(respcd, '0000')
+
+    @unittest.skip("skipping")
+    def test_channel_switch_state(self):
+        self.url = '/posp/v1/api/channel/state/change'
+        self.send.update({
+            'channel_id': 1,
+            'state': 0
+        })
+        ret = self.client.post(self.url, self.send, cookies=self.cookie)
+        log.info(ret)
+        respcd = json.loads(ret).get('respcd')
+        self.assertEqual(respcd, '0000')
+
+    # @unittest.skip("skipping")
+    def test_channel_create(self):
+        self.url = '/posp/v1/api/channel/create'
+        self.send.update({
+            'name': '测试通道20171201'
+        })
+        ret = self.client.post(self.url, self.send, cookies=self.cookie)
+        log.info(ret)
+        respcd = json.loads(ret).get('respcd')
+        self.assertEqual(respcd, '0000')
+
+    @unittest.skip("skipping")
     def test_card_bin_list(self):
         self.url = '/posp/v1/api/card/list'
         self.query = {
