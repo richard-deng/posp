@@ -18,20 +18,58 @@ class TestPospInstrument(unittest.TestCase):
         self.timeout = 2000
         self.server = [{'addr': (self.host, self.port), 'timeout': self.timeout}, ]
         self.client = HttpClient(self.server, client_class=RequestsClient)
-        self.headers = {'sessionid': '87e281fc-415b-49fc-a155-c09588e8d18b'}
+        self.headers = {'sessionid': 'ea74f0cb-8f38-4325-88bf-1669314285be'}
         self.cookie = self.headers
 
     @unittest.skip("skipping")
     def test_login(self):
+        password = '123456'
+        md5_password = hashlib.md5(password).hexdigest()
         self.url = '/posp/v1/api/login'
         self.send = {
             "mobile": "13802438716",
-            "password": '123456'
+            "password": md5_password
         }
         ret = self.client.post(self.url, self.send)
         log.info(ret)
         print '--headers--'
         print self.client.client.headers
+        respcd = json.loads(ret).get('respcd')
+        self.assertEqual(respcd, '0000')
+
+    @unittest.skip("skipping")
+    def test_merchant_list(self):
+        self.url = '/posp/v1/api/merchant/list'
+        self.send.update({
+            'page': 1,
+            'maxnum': 10
+        })
+        ret = self.client.get(self.url, self.send, cookies=self.cookie)
+        log.info(ret)
+        respcd = json.loads(ret).get('respcd')
+        self.assertEqual(respcd, '0000')
+
+    @unittest.skip("skipping")
+    def test_merchant_view(self):
+        self.url = '/posp/v1/api/merchant/view'
+        self.send.update({
+            'merchant_id': 10000
+        })
+        ret = self.client.get(self.url, self.send, cookies=self.cookie)
+        log.info(ret)
+        respcd = json.loads(ret).get('respcd')
+        self.assertEqual(respcd, '0000')
+
+    @unittest.skip("skipping")
+    def test_merchant_create(self):
+        self.url = '/posp/v1/api/merchant/create'
+        self.send.update({
+            'mobile': '13802438725',
+            'name': '测试8725',
+            'email': '13802438725@qq.com',
+        })
+        ret = self.client.post(self.url, self.send, cookies=self.cookie)
+        log.info(ret)
         respcd = json.loads(ret).get('respcd')
         self.assertEqual(respcd, '0000')
 
@@ -180,7 +218,7 @@ class TestPospInstrument(unittest.TestCase):
         self.assertEqual(respcd, '0000')
 
 
-    # @unittest.skip("skipping")
+    @unittest.skip("skipping")
     def test_trade_list(self):
         self.url = '/posp/v1/api/trade/list'
         self.send.update({

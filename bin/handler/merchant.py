@@ -132,7 +132,7 @@ class MerchantCreateHandler(BaseHandler):
 
     _post_handler_fields = [
         Field('mobile', T_STR, False),
-        Field('email', T_STR, True),
+        Field('email', T_STR, False),
         Field('name', T_STR, False),
         Field('idnumber', T_STR, True),
         Field('province', T_STR, True),
