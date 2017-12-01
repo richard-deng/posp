@@ -38,6 +38,14 @@ class TestPospInstrument(unittest.TestCase):
         self.assertEqual(respcd, '0000')
 
     @unittest.skip("skipping")
+    def test_logout(self):
+        self.url = '/posp/v1/api/logout'
+        ret = self.client.get(self.url, self.send, cookies=self.cookie)
+        log.info(ret)
+        respcd = json.loads(ret).get('respcd')
+        self.assertEqual(respcd, '0000')
+
+    @unittest.skip("skipping")
     def test_merchant_list(self):
         self.url = '/posp/v1/api/merchant/list'
         self.send.update({
