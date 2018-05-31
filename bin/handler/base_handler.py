@@ -13,7 +13,8 @@ class BaseHandler(core.Handler):
     _post_handler_fields = []
 
     headers = {
-        'Content-Type': 'application/json; charset=UTF-8'
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Access-Control-Allow-Origin': '*'
     }
 
     def _get_handler_errfunc(self, msg):

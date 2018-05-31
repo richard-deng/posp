@@ -16,8 +16,7 @@ class TestPospInstrument(unittest.TestCase):
         self.host = '127.0.0.1'
         self.port = 8084
         self.timeout = 2000
-        self.client = HttpClient(self.server, client_class=RequestsClient)
-        self.headers = {'sessionid': 'ea74f0cb-8f38-4325-88bf-1669314285be'}
+        self.headers = {'sessionid': 'cba47c56-7ea6-4058-b39e-0b10744d1685'}
         self.cookie = self.headers
         self.server = [
             {
@@ -25,6 +24,7 @@ class TestPospInstrument(unittest.TestCase):
                 'timeout': self.timeout
             }
         ]
+        self.client = HttpClient(self.server, client_class=RequestsClient)
 
     @unittest.skip("skipping")
     def test_login(self):
@@ -69,6 +69,20 @@ class TestPospInstrument(unittest.TestCase):
             'merchant_id': 10000
         })
         ret = self.client.get(self.url, self.send, cookies=self.cookie)
+        log.info(ret)
+        respcd = json.loads(ret).get('respcd')
+        self.assertEqual(respcd, '0000')
+
+    # @unittest.skip("skipping")
+    def test_merchant_update(self):
+        self.url = '/posp/v1/api/merchant/view'
+        self.send.update({
+            'merchant_id': 10000,
+            'name': 'xxx',
+            'nickname': 'xxx2',
+            'mobile': '13683581795'
+        })
+        ret = self.client.post(self.url, self.send, cookies=self.cookie)
         log.info(ret)
         respcd = json.loads(ret).get('respcd')
         self.assertEqual(respcd, '0000')

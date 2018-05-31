@@ -63,7 +63,7 @@ class MerchantListHandler(BaseHandler):
             item['state_desc'] = POSP_USER_STATE_MAP.get(item['state'], '')
         return data
 
-    @posp_check_session(g_rt.redis_pool, cookie_conf)
+    # @posp_check_session(g_rt.redis_pool, cookie_conf)
     @with_validator_self
     def _get_handler(self):
         data = {}
@@ -114,7 +114,7 @@ class MerchantViewHandler(BaseHandler):
             log.warn(traceback.format_exc())
             return error(RESP_CODE.SERVERERR)
 
-    @posp_check_session(g_rt.redis_pool, cookie_conf)
+    # @posp_check_session(g_rt.redis_pool, cookie_conf)
     @with_validator_self
     def _post_handler(self):
         try:
