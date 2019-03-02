@@ -67,4 +67,7 @@ urls = (
     ('^/posp/v1/page/terminal/bind.html$', page.TerminalBind),
     ('^/posp/v1/page/trade/list.html$', page.TradeList),
 
+    # Vue 页面
+    ('^/posp/v1/page/index.html$', page.Index),
+
 )

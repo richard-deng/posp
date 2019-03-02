@@ -20,6 +20,11 @@ class Login(core.Handler):
         self.write(template.render('login.html'))
 
 
+class Index(core.Handler):
+    def GET(self):
+        self.write(template.render('index.html'))
+
+
 class Merchant(core.Handler):
     @posp_check_session_for_page(g_rt.redis_pool, cookie_conf)
     def GET(self):
